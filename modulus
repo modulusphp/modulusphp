@@ -43,7 +43,7 @@ else if (args[2] == 'make:model') {
 }
 else if (args[2] == 'make:view') {
     var view = args[3];
-    fs.open('resources/views/' + view + '.boity.php', 'wx', (err, fd) => {
+    fs.open('resources/views/' + view + '.modulus.php', 'wx', (err, fd) => {
         if (err) {
             if (err.code === 'EEXIST') {
                 console.error('View already exists');
@@ -53,9 +53,31 @@ else if (args[2] == 'make:view') {
             throw err;
         }
 
-        fs.writeFile('resources/views/' + view + '.boity.php', '', (err) => {
+        fs.writeFile('resources/views/' + view + '.modulus.php', '', (err) => {
             if (err) throw err;
             console.log(view + ' was successfully created!');
         });
     });
+}
+else if (args[2] == 'list:models') {
+    const modelsFolder = 'app/models';
+
+    fs.readdir(modelsFolder, (err, files) => {
+        files.forEach(file => {
+            if (file.endsWith('.php')) {
+                console.log(file.replace('.php', ''));
+            }
+        });
+    })
+}
+else if (args[2] == 'list:controllers') {
+    const controllersFolder = 'app/controllers';
+
+    fs.readdir(controllersFolder, (err, files) => {
+        files.forEach(file => {
+            if (file.endsWith('Controller.php')) {
+                console.log(file.replace('.php', ''));
+            }
+        });
+    })
 }
