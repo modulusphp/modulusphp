@@ -10,5 +10,9 @@ $application->setVersion('1.0');
 # add our commands
 $application->add(new TestCommand());
 $application->add(new ServeCommand());
+$application->add(new MigrateCommand());
+$application->add(new MakeModelCommand());
+$application->add(new MakeMigrationCommand());
+$application->add(new MakeControllerCommand());
 
 $application->run();

@@ -7,7 +7,7 @@ if (args[2] == 'make:controller') {
     var modelNamecontrollerName;
     args[3].endsWith('Controller') ? controllerName = args[3] : controllerName = args[3] + 'Controller';
 
-    fs.open('app/controllers/' + controllerName + '.php', 'wx', (err, fd) => {
+    fs.open('app/Controllers/' + controllerName + '.php', 'wx', (err, fd) => {
         if (err) {
             if (err.code === 'EEXIST') {
                 console.error('Controller already exists');
@@ -17,7 +17,7 @@ if (args[2] == 'make:controller') {
             throw err;
         }
 
-        fs.writeFile('app/controllers/' + controllerName + '.php', '<?php\n\nclass ' + controllerName + ' extends Controller\n{\n    /**\n     * This is the default method\n     *\n    */\n    public function index($view = null)\n    {\n        echo "' + controllerName + ' was successfully created!";\n    }\n}', (err) => {
+        fs.writeFile('app/Controllers/' + controllerName + '.php', '<?php\n\nclass ' + controllerName + ' extends Controller\n{\n    /**\n     * This is the default method\n     *\n    */\n    public function index($view = null)\n    {\n        echo "' + controllerName + ' was successfully created!";\n    }\n}', (err) => {
             if (err) throw err;
             console.log(controllerName + ' was successfully created!');
         });
@@ -25,7 +25,7 @@ if (args[2] == 'make:controller') {
 }
 else if (args[2] == 'make:model') {
     var modelName = args[3];
-    fs.open('app/models/' + modelName + '.php', 'wx', (err, fd) => {
+    fs.open('app/Models/' + modelName + '.php', 'wx', (err, fd) => {
         if (err) {
             if (err.code === 'EEXIST') {
                 console.error('Model already exists');
@@ -35,7 +35,7 @@ else if (args[2] == 'make:model') {
             throw err;
         }
 
-        fs.writeFile('app/models/' + modelName + '.php', '<?php\n\nuse Illuminate\\Database\\Eloquent\\Model as Eloquent;\n\nclass ' + modelName + ' extends Eloquent\n{\n    \n}', (err) => {
+        fs.writeFile('app/Models/' + modelName + '.php', '<?php\n\nuse Illuminate\\Database\\Eloquent\\Model as Eloquent;\n\nclass ' + modelName + ' extends Eloquent\n{\n    \n}', (err) => {
             if (err) throw err;
             console.log(modelName + ' was successfully created!');
         });
@@ -59,8 +59,8 @@ else if (args[2] == 'make:view') {
         });
     });
 }
-else if (args[2] == 'list:models') {
-    const modelsFolder = 'app/models';
+else if (args[2] == 'list:Models') {
+    const modelsFolder = 'app/Models';
 
     fs.readdir(modelsFolder, (err, files) => {
         files.forEach(file => {
@@ -70,8 +70,8 @@ else if (args[2] == 'list:models') {
         });
     })
 }
-else if (args[2] == 'list:controllers') {
-    const controllersFolder = 'app/controllers';
+else if (args[2] == 'list:Controllers') {
+    const controllersFolder = 'app/Controllers';
 
     fs.readdir(controllersFolder, (err, files) => {
         files.forEach(file => {
