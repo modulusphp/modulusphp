@@ -12,7 +12,8 @@ class HomeController extends Controller
    */
   public function index($view = null)
   {
+    $pageTitle = 'Home | modulusPHP';
     $view == null || $view == 'index' ? $view = 'welcome' : $view = $view ;
-    return $this->view($view);
+    return $this->view($view, compact('pageTitle'));
   }
 }
