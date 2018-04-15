@@ -13,7 +13,7 @@ $capsule->addConnection([
   'database' => getenv('DB_DATABASE'),
   'charset' => 'utf8',
   'collation' => 'utf8_unicode_ci',
-  'prefix' => ''
+  'prefix' => 'donaldpakkies_'
 ]);
 
 $capsule->setAsGlobal();
