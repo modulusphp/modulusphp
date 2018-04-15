@@ -44,7 +44,7 @@ class LoginController extends Controller
   }
 
   /**
-   * Get a validator for an incoming registration request.
+   * Get a validator for an incoming login request.
    * 
    * @param  array $request
    * @return array
