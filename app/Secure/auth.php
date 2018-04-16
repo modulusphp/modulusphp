@@ -3,6 +3,11 @@
 use Birke\Rememberme\Authenticator;
 use Birke\Rememberme\Storage\FileStorage;
 
+// Create the tokens folder if it doesn't exist...
+if (!is_dir('../storage/tokens')) {
+  mkdir('../storage/tokens');
+}
+
 /**
  * Need to rewrite this crap...
  */
