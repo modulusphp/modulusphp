@@ -9,7 +9,9 @@
   <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
 
   <!-- stylesheets -->
-  {% Modulus::styles(['bootstrap.min']); %}
+  {% Modulus::styles([
+    'bootstrap.min']
+  ); %}
 
   {% if @$pageTitle == 'Login | modulusPHP' || @$pageTitle == 'Register | modulusPHP' %}
     <link rel="stylesheet" href="/css/signin.css">

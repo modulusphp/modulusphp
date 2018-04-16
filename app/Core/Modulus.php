@@ -74,7 +74,7 @@ class Modulus
      * modulus brackets
      * 
      */
-    $contents = preg_replace('/\{\%(.*?)\%\}/', '<?php $1 ?> ', $contents);
+    $contents = preg_replace('/\{\%(.*?)\%\}/s', '<?php $1 ?> ', $contents);
     
     eval('?> '.$contents);
   }
