@@ -53,8 +53,7 @@ class MigrateCommand extends Command
         call_user_func([ucfirst($name).'Migration', strtolower($action == 'drop' ? 'down' : $action)]);
         $output->writeln('Migration was successful');
       }
-      catch (EXception $e)
-      {
+      catch (Exception $e) {
         $output->writeln('Couldn\'t migrate. See log for more information');
         Debug::error($e);
       }
