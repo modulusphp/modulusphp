@@ -35,7 +35,7 @@ Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_P
 
 ## Getting the application ready
 
-This part is optional but is recommended. The following command will create a users table. (You will be able to edit the table later if you want to make any changes).
+This part is optional (but recommended). The following command will create a users table. (You will be able to edit the table later if you want to make any changes).
 
 ```
 php modulus migrate users
