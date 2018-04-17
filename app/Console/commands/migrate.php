@@ -91,6 +91,7 @@ class MigrateCommand extends Command
         call_user_func([ucfirst($name).'Migration', strtolower($action == 'drop' ? 'down' : $action)]);
       }
       catch (Exception $e) {
+        Debug::error($e);
         return $output->writeln('Couldn\'t migrate. See log for more information');
       }
       
@@ -124,6 +125,7 @@ class MigrateCommand extends Command
       call_user_func([$name, strtolower($action == 'drop' ? 'down' : $action)]);
     }
     catch (Exception $e) {
+      Debug::error($e);
       return 'Couldn\'t migrate. See log for more information';
     }
     
