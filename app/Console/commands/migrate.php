@@ -30,7 +30,8 @@ class MigrateCommand extends Command
       ->addArgument(
         $this->commandArgumentName,
         InputArgument::REQUIRED,
-        $this->commandArgumentDescription
+        $this->commandArgumentDescription,
+        'all'
       )
       ->addArgument(
         $this->commandOptionMigration,
@@ -49,27 +50,40 @@ class MigrateCommand extends Command
     $name = strtolower($input->getArgument($this->commandArgumentName));
     $action = $input->getArgument($this->commandOptionMigration);
 
-    if ($name == 'all') {
+    require_once 'app/Config/environment.php';
+    require_once 'app/Config/database.php';
 
+    if (Capsule::schema()->hasTable('migrations') == false) {
+      if (file_exists('../storage/migrations/migrations.php')) {
+        call_user_func(['MigrationsMigration', 'up']);
+        Debug::info('Successfully created a migrations table');
+      }
+      else {
+        Debug::error('The migrations file is missing!');
+        return $output->writeln('The migrations file is missing');
+      }
+    }
+    
+    if ($name == 'all') {
+      $migrationsDir = 'storage/migrations/';
+      foreach(glob($migrationsDir.'*.php') as $migration) {
+        $migration = substr($migration, 0, -4);
+        $className = ucfirst(substr($migration, strrpos($migration, '/') + 1)).'Migration';
+
+        if ($className != 'MigrationsMigration') {
+          $migrationResponse = $this->migrateAll($migration, $className, $action);
+          $output->writeln($className.': '. $migrationResponse);
+        }
+
+      }
+
+      return;
     }
 
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (file_exists($migrationFile)) {
-      require_once 'app/Config/environment.php';
-      require_once 'app/Config/database.php';
       require_once $migrationFile;
-
-      if (Capsule::schema()->hasTable('migrations') == false) {
-        if (file_exists('../storage/migrations/migrations.php')) {
-          call_user_func(['MigrationsMigration', 'up']);
-          Debug::info('Successfully created a migrations table');
-        }
-        else {
-          Debug::error('The migrations file is missing!');
-          return $output->writeln('The migrations file is missing');
-        }
-      }
 
       require_once 'app/Models/Migration.php';
 
@@ -96,5 +110,36 @@ class MigrateCommand extends Command
     else {
       $output->writeln('"'.$name.'" migration file does not exist');
     }
+  }
+
+  private function migrateAll($migrationFile, $name, $action)
+  {
+    require_once 'app/Config/environment.php';
+    require_once 'app/Config/database.php';
+    require_once $migrationFile.'.php';
+
+    require_once 'app/Models/Migration.php';
+
+    try {
+      call_user_func([$name, strtolower($action == 'drop' ? 'down' : $action)]);
+    }
+    catch (Exception $e) {
+      return 'Couldn\'t migrate. See log for more information';
+    }
+    
+    $migration = Migration::where('title', $name)->first();
+
+    // return $name;
+
+    if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
+      $migration->delete();
+      return 'Migration was successful';
+    }
+    
+    Migration::create([
+      'title' => $name
+    ]);
+
+    return 'Migration was successful';
   }
 }
