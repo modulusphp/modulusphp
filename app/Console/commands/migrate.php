@@ -1,4 +1,8 @@
 <?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -37,10 +41,17 @@ class MigrateCommand extends Command
     ;
   }
 
+  /**
+   * Do something weird
+   */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = strtolower($input->getArgument($this->commandArgumentName));
     $action = $input->getArgument($this->commandOptionMigration);
+
+    if ($name == 'all') {
+
+    }
 
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
@@ -49,14 +60,38 @@ class MigrateCommand extends Command
       require_once 'app/Config/database.php';
       require_once $migrationFile;
 
+      if (Capsule::schema()->hasTable('migrations') == false) {
+        if (file_exists('../storage/migrations/migrations.php')) {
+          call_user_func(['MigrationsMigration', 'up']);
+          Debug::info('Successfully created a migrations table');
+        }
+        else {
+          Debug::error('The migrations file is missing!');
+          return $output->writeln('The migrations file is missing');
+        }
+      }
+
+      require_once 'app/Models/Migration.php';
+
       try {
         call_user_func([ucfirst($name).'Migration', strtolower($action == 'drop' ? 'down' : $action)]);
-        $output->writeln('Migration was successful');
       }
       catch (Exception $e) {
-        $output->writeln('Couldn\'t migrate. See log for more information');
-        Debug::error($e);
+        return $output->writeln('Couldn\'t migrate. See log for more information');
       }
+      
+      $migration = Migration::where('title', ucfirst($name).'Migration')->first();
+
+      if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
+        $migration->delete();
+        return $output->writeln('Migration was successful');
+      }
+      
+      Migration::create([
+        'title' => ucfirst($name).'Migration'
+      ]);
+
+      $output->writeln('Migration was successful');
     }
     else {
       $output->writeln('"'.$name.'" migration file does not exist');
