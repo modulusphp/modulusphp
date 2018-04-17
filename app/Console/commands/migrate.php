@@ -29,7 +29,7 @@ class MigrateCommand extends Command
       ->setDescription($this->commandDescription)
       ->addArgument(
         $this->commandArgumentName,
-        InputArgument::REQUIRED,
+        InputArgument::OPTIONAL,
         $this->commandArgumentDescription,
         'all'
       )
