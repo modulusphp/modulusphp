@@ -1,4 +1,4 @@
-{% Modulus::extends('layouts/header', ['pageTitle' => 'This page isn’t working| modulusPHP']); %}
+{% extends('layouts/header', ['pageTitle' => 'This page isn’t working| modulusPHP']) %}
 
 <div class="flex-center position-ref full-height">
   <div class="content">
@@ -12,4 +12,4 @@
   </div>
 </div>
 
-{% Modulus::extends('layouts/footer'); %}
+{% extends('layouts/footer') %}
