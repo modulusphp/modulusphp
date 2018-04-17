@@ -7,11 +7,10 @@ return [
          * modulusPHP Auth Controllers
          */
         'controllers' => [
-            'Forgot',
             'Login',
             'Logout',
-            'Register',
-            'Reset'
+            'Password',
+            'Register'
         ]
     ]
 ];
