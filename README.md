@@ -43,15 +43,15 @@ php modulus migrate users
 
 *This will create a users table*
 
-As soon as that's done, run the following command to boot up your Application.
-
 ## Running the application
+
+Run the following command to boot up your Application.
 
 ```
 php modulus serve
 ```
 
-If port `8000` is already in use, just change set your own port. e.g
+If port `8000` is already in use, just set your own port. e.g
 
 ```
 php modulus serve 8001
