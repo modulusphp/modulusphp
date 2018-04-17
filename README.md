@@ -31,7 +31,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_USERNAME"**.
+Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"**.
 
 ## Getting the application ready
 
