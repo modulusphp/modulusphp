@@ -10,6 +10,7 @@ try {
   require_once '../app/Secure/auth.php';
   require_once 'Config/environment.php';
   require_once 'Config/database.php';
+  require_once '../storage/migrations/migrations.php';
   require_once 'Core/File.php';
   require_once 'Core/App.php';
   require_once 'Core/Modulus.php';

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 class App
 {
   /**
@@ -13,6 +16,20 @@ class App
   
   public function __construct()
   {
+    /**
+     * check if the migrations table exists
+     * If it doesn't exist, create it.
+     */
+    if (Capsule::schema()->hasTable('migrations') == false) {
+      if (file_exists('../storage/migrations/migrations.php')) {
+        call_user_func(['MigrationsMigration', 'up']);
+        Log::info('Successfully created a migrations table');
+      }
+      else {
+        Log::error('The migrations file is missing!');
+      }
+    }
+
     $url = $this->parseUrl();
 
     // is this a auth controller?
