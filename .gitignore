@@ -1,0 +1,5 @@
+.env
+vendor
+storage/logs
+storage/tokens
+storage/uploads

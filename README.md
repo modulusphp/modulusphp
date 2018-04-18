@@ -7,7 +7,7 @@
 Before we can do anything, we first need to make sure that we have all the dependencies modulusPHP is using. To do this, we need to run the following command.
 
 ```
-composer install --no-scripts
+composer install
 ```
 
 *I assume, you already have composer installed, if not. Check out this link https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04*
