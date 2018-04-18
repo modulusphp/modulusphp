@@ -54,7 +54,7 @@ class MigrateCommand extends Command
     require_once 'app/Config/database.php';
 
     if (Capsule::schema()->hasTable('migrations') == false) {
-      if (file_exists('../storage/migrations/migrations.php')) {
+      if (file_exists('storage/migrations/migrations.php')) {
         call_user_func(['MigrationsMigration', 'up']);
         Debug::info('Successfully created a migrations table');
       }
