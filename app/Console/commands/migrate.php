@@ -73,7 +73,7 @@ class MigrateCommand extends Command
         $className = ucfirst(substr($migration, strrpos($migration, '/') + 1)).'Migration';
 
         if ($className != 'MigrationsMigration') {
-          $migrationResponse = $this->migrateAll($migration, $className, $action);
+          $migrationResponse = $this->migrateAll($migration.'.php', $className, $action);
           if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
             $succesful[] = $className;
           }
@@ -95,35 +95,17 @@ class MigrateCommand extends Command
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (file_exists($migrationFile)) {
-      require_once $migrationFile;
+      $className = ucfirst($name).'Migration';
 
-      require_once 'app/Models/Migration.php';
-
-      try {
-        call_user_func([ucfirst($name).'Migration', strtolower($action == 'drop' ? 'down' : $action)]);
-      }
-      catch (Exception $e) {
-        Debug::error($e);
-        return $output->writeln('Couldn\'t migrate. See log for more information');
-      }
-      
-      $migration = Migration::where('title', ucfirst($name).'Migration')->first();
-
-      if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
-        if ($migration != null) {
-          $migration->delete();
-          return $output->writeln('Migration was successful');
+      if ($className != 'MigrationsMigration') {
+        $migrationResponse = $this->migrateAll($migrationFile, $className, $action);
+        if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
+          return $output->writeln($className.' was successful.');
         }
         else {
-          return $output->writeln('Migration doesn\'t exist');
+          return $output->writeln('Nothing to migrate');
         }
       }
-      
-      Migration::create([
-        'title' => ucfirst($name).'Migration'
-      ]);
-
-      $output->writeln('Migration was successful');
     }
     else {
       $output->writeln('"'.$name.'" migration file does not exist');
@@ -134,7 +116,7 @@ class MigrateCommand extends Command
   {
     require_once 'app/Config/environment.php';
     require_once 'app/Config/database.php';
-    require_once $migrationFile.'.php';
+    require_once $migrationFile;
 
     require_once 'app/Models/Migration.php';
     
