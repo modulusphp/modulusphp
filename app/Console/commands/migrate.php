@@ -65,6 +65,8 @@ class MigrateCommand extends Command
     }
     
     if ($name == 'all') {
+      $succesful = [];
+
       $migrationsDir = 'storage/migrations/';
       foreach(glob($migrationsDir.'*.php') as $migration) {
         $migration = substr($migration, 0, -4);
@@ -72,9 +74,19 @@ class MigrateCommand extends Command
 
         if ($className != 'MigrationsMigration') {
           $migrationResponse = $this->migrateAll($migration, $className, $action);
-          $output->writeln($className.': '. $migrationResponse);
+          if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
+            $succesful[] = $className;
+          }
         }
 
+      }
+
+      if (count($succesful) == 0) {
+        return $output->writeln('Nothing to migrate');
+      }
+      
+      foreach($succesful as $succesfulMigration) {
+        $output->writeln($succesfulMigration.' was successful.');
       }
 
       return;
@@ -98,8 +110,13 @@ class MigrateCommand extends Command
       $migration = Migration::where('title', ucfirst($name).'Migration')->first();
 
       if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
-        $migration->delete();
-        return $output->writeln('Migration was successful');
+        if ($migration != null) {
+          $migration->delete();
+          return $output->writeln('Migration was successful');
+        }
+        else {
+          return $output->writeln('Migration doesn\'t exist');
+        }
       }
       
       Migration::create([
@@ -120,28 +137,45 @@ class MigrateCommand extends Command
     require_once $migrationFile.'.php';
 
     require_once 'app/Models/Migration.php';
-
-    try {
-      call_user_func([$name, strtolower($action == 'drop' ? 'down' : $action)]);
-    }
-    catch (Exception $e) {
-      Debug::error($e);
-      return 'Couldn\'t migrate. See log for more information';
-    }
     
     $migration = Migration::where('title', $name)->first();
 
-    // return $name;
-
     if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
-      $migration->delete();
-      return 'Migration was successful';
-    }
-    
-    Migration::create([
-      'title' => $name
-    ]);
+      if ($migration != null) {
+        try {
+          call_user_func([$name, 'down']);
+        }
+        catch (Exception $e) {
+          Debug::error($e);
+          return 'Couldn\'t migrate. See log for more information';
+        }
 
-    return 'Migration was successful';
+        $migration->delete();
+        return 'Migration was successful';
+      }
+      else {
+        return 0;
+      }
+    }
+    else if (strtolower($action) == 'up'){
+      if ($migration == null) {
+        try {
+          call_user_func([$name, 'up']);
+        }
+        catch (Exception $e) {
+          Debug::error($e);
+          return 'Couldn\'t migrate. See log for more information';
+        }
+
+        Migration::create([
+          'title' => $name
+        ]);
+    
+        return 'Migration was successful';
+      }
+      else {
+        return 0;
+      }
+    }
   }
 }
