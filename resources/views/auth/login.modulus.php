@@ -15,7 +15,7 @@
       </span>
     {% endif %}
     <label for="inputUsername" class="sr-only">Email address or Username</label>
-    <input type="text" id="inputUsername" class="form-control" placeholder="Email address or Username" name="username" value="{{ ? form['data']['username'] }}" autofocus="">
+    <input type="text" id="inputUsername" class="form-control" placeholder="Email address or Username" name="username" value="{{ ? form['data']['username'] }}" autofocus="" required="">
     
     {% if isset($errors['password']) %}
       <span class="help-block">
@@ -23,7 +23,7 @@
       </span>
     {% endif %}
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password">
+    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="">
     
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     
