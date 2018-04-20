@@ -14,6 +14,6 @@ class LogoutController extends Controller
       return $this->redirect();
     }
 
-    $this->view('app/errors/400');
+    // $this->view('app/errors/400');
   }
 }
