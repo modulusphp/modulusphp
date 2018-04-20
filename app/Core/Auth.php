@@ -64,9 +64,7 @@ class Auth
       );
     }
     
-    $valid = Auth::validate($request, $validator);
-
-    $valid == null ?: $valid->ToArray();
+    $valid = Auth::validate($request, $validator) != null ? Auth::validate($request, $validator)->toArray() : null ;
 
     if (@$request['modulus_referred'] != null || @$request['modulus_referred'] != Modulus::currentUrl()) {
       $_SERVER['HTTP_REFERRE'] = @$request['modulus_referred'];
