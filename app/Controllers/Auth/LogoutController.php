@@ -13,7 +13,5 @@ class LogoutController extends Controller
     if ($response['status'] == 'success') {
       return $this->redirect();
     }
-
-    // $this->view('app/errors/400');
   }
 }
