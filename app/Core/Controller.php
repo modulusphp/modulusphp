@@ -99,6 +99,11 @@ class Controller
         echo '<script>window.location = "'.$redirect.'";</script>';
       }
     }
+    else if ($level == 'development') {
+      if (getenv('APP_ENV') != 'development') {
+        echo '<script>window.location = "'.$redirect.'";</script>';
+      }
+    }
     else {
       $auth = require '../app/Config/app.php';
       if (isset($auth['auth']['authorization'][$level])) {
