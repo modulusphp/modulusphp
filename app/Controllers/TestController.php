@@ -2,6 +2,11 @@
 
 class TestController extends Controller
 {
+  public function __construct()
+  {
+    $this->authorization('development');
+  }
+
   /**
    * This is the default method
    *
