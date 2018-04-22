@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-
 class HomeController extends Controller
 {
   /**
