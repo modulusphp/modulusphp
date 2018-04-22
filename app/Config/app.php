@@ -4,7 +4,7 @@ return [
     'auth' => [
 
         /**
-         * Authorizarion type
+         * Authorization type
          * 
          * Example:
          * Check if a property ('user_type') of the current user equals value ('Admin'). 
