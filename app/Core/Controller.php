@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Capsule\Manager as DB;
+
 class Controller
 {
   /**
@@ -97,6 +99,33 @@ class Controller
         echo '<script>window.location = "'.$redirect.'";</script>';
       }
     }
+    else if ($level == 'development') {
+      if (getenv('APP_ENV') != 'development') {
+        echo '<script>window.location = "'.$redirect.'";</script>';
+      }
+    }
+    else {
+      $auth = require '../app/Config/app.php';
+      if (isset($auth['auth']['authorization'][$level])) {
+        $currentLevel = $auth['auth']['authorization'][$level];
+        
+        $column = $currentLevel[0];
+        $operator = $this->operator($currentLevel[1]);
+        $value = $currentLevel[2];
+
+        if ($this->{$operator}($column, $value) == false) {
+          if (Auth::isGuest() == false && $redirect == "/login") {
+            echo '<script>window.location = "/";</script>';
+          }
+          else {
+            echo '<script>window.location = "'.$redirect.'";</script>';
+          }
+        }
+      }
+      else {
+        Log::error('Could not find $app->authorization->'.$level.' in config/app.php');
+      }
+    }
   }
 
   /**
@@ -111,5 +140,114 @@ class Controller
         return $this->redirect('/login');
       }
     }
+  }
+
+  /**
+   * operator
+   * 
+   * @param  string $operator
+   * @return string
+   */
+  protected function operator($operator)
+  {
+    if ($operator == '=' || $operator == '==') {
+      return '__equals';
+    }
+
+    if ($operator == '>') {
+      return '__greater_than';
+    }
+
+    if ($operator == '<') {
+      return '__less_than';
+    }
+
+    if ($operator == '>=') {
+      return '__greater_than_or_equal_to';
+    }
+
+    if ($operator == '<=') {
+      return '__less_than_or_equal_to';
+    }
+  }
+
+  /**
+   * __equals
+   * 
+   * @param  string  $column
+   * @param  string  $value
+   * @return boolean
+   */
+  protected function __equals($column, $value)
+  {
+    if (Auth::user()->{$column} == $value){
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * __greater_than
+   * 
+   * @param  string  $column
+   * @param  string  $value
+   * @return boolean
+   */
+  protected function __greater_than($column, $value)
+  {
+    if (Auth::user()->{$column} > $value){
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * __less_than
+   * 
+   * @param  string  $column
+   * @param  string  $value
+   * @return boolean
+   */
+  protected function __less_than($column, $value)
+  {
+    if (Auth::user()->{$column} < $value){
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * __greater_than_or_equal_to
+   * 
+   * @param  string  $column
+   * @param  string  $value
+   * @return boolean
+   */
+  protected function __greater_than_or_equal_to($column, $value)
+  {
+    if (Auth::user()->{$column} >= $value){
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * __less_than_or_equal_to
+   * 
+   * @param  string  $column
+   * @param  string  $value
+   * @return boolean
+   */
+  protected function __less_than_or_equal_to($column, $value)
+  {
+    if (Auth::user()->{$column} <= $value){
+      return true;
+    }
+
+    return false;
   }
 }

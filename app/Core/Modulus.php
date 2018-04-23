@@ -47,16 +47,31 @@ class Modulus
     $contents = preg_replace('/\{\% else \%\}/', '<?php else : ?>', $contents);
     $contents = preg_replace('/\{\% endif \%\}/', '<?php endif ;?>', $contents);
 
-    
+    // foreach statement
+    $contents = preg_replace('/\{\% foreach (.*?) \%\}/', '<?php foreach ($1) : ?>', $contents);
+    $contents = preg_replace('/\{\% endforeach \%\}/', '<?php endforeach ;?>', $contents);
+
+    // for statement
+    $contents = preg_replace('/\{\% for (.*?) \%\}/', '<?php for ($1) : ?>', $contents);
+    $contents = preg_replace('/\{\% endfor \%\}/', '<?php endfor ;?>', $contents);
+
+    // switch statement
+    $contents = preg_replace('/\{\% switch (.*?) \%\}/', '<?php switch ($1) : ?>', $contents);
+    $contents = preg_replace('/\{\% endswitch \%\}/', '<?php endswitch ;?>', $contents);
+
+    // while statement
+    $contents = preg_replace('/\{\% while (.*?) \%\}/', '<?php while ($1) : ?>', $contents);
+    $contents = preg_replace('/\{\% endwhile \%\}/', '<?php endwhile ;?>', $contents);
+
     /**
      * echo
      * 
      * {{ ? variable }} = if variable is set then echo
-     * {{ variable }} = echo variable. (disabled, because it might clash with vue.js)
+     * {{ variable }} = echo variable.
      */
     $contents = preg_replace('/\{\{ \? (.*?) \}\}/', '<?php echo @$$1; ?>', $contents);
     $contents = preg_replace('/\{\{ \% (.*?) \}\}/', '<?php echo @$1; ?>', $contents);
-    /*$contents = preg_replace('/\{\{ (.*?) \}\}/', '<?php echo $$1; ?>', $contents); */
+    $contents = preg_replace('/\{\{ (.*?) \}\}/', '<?php echo $1; ?>', $contents);
     
     /**
      * extends
@@ -102,6 +117,21 @@ class Modulus
       }
     }
 
+  }
+
+  /**
+   * urlIncludes
+   * 
+   * @param  string $string
+   * @return boolean
+   */
+  public function urlIncludes($string = '')
+  {
+    if (0 === strpos($_SERVER['REQUEST_URI'], $string)) {
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -187,11 +217,11 @@ class Modulus
    */
   public function scripts($scripts = [])
   {
-      foreach($scripts as $script)
-      {
-          $script = '<script src="/js/'.$script.'.js"></script>';
-          echo $script;
-      }
+    foreach($scripts as $script)
+    {
+      $script = '<script src="/js/'.$script.'.js"></script>';
+      echo $script;
+    }
   }
 
   /**
