@@ -88,7 +88,6 @@ class Modulus
     $contents = preg_replace('/\{\{ \% (.*?) \}\}/', '<?php echo @$1; ?>', $contents);
     $contents = preg_replace('/\{\{ (.*?) \}\}/', '<?php echo $1; ?>', $contents);
 
-    
     /**
      * extends
      * 
