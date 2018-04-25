@@ -88,7 +88,7 @@ func greet(name) {
   println 'Hello ' + name;
 
   if name == "Donald" {
-    echo name + ' is the creator of C%';
+    echo name + ' is the creator of C% and modulusPHP';
   }
 }
 
