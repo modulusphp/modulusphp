@@ -1,6 +1,6 @@
 <?php
 
-use Transcompiler as CModulus;
+use Transpiler as CModulus;
 
 class Modulus
 {

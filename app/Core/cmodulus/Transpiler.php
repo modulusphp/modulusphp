@@ -1,6 +1,6 @@
 <?php
 
-class Transcompiler
+class Transpiler
 {
   public function compile($script)
   {
