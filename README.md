@@ -70,6 +70,12 @@ That's all!
 
 ## Using C Modulus in modulusPHP
 
+Before writing C Modulus code in your project, make sure you have enabled it in your project .env file.
+
+```
+C_MODULUS_ENABLE=true
+```
+
 Here's how you can write C Modulus Code in modulusPHP.
 
 ```
