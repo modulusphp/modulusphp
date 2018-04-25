@@ -5,7 +5,6 @@
 
   func greet(name) {
     try {
-      // echo string.Format("Hello {0}", name);
       echo string.Include("Hello {name}");
       println string.Include("Hello {name}");
     }
