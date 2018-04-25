@@ -41,16 +41,18 @@ class ServeCommand extends Command
   {
     $port = $input->getArgument($this->commandArgumentPort);
 
+    $appRoot = $this->root();
+
     if ($port != null && is_numeric($port)) {
       $output->writeln('['.date('D M d G:i:s Y').'] Listening on http://localhost:'.$port);
       $output->writeln('Press Ctrl-C to quit.');
-      $cmd = passthru('cd public && php -S localhost:'.$port);
+      $cmd = passthru('cd '.$appRoot.' && php -S localhost:'.$port);
       $output->writeln($cmd);
     }
     else if ($port == null) {
       $output->writeln('['.date('D M d G:i:s Y').'] Listening on http://localhost:8000');
       $output->writeln('Press Ctrl-C to quit.');
-      $cmd = passthru('cd public && php -S localhost:8000');
+      $cmd = passthru('cd '.$appRoot.' && php -S localhost:8000');
       $output->writeln($cmd);
     }
     else if (!is_numeric($port)) {
@@ -59,8 +61,21 @@ class ServeCommand extends Command
     else {
       $output->writeln('['.date('D M d G:i:s Y').'] Listening on http://localhost:8000');
       $output->writeln('Press Ctrl-C to quit.');
-      $cmd = passthru('cd public && php -S localhost:8000');
+      $cmd = passthru('cd '.$appRoot.' && php -S localhost:8000');
       $output->writeln($cmd);
     }
+  }
+
+  private function root() {
+    $service = require 'app/Config/app.php';
+    $appRoot = $service['app']['root'];
+
+    $appRoot = $appRoot != null ? $appRoot : '/public' ;
+
+    if ($appRoot[0] == "/") {
+      $appRoot = substr($appRoot, 1);
+    }
+
+    return $appRoot;
   }
 }
