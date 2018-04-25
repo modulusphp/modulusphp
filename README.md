@@ -18,10 +18,12 @@ Rename `.env.example` to `.env`
 
 ```
 APP_NAME=modulusPHP
-APP_ENV=local
-APP_KEY=
+APP_ENV=development
 APP_DEBUG=true
 APP_URL=http://localhost
+APP_ROOT=/public
+
+C_MODULUS_ENABLE=false
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -42,6 +44,8 @@ php modulus migrate users
 ```
 
 *This will create a users table*
+
+> Alternatively, you can run `php modulus migrate`
 
 ## Running the application
 
