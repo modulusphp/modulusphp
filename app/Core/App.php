@@ -16,6 +16,15 @@ class App
   
   public function __construct()
   {
+    $service = require '../app/Config/app.php';
+    $appRoot = $service['app']['root'];
+
+    $appRoot = $appRoot != null ? $appRoot : '/public_html' ;
+
+    if ($appRoot[0] != "/") {
+      $appRoot = '/'.$appRoot;
+    }
+    
     /**
      * check if the migrations table exists
      * If it doesn't exist, create it.
@@ -34,7 +43,6 @@ class App
 
     // is this a auth controller?
     $authController = strtolower($url[0]);
-    $service = require '../app/Config/app.php';
     $authControllers = $service['auth']['controllers'];
 
     if (in_array(ucfirst($authController), $authControllers)) {
@@ -47,7 +55,7 @@ class App
     /**
      * Check if controller exists
      */
-    if (file_exists(str_replace('/public', '/app/Controllers/'.$authController, getcwd()).ucfirst($url[0]).'Controller.php')) {
+    if (file_exists(str_replace($appRoot, '/app/Controllers/'.$authController, getcwd()).ucfirst($url[0]).'Controller.php')) {
       $this->controller = ucfirst($url[0]).'Controller';
       unset($url[0]);
     }
