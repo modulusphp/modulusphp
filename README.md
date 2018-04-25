@@ -68,15 +68,16 @@ That's all!
 
 > Author: Donald Pakkies
 
-## Using C Modulus in modulusPHP
+## Using C% in modulusPHP
 
-Before writing C Modulus code in your project, make sure you have enabled it in your project .env file.
+C% (pronounced see modulus) is a new free object-oriented programming language that has a Swift-style syntax and trans-compiles into JavaScript. 
+Before you can use C% in modulusPHP, you need to enable it in the .env file.
 
 ```
 C_MODULUS_ENABLE=true
 ```
 
-Here's how you can write C Modulus Code in modulusPHP.
+Here's how you can write C% Code in modulusPHP.
 
 ```
 % // Code stored in resources/views/welcome.modulus.php %
