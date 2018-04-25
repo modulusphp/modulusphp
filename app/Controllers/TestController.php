@@ -17,6 +17,13 @@ class TestController extends Controller
   }
 
   /**
+   * C Modulus test
+   */
+  public function cmodulus($name = "Donald") {
+    $this->view('test/cmodulus/c', compact('name'));
+  }
+
+  /**
    * For test
    */
   public function for()
