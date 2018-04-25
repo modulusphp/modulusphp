@@ -73,6 +73,15 @@ That's all!
 Here's how you can write C Modulus Code in modulusPHP.
 
 ```
+% // Code stored in resources/views/welcome.modulus.php %
+
+{% extends('cmod/main.c') %}
+
+```
+
+```
+% // Code stored in resources/views/cmod/main.c.modulus.php %
+
 <@cmodulus
 
 func greet(name) {
