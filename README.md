@@ -67,3 +67,21 @@ php modulus serve 8001
 That's all!
 
 > Author: Donald Pakkies
+
+## Using C Modulus in modulusPHP
+
+Here's how you can write C Modulus Code in modulusPHP.
+
+```
+<@cmodulus
+
+func greet(name) {
+  println 'Hello ' + name;
+}
+
+greet();
+
+@>
+```
+
+> {tip} Use the `seshaUI.web` library
