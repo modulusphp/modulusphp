@@ -86,9 +86,13 @@ Here's how you can write C Modulus Code in modulusPHP.
 
 func greet(name) {
   println 'Hello ' + name;
+
+  if name == "Donald" {
+    echo name + ' is the creator of C%';
+  }
 }
 
-greet();
+greet('Donald');
 
 @>
 ```
