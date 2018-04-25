@@ -13,7 +13,7 @@ try {
   require_once '../storage/migrations/migrations.php';
   require_once 'Core/File.php';
   require_once 'Core/App.php';
-  require_once 'Core/cmodulus/Transcompiler.php';
+  require_once 'Core/cmodulus/Transpiler.php';
   require_once 'Core/Modulus.php';
   require_once 'Core/Controller.php';
   require_once 'Core/View.php';
