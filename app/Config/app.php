@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'app' => [
+        'root' => getenv('APP_ROOT')
+    ],
+
     'auth' => [
 
         /**

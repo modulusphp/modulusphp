@@ -1,12 +1,14 @@
 <?php
 
+use Transcompiler as CModulus;
+
 class Modulus
 {
   /**
    * Render
    * 
    * @param  string $contents
-   * @param  array $data
+   * @param  array  $data
    * @return eval
    */
   public function render($contents, $data = [])
@@ -17,6 +19,16 @@ class Modulus
       if (is_array($value) !== true) {
           $contents = preg_replace('/\%'.$key.'/', $value, $contents);
       }
+    }
+
+    // The C Modulus Programming Language (experimental)
+    $cmoudlus_enabled = getenv('C_MODULUS_ENABLE');
+    if ($cmoudlus_enabled != null && strtolower($cmoudlus_enabled) == "true") {
+      $contents = preg_replace_callback('/\<\@cmodulus(.*?)\@\>/s', function($match) {
+        $CModulusCode = CModulus::compile($match[1]);
+
+        return $CModulusCode;
+      }, $contents);
     }
 
     // partials
@@ -32,6 +44,9 @@ class Modulus
         }
         
         return file_get_contents('../resources/views/'. $view . '.php');
+      }
+      else {
+        Log::error($view.' doesn\'t exist');
       }
     }, $contents);
 
@@ -72,13 +87,14 @@ class Modulus
     $contents = preg_replace('/\{\{ \? (.*?) \}\}/', '<?php echo @$$1; ?>', $contents);
     $contents = preg_replace('/\{\{ \% (.*?) \}\}/', '<?php echo @$1; ?>', $contents);
     $contents = preg_replace('/\{\{ (.*?) \}\}/', '<?php echo $1; ?>', $contents);
+
     
     /**
      * extends
      * 
      */
     $contents = preg_replace('/\{\% extends(.*?) \%\}/', '<?php Modulus::extends$1 ?> ', $contents);
-
+    
     /**
      * referred
      * 
@@ -90,6 +106,11 @@ class Modulus
      * 
      */
     $contents = preg_replace('/\{\%(.*?)\%\}/s', '<?php $1 ?> ', $contents);
+    
+    /**
+     * comment
+     */
+    $contents = preg_replace('/\% \/\/ (.*?)\%/', '<?php //$1; ?>', $contents);
     
     eval('?> '.$contents);
   }
@@ -219,8 +240,13 @@ class Modulus
   {
     foreach($scripts as $script)
     {
-      $script = '<script src="/js/'.$script.'.js"></script>';
-      echo $script;
+      if (file_exists("..".Modulus::root()."/js/$script.js")) {
+        $script = '<script src="/js/'.$script.'.js"></script>';
+        echo $script;
+      }
+      else {
+        Log::error(Modulus::root()."/js/$script.js doesn't exist.");
+      }
     }
   }
 
@@ -234,8 +260,25 @@ class Modulus
   {
     foreach($styles as $style)
     {
-      $style = '<link rel="stylesheet" href="/css/'.$style.'.css">';
-      echo $style;
+      if (file_exists("..".Modulus::root()."/css/$style.css")) {
+        $style = '<link rel="stylesheet" href="/css/'.$style.'.css">';
+        echo $style;
+      }
+      else {
+        Log::error(Modulus::root()."/css/$tyle.css doesn't exist.");
+      }
     }
+  }
+
+  private function root() {
+    $service = require '../app/Config/app.php';
+    $appRoot = $service['app']['root'];
+
+    $appRoot = $appRoot != null ? $appRoot : '/public' ;
+
+    if ($appRoot[0] != "/") {
+      $appRoot = '/'.$appRoot;
+    }
+    return $appRoot;
   }
 }
