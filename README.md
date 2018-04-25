@@ -63,11 +63,6 @@ php modulus serve 8001
 
 *You can now visit your Application on `http://localhost:<port>`*
 
-
-That's all!
-
-> Author: Donald Pakkies
-
 ## Using C% in modulusPHP
 
 C% (pronounced see modulus) is a new free object-oriented programming language that has a Swift-style syntax and trans-compiles into JavaScript. 
@@ -105,3 +100,8 @@ greet('Donald');
 ```
 
 > {tip} Use the `seshaUI.web` library
+
+
+That's all!
+
+> Author: Donald Pakkies
