@@ -2,6 +2,7 @@
 
 class Request
 {
+  public $__ajax = false;
   /**
    * hasInput
    * 
@@ -80,5 +81,15 @@ class Request
   public function method()
   {
     return $_SERVER['REQUEST_METHOD'];
+  }
+
+  /**
+   * isAjax
+   * 
+   * @return boolean
+   */
+  public function isAjax()
+  {
+    return $this->__ajax;
   }
 }

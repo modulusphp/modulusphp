@@ -5,6 +5,14 @@ class Route
   static public $status = 404;
   static public $execute = false;
 
+  /**
+   * get
+   * 
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
   public static function get($pattern, $callback, $ajax = false)
   {
     if (self::search(['GET'], $pattern, $callback, $ajax) == true) {
@@ -12,6 +20,14 @@ class Route
     }
   }
 
+  /**
+   * put
+   * 
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
   public static function post($pattern, $callback, $ajax = false)
   {
     if (self::search(['POST'], $pattern, $callback, $ajax) == true) {
@@ -19,16 +35,47 @@ class Route
     }
   }
 
-  public static function delete($pattern, $callback, $ajax = false)
+  /**
+   * put (untested)
+   * 
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
+  public static function put($pattern, $callback, $ajax = false)
   {
-    if (self::search(['DELETE'], $pattern, $callback, $ajax)  == true) {
+    if (self::search(['PUT'], $pattern, $callback, $ajax) == true) {
       static::$execute = true;
     }
   }
 
+  /**
+   * patch (untested)
+   * 
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
   public static function patch($pattern, $callback, $ajax = false)
   {
     if (self::search(['PATCH'], $pattern, $callback, $ajax) == true) {
+      static::$execute = true;
+    }
+  }
+
+  /**
+   * delete (untested)
+   * 
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
+  public static function delete($pattern, $callback, $ajax = false)
+  {
+    if (self::search(['DELETE'], $pattern, $callback, $ajax)  == true) {
       static::$execute = true;
     }
   }
@@ -112,6 +159,9 @@ class Route
         if (method_exists($controller, $action)) {
           if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $req = new Request;
+            if ($ajax == true) {
+              $req->__ajax = true;
+            }
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
@@ -123,6 +173,9 @@ class Route
         if (method_exists($controller, $action)) {
           if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $req = new Request;
+            if ($ajax == true) {
+              $req->__ajax = true;
+            }
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
