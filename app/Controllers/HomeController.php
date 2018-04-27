@@ -3,15 +3,13 @@
 class HomeController extends Controller
 {
   /**
-   * This method is used as the default routing system (Not recommended)
+   * This is the home page
    * 
-   * @param  string $view
+   * @param  string  $view
    * @return view
    */
-  public function index($view = null)
+  public function index()
   {
-    $pageTitle = 'Home | modulusPHP';
-    $view == null || $view == 'index' ? $view = 'welcome' : $view = $view ;
-    return $this->view($view, compact('pageTitle'));
+    return $this->view('welcome');
   }
 }
