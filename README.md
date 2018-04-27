@@ -18,7 +18,7 @@ Rename `.env.example` to `.env`
 
 ```
 APP_NAME=modulusPHP
-APP_ENV=development
+APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
 APP_ROOT=/public
