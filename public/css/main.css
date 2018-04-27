@@ -36,7 +36,7 @@ body {
   font-size: 84px;
 }
 
-.info > span {
+.info>span {
   color: #ffffff;
   padding: 0 25px;
   font-size: 12px;
@@ -46,7 +46,7 @@ body {
   text-transform: uppercase;
 }
 
-.info > a {
+.info>a {
   color: #ffffff;
   padding: 0 25px;
   font-size: 12px;
