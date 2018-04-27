@@ -254,8 +254,8 @@ class Route
    * Return a 500 Internal Error
    * 
    * @param  REQUEST_METHOD $requestMethod
-   * @param  METHOD $action
-   * @param  Controller $controller
+   * @param  method $action
+   * @param  controller $controller
    * @return void;
    */
   private function isError($requestMethod = "Any", $action, $controller)
