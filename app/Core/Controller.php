@@ -99,8 +99,8 @@ class Controller
         echo '<script>window.location = "'.$redirect.'";</script>';
       }
     }
-    else if ($level == 'development') {
-      if (getenv('APP_ENV') != 'development') {
+    else if ($level == 'local') {
+      if (getenv('APP_ENV') != 'local') {
         echo '<script>window.location = "'.$redirect.'";</script>';
       }
     }
