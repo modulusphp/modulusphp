@@ -250,6 +250,14 @@ class Route
     return $url =  explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
   }
 
+  /**
+   * Return a 500 Internal Error
+   * 
+   * @param  REQUEST_METHOD $requestMethod
+   * @param  METHOD $action
+   * @param  Controller $controller
+   * @return void;
+   */
   private function isError($requestMethod = "Any", $action, $controller)
   {
     header('HTTP/1.0 500 Internal Error');
