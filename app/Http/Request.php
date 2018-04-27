@@ -2,6 +2,81 @@
 
 class Request
 {
+  /**
+   * Request::GET
+   */
+  const GET = 'GET';
+  
+  /**
+   * Request::POST
+   */
+  const POST = 'POST';
+
+  /**
+   * Request::PUT
+   */
+  const PUT = 'PUT';
+
+  /**
+   * Request::PATCH
+   */
+  const PATCH = 'PATCH';
+
+  /**
+   * Request::DELETE
+   */
+  const DELETE = 'DELETE';
+
+  /**
+   * Request::COPY
+   */
+  const COPY = 'COPY';
+
+  /**
+   * Request::HEAD
+   */
+  const HEAD = 'HEAD';
+
+  /**
+   * Request::OPTIONS
+   */
+  const OPTIONS = 'OPTIONS';
+
+  /**
+   * Request::LINK
+   */
+  const LINK = 'LINK';
+
+  /**
+   * Request::UNLINK
+   */
+  const UNLINK = 'UNLINK';
+
+  /**
+   * Request::PURGE
+   */
+  const PURGE = 'PURGE';
+
+  /**
+   * Request::LOCK
+   */
+  const LOCK = 'LOCK';
+
+  /**
+   * Request::UNLOCK
+   */
+  const UNLOCK = 'UNLOCK';
+
+  /**
+   * Request::PROPFIND
+   */
+  const PROPFIND = 'PROPFIND';
+
+  /**
+   * Request::VIEW
+   */
+  const VIEW = 'VIEW';
+
   public $__ajax = false;
   /**
    * hasInput
