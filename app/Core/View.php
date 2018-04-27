@@ -5,9 +5,9 @@ class View
   /**
    * Make
    * 
-   * @param  string $view
-   * @param  array $data
-   * @return Modulus::render ?
+   * @param  string  $view
+   * @param  array   $data
+   * @return void
    */
   public function make($view, $data = [])
   {
@@ -25,6 +25,7 @@ class View
       }
     }
     else {
+      header('HTTP/1.0 404 Not Found');
       $contents = file_get_contents('../resources/views/app/errors/404.modulus.php');
       Modulus::render($contents, ['pageURL' => $_SERVER['REQUEST_URI']]);
     }
