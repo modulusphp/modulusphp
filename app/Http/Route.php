@@ -127,7 +127,8 @@ class Route
 
       if (!file_exists('../app/Controllers/'.$authController.$controller.'.php')) {
         Log::error($controller.' doesn\'t exist');
-        return;
+        static::$status = 404;
+        return true;
       }
       
       require_once '../app/Controllers/'.$authController.$controller . '.php';
@@ -176,9 +177,7 @@ class Route
             return true;
           }
           
-          header('HTTP/1.0 500 Internal Error');
-          echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]));
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError('POST', $action, explode('@', $callback)[0]);
           return true;
         }
         else if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -188,9 +187,7 @@ class Route
           
           }
 
-          header('HTTP/1.0 500 Internal Error');
-          View::make('app/errors/500');
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError('GET', $action, explode('@', $callback)[0]);
           return true;
         }
         else {
@@ -200,9 +197,7 @@ class Route
           
           }
 
-          header('HTTP/1.0 500 Internal Error');
-          echo Controller::response('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError("Any", $action, explode('@', $callback)[0]);
           return true;
         }
       }
@@ -218,9 +213,7 @@ class Route
             return true;
           }
           
-          header('HTTP/1.0 500 Internal Error');
-          echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]));
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError("POST", $action, explode('@', $callback)[0]);
           return true;
         }
         else if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -230,9 +223,7 @@ class Route
           
           }
 
-          header('HTTP/1.0 500 Internal Error');
-          View::make('app/errors/500');
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError("GET", $action, explode('@', $callback)[0]);
           return true;
         }
         else {
@@ -242,9 +233,7 @@ class Route
           
           }
 
-          header('HTTP/1.0 500 Internal Error');
-          echo Controller::response('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
-          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          self::isError("Any", $action, explode('@', $callback)[0]);
           return true;
         }
       }
@@ -259,5 +248,22 @@ class Route
   private function parseUrl()
   {
     return $url =  explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
+  }
+
+  private function isError($requestMethod = "Any", $action, $controller)
+  {
+    header('HTTP/1.0 500 Internal Error');
+    if ($requestMethod == "POST") {
+      echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.$controller));
+      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+    }
+    else if ($requestMethod == "GET") {
+      View::make('app/errors/500');
+      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+    }
+    else {
+      echo Controller::response('@'.$action.' doesn\'t exist in '.$controller);
+      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+    }
   }
 }
