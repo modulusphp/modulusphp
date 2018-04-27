@@ -18,17 +18,6 @@ class PasswordController extends Controller
   }
 
   /**
-   * This is the default method.
-   * Throw an error.
-   * 
-   * @return view
-  */
-  public function index()
-  {
-    return $this->view('app/errors/404', ['pageURL' => $_SERVER['REQUEST_URI']]);
-  }
-
-  /**
    * Forgot Password
    * 
    * @return string

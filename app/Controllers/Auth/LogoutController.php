@@ -5,7 +5,7 @@ class LogoutController extends Controller
   /**
    * Log the user out
    * 
-   * @return redirect
+   * @return void
    */
   public function index()
   {

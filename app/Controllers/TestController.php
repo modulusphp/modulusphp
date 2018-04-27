@@ -4,16 +4,16 @@ class TestController extends Controller
 {
   public function __construct()
   {
-    $this->authorization('development');
+    $this->authorization('local');
   }
 
   /**
    * This is the default method
    *
   */
-  public function index()
+  public function index($name, $age)
   {
-    echo 'TestController was successfully created!';
+    echo 'Hello '.ucfirst($name).', you are '.$age.' years old!';
   }
 
   /**

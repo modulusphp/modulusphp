@@ -23,7 +23,7 @@ class LoginController extends Controller
    * @param  array $request
    * @return redirect
   */
-  public function index($request = null)
+  public function index(Request $request = null)
   {
     $pageTitle = 'Login | modulusPHP';
 
@@ -31,7 +31,7 @@ class LoginController extends Controller
       return View::make('auth/login', compact('pageTitle'));
     }
 
-    $response = $this->validator($request);
+    $response = $this->validator($request->data());
     
     if (@$response->status == 'failed') {
       $form = (array)$response->submission;
