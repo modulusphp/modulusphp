@@ -1,16 +1,20 @@
-{% extends('layouts/header', ['pageTitle' => '404 Not Found | modulusPHP']) %}
+{% partials('layouts/error') %}
 
-<div class="flex-center position-ref full-height">
-  <div class="content">
-    <div class="title m-b-md">
-      404 Not Found
-    </div>
+{% in('title') %}
+  404 Not Found | modulusPHP
+{% endin %}
 
-    <div class="info">
-      <span>Requested: %pageURL</span>
-      <a href="/">go home</a>
+{% in('main') %}
+  <div class="flex-center position-ref full-height">
+    <div class="content">
+      <div class="title m-b-md">
+        404 Not Found
+      </div>
+
+      <div class="info">
+        <span>Requested: %pageURL</span>
+        <a href="/">go home</a>
+      </div>
     </div>
   </div>
-</div>
-
-{% extends('layouts/footer') %}
+{% endin %}
