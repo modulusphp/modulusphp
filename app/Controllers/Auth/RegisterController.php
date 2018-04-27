@@ -18,17 +18,15 @@ class RegisterController extends Controller
   }
   
   /**
-   * This is the default method
+   * Sign up page
    *
    * @param  array $request
    * @return redirect
   */
   public function index(Request $request = null)
   {
-    $pageTitle = 'Register | modulusPHP';
-
     if ($request == null) {
-      return View::make('auth/register', compact('pageTitle'));
+      return View::make('auth/register');
     }
 
     // check if the submitted values, meet the minumum requirements
@@ -38,7 +36,7 @@ class RegisterController extends Controller
     if ($response != null) {
       $form = $request->data();
       $errors = $response->ToArray();
-      return View::make('auth/register', compact('form', 'errors', 'pageTitle'));
+      return View::make('auth/register', compact('form', 'errors'));
     }
 
     // if there where no errors, check if user already exists
@@ -49,7 +47,7 @@ class RegisterController extends Controller
     if ($response != null) {
       $form = $request->data();
       $failed = $response;
-      return View::make('auth/register', compact('form', 'failed', 'pageTitle'));
+      return View::make('auth/register', compact('form', 'failed'));
     }
 
     // if the user doesn't exist, create the user
