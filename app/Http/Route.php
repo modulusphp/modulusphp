@@ -162,7 +162,11 @@ class Route
       }
 
       if ($matches && is_callable($callback) && $modifiedPattern == $modifiedUrl) {
-        call_user_func($callback, $matches);
+        call_user_func($callback, (object)$matches);
+        return true;
+      }
+      else if ($uri == $pattern && is_callable($callback) && $modifiedPattern == $modifiedUrl) {
+        call_user_func($callback, (object)$matches);
         return true;
       }
       else if ($uri == $pattern && $modifiedPattern == $modifiedUrl) {
