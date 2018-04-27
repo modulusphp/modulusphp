@@ -165,30 +165,86 @@ class Route
         return true;
       }
       else if ($uri == $pattern && $modifiedPattern == $modifiedUrl) {
-        if (method_exists($controller, $action)) {
-          if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            $req = new Request;
-            if ($ajax == true) {
-              $req->__ajax = true;
-            }
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $req = new Request;
+          if ($ajax == true) {
+            $req->__ajax = true;
+          }
+
+          if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
-          call_user_func_array([$controller, $action], $matches);
+          
+          header('HTTP/1.0 500 Internal Error');
+          echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]));
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          return true;
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+          if (method_exists($controller, $action)) {
+            call_user_func_array([$controller, $action], $matches);
+            return true;
+          
+          }
+
+          header('HTTP/1.0 500 Internal Error');
+          View::make('app/errors/500');
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          return true;
+        }
+        else {
+          if (method_exists($controller, $action)) {
+            call_user_func_array([$controller, $action], $matches);
+            return true;
+          
+          }
+
+          header('HTTP/1.0 500 Internal Error');
+          echo Controller::response('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
           return true;
         }
       }
       else if ($matches && is_string($callback) && $modifiedPattern == $modifiedUrl) {
-        if (method_exists($controller, $action)) {
-          if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            $req = new Request;
-            if ($ajax == true) {
-              $req->__ajax = true;
-            }
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $req = new Request;
+          if ($ajax == true) {
+            $req->__ajax = true;
+          }
+
+          if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
-          call_user_func_array([$controller, $action], $matches);
+          
+          header('HTTP/1.0 500 Internal Error');
+          echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]));
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          return true;
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+          if (method_exists($controller, $action)) {
+            call_user_func_array([$controller, $action], $matches);
+            return true;
+          
+          }
+
+          header('HTTP/1.0 500 Internal Error');
+          View::make('app/errors/500');
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          return true;
+        }
+        else {
+          if (method_exists($controller, $action)) {
+            call_user_func_array([$controller, $action], $matches);
+            return true;
+          
+          }
+
+          header('HTTP/1.0 500 Internal Error');
+          echo Controller::response('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
+          Log::error('@'.$action.' doesn\'t exist in '.explode('@', $callback)[0]);
           return true;
         }
       }
