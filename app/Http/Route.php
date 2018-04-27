@@ -3,7 +3,7 @@
 class Route
 {
   static public $status = 404;
-  static public $execute = false;
+  static public $executed = false;
 
   /**
    * get
@@ -16,7 +16,7 @@ class Route
   public static function get($pattern, $callback, $ajax = false)
   {
     if (self::search(['GET'], $pattern, $callback, $ajax) == true) {
-      static::$execute = true;
+      static::$executed = true;
     }
   }
 
@@ -31,7 +31,7 @@ class Route
   public static function post($pattern, $callback, $ajax = false)
   {
     if (self::search(['POST'], $pattern, $callback, $ajax) == true) {
-      static::$execute = true;
+      static::$executed = true;
     }
   }
 
@@ -46,7 +46,7 @@ class Route
   public static function put($pattern, $callback, $ajax = false)
   {
     if (self::search(['PUT'], $pattern, $callback, $ajax) == true) {
-      static::$execute = true;
+      static::$executed = true;
     }
   }
 
@@ -61,7 +61,7 @@ class Route
   public static function patch($pattern, $callback, $ajax = false)
   {
     if (self::search(['PATCH'], $pattern, $callback, $ajax) == true) {
-      static::$execute = true;
+      static::$executed = true;
     }
   }
 
@@ -76,7 +76,7 @@ class Route
   public static function delete($pattern, $callback, $ajax = false)
   {
     if (self::search(['DELETE'], $pattern, $callback, $ajax)  == true) {
-      static::$execute = true;
+      static::$executed = true;
     }
   }
 
@@ -143,7 +143,7 @@ class Route
       }
     }
 
-    if (static::$execute == false) {
+    if (static::$executed == false) {
       $modifiedPattern = explode('/', filter_var(rtrim(substr($pattern, 1),'/'), FILTER_SANITIZE_URL));
       $modifiedUrl = self::parseUrl();
 
