@@ -80,6 +80,15 @@ class Route
     }
   }
 
+  /**
+   * search
+   * 
+   * @param  array   $methods
+   * @param  string  $pattern
+   * @param  string  $callback
+   * @param  boolean $ajax
+   * @return
+   */
   private function search($methods, $pattern, $callback, $ajax)
   {
     if (!in_array(strtoupper($_SERVER['REQUEST_METHOD']), $methods)) {
