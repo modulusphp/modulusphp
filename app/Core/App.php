@@ -62,6 +62,7 @@ class App
     }
     else {
       if (Route::$status == 404) {
+        header('HTTP/1.0 404 Not Found');
         return View::make('404 Not Found');
       }
     }
