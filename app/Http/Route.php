@@ -21,7 +21,7 @@ class Route
   }
 
   /**
-   * put
+   * post
    * 
    * @param  string  $pattern
    * @param  string  $callback
