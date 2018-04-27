@@ -14,7 +14,7 @@ class PasswordController extends Controller
 
   public function __construct()
   {
-    $this->authorization('guest');
+    $this->allowed('guest');
   }
 
   /**

@@ -4,7 +4,7 @@ class TestController extends Controller
 {
   public function __construct()
   {
-    $this->authorization('local');
+    $this->allowed('local');
   }
 
   /**
@@ -16,6 +16,11 @@ class TestController extends Controller
     echo 'Hello '.ucfirst($name).', you are '.$age.' years old!';
   }
 
+  public function user($name)
+  {
+    $this->response(User::where('username', $name)->first());
+  }
+  
   /**
    * C Modulus test
    */

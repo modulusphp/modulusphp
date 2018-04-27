@@ -87,7 +87,7 @@ class Controller
    * @param  string $redirect
    * @return string $redirect
    */
-  public function authorization($level = 'guest', $redirect = '/')
+  public function allowed($level = 'guest', $redirect = '/')
   {
     if ($level == 'guest') {
       if (Auth::isGuest() != true) {
@@ -106,8 +106,8 @@ class Controller
     }
     else {
       $auth = require '../app/Config/app.php';
-      if (isset($auth['auth']['authorization'][$level])) {
-        $currentLevel = $auth['auth']['authorization'][$level];
+      if (isset($auth['auth']['allowed'][$level])) {
+        $currentLevel = $auth['auth']['allowed'][$level];
         
         $column = $currentLevel[0];
         $operator = $this->operator($currentLevel[1]);
@@ -123,7 +123,7 @@ class Controller
         }
       }
       else {
-        Log::error('Could not find $app->authorization->'.$level.' in config/app.php');
+        Log::error('Could not find $app->allowed->'.$level.' in config/app.php');
       }
     }
   }

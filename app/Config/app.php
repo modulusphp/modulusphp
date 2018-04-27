@@ -13,8 +13,8 @@ return [
          * Example:
          * Check if a property ('user_type') of the current user equals value ('Admin'). 
          */
-        'authorization' => [
-            'admin' => ['user_type', '=', 'Admin']
+        'allowed' => [
+            'admin' => ['user_type', '=', 'admin']
         ],
 
         /**
