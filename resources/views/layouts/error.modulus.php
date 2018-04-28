@@ -17,12 +17,12 @@
   <style>
     body {
       background: #fff;
-      color: #000;
+      color: #848484;
       font-weight: unset;
     }
 
     .info > span, .info > a {
-      color: #000;
+      color: #848484;
     }
   </style>
   
