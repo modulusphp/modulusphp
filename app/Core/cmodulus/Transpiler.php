@@ -5,7 +5,7 @@ class Transpiler
   public function compile($script)
   {
     // func
-    $script = preg_replace('/\bfunc\b (.*?)\{/', "function $1 {", $script);
+    $script = preg_replace('/\bfunc\b(.*?)\{/', "function$1{", $script);
 
     // echo
     $script = preg_replace('/\becho\b (.*?)\;/', "document.write($1)", $script);
