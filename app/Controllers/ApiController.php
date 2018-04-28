@@ -3,17 +3,14 @@
 class ApiController extends Controller 
 {
   /**
-   * The api controller index method uses "POST" method by default. 
-   * If this method is called from a get, it will return a 400 status code
+   * greet
    * 
-   * @param  array $request
-   * @return response
+   * @return array response
    */
-  public function index($request = null) 
+  public function greet(Request $request)
   {
-    return $this->response($response);
+    return $this->response(array('message' => 'Hello '.$request->input('name')));
   }
-
   /**
    * Api documentation view
    * 

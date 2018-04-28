@@ -1,6 +1,10 @@
-{% partials('layouts/header.modulus') %}
+{% partials('layouts/auth') %}
 
-<div class="container">
+{% in('title') %}
+  Register | modulusPHP
+{% endin %}
+
+{% in('main') %}
 
   <form class="form-signin" method="post" action="/register">
     {% crf_form %}
@@ -51,6 +55,4 @@
     </div>
   </form>
 
-</div>
-
-{% partials('layouts/footer.modulus') %}
+{% endin %}

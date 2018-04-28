@@ -14,8 +14,8 @@ try {
   require_once 'Core/File.php';
   require_once 'Core/App.php';
   require_once 'Core/cmodulus/Transpiler.php';
-  require_once 'Core/Modulus.php';
   require_once 'Core/Controller.php';
+  require_once 'Core/Modulus.php';
   require_once 'Core/View.php';
 }
 catch (Exception $e) {

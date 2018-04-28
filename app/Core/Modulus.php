@@ -4,9 +4,10 @@ use Transpiler as CModulus;
 
 class Modulus
 {
+  public static $cont = [];
   /**
    * Render
-   * 
+   *
    * @param  string $contents
    * @param  array  $data
    * @return eval
@@ -42,7 +43,7 @@ class Modulus
         if (substr($view, -8) == '.modulus') {
           return file_get_contents('../resources/views/'. $view . '.php');
         }
-        
+
         return file_get_contents('../resources/views/'. $view . '.php');
       }
       else {
@@ -80,7 +81,7 @@ class Modulus
 
     /**
      * echo
-     * 
+     *
      * {{ ? variable }} = if variable is set then echo
      * {{ variable }} = echo variable.
      */
@@ -90,38 +91,65 @@ class Modulus
 
     /**
      * extends
-     * 
+     *
      */
     $contents = preg_replace('/\{\% extends(.*?) \%\}/', '<?php Modulus::extends$1 ?> ', $contents);
-    
+
+    /**
+     * I can't explain this, but it works
+     */
+    $contents = preg_replace_callback('/\{\% in\((.*?)\) \%\}(.*?)\{\% endin \%\}/s', function($match) {
+      $name = str_replace("'", "", $match[1]);
+      $name = str_replace('"', '', $name);
+
+      $code = $match[2];
+
+      $tag = array('name' => $name, 'code' => $code);
+      array_push(static::$cont, $tag);
+    }, $contents);
+
+    $contents = preg_replace_callback('/\{\% tag\((.*?)\) \%\}/', function($match) {
+      $name = str_replace("'", "", $match[1]);
+      $name = str_replace('"', '', $name);
+
+      foreach (static::$cont as $key => $value) {
+        if ($value['name'] == $name) {
+          return $value['code'];
+        }
+      }
+    }, $contents);
+
+    static::$cont = [];
+    // finally done. If you understood this, docblock and create a pr;
+
     /**
      * referred
-     * 
+     *
      */
     $contents = preg_replace('/\{\% referred(.*?) \%\}/', '<?php Modulus::referred$1 ?> ', $contents);
-    
+
     /**
      * modulus brackets
-     * 
+     *
      */
     $contents = preg_replace('/\{\%(.*?)\%\}/s', '<?php $1 ?> ', $contents);
-    
+
     /**
      * comment
      */
     $contents = preg_replace('/\% \/\/ (.*?)\%/', '<?php //$1; ?>', $contents);
-    
+
     eval('?> '.$contents);
   }
 
   /**
    * Extends
-   * 
+   *
    * @param  string $view
    * @param  array $data
    * @return
    */
-  public function extends($view, $data = []) 
+  public function extends($view, $data = [])
   {
     file_exists('../resources/views/' . $view . '.modulus.php') == true ? $view = $view . '.modulus' : $view = $view;
 
@@ -141,7 +169,7 @@ class Modulus
 
   /**
    * urlIncludes
-   * 
+   *
    * @param  string $string
    * @return boolean
    */
@@ -156,7 +184,7 @@ class Modulus
 
   /**
    * Current Url
-   * 
+   *
    * @return string currentUrl ?
    */
   public function currentUrl()
@@ -166,7 +194,7 @@ class Modulus
 
   /**
    * Application host
-   * 
+   *
    * @return string $env_host ?
    */
   public function host()
@@ -176,13 +204,13 @@ class Modulus
     if ($env_host == null) {
       return (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
     }
-    
+
     return $env_host;
   }
 
   /**
    * Referred
-   * 
+   *
    * @param  string $previous
    * @return string $backlink ? $previous
    */
@@ -201,7 +229,7 @@ class Modulus
 
   /**
    * Still gonna implement this...
-   * 
+   *
    * @return string
    */
   public function csrf_field()
@@ -211,7 +239,7 @@ class Modulus
 
   /**
    * Don't use this. I'm gonna remove it.
-   * 
+   *
    * @param  string $location
    * @return string $location
    */
@@ -221,17 +249,17 @@ class Modulus
     $int = count($v) - 1;
 
     substr($_SERVER['REQUEST_URI'], -1) == '/' ? $int = $int + 1 : $int = $int;
-    
+
     for($i = 0; $i < $int; $i++) {
       $location = '../'.$location;
     }
-    
+
     echo $location;
   }
 
   /**
    * Add multiple scripts
-   * 
+   *
    * @param  array $scripts
    * @return string $script
    */
@@ -251,7 +279,7 @@ class Modulus
 
   /**
    * Add multiple stylesheets
-   * 
+   *
    * @param  array $styles
    * @return string $style
    */

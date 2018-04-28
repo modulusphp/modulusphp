@@ -11,7 +11,7 @@ class Debug
    */ 
   public function info($text = null, $trace = false)
   {
-    Debug::output($text, $trace, 'local.INFO');
+    Debug::output($text, $trace, '.INFO');
   }
 
   /**
@@ -23,7 +23,7 @@ class Debug
    */
   public function error($text = null, $trace = false)
   {
-    Debug::output($text, $trace, 'local.ERROR');
+    Debug::output($text, $trace, '.ERROR');
   }
 
   /**
@@ -35,7 +35,7 @@ class Debug
    */
   public function warning($text = null, $trace = false)
   {
-    Debug::output($text, $trace, 'local.WARNING');
+    Debug::output($text, $trace, '.WARNING');
   }
 
   /**
@@ -58,7 +58,7 @@ class Debug
    * @param  string $type
    * @return
    */
-  private function output($text = null, $trace = false, $type = 'local.INFO:')
+  private function output($text = null, $trace = false, $type = '.INFO:')
   {
     /**
      * ['file']
@@ -76,6 +76,6 @@ class Debug
 
     ($trace == true) ? $track_back = '['.$file_trace.'][line: '.$line_trace.']' : $track_back = '';
 
-    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.$type.' '.$text.PHP_EOL, FILE_APPEND);
+    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.getenv('APP_ENV').$type.' '.$text.PHP_EOL, FILE_APPEND);
   }
 }

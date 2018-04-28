@@ -14,29 +14,27 @@ class LoginController extends Controller
 
   public function __construct()
   {
-    $this->authorization('guest');
+    $this->allowed('guest');
   }
 
   /**
-   * This is the default method
+   * Sign in page
    *
-   * @param  array $request
+   * @param  array  $request
    * @return redirect
   */
-  public function index($request = null)
+  public function index(Request $request = null)
   {
-    $pageTitle = 'Login | modulusPHP';
-
     if ($request == null) {
-      return View::make('auth/login', compact('pageTitle'));
+      return View::make('auth/login');
     }
 
-    $response = $this->validator($request);
+    $response = $this->validator($request->data());
     
     if (@$response->status == 'failed') {
       $form = (array)$response->submission;
       $errors = $response->validator;
-      return View::make('auth/login', compact('form', 'errors', 'pageTitle'));
+      return View::make('auth/login', compact('form', 'errors'));
     }
     else if (@$response->status == 'success') {
       return $this->redirect();

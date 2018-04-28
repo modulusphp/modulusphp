@@ -14,42 +14,40 @@ class RegisterController extends Controller
 
   public function __construct()
   {
-    $this->authorization('guest');
+    $this->allowed('guest');
   }
   
   /**
-   * This is the default method
+   * Sign up page
    *
    * @param  array $request
    * @return redirect
   */
-  public function index($request = null)
+  public function index(Request $request = null)
   {
-    $pageTitle = 'Register | modulusPHP';
-
     if ($request == null) {
-      return View::make('auth/register', compact('pageTitle'));
+      return View::make('auth/register');
     }
 
     // check if the submitted values, meet the minumum requirements
-    $response = $this->validator($request);
+    $response = $this->validator($request->data());
 
     // if not, return to the view with errors
     if ($response != null) {
-      $form = $request;
+      $form = $request->data();
       $errors = $response->ToArray();
-      return View::make('auth/register', compact('form', 'errors', 'pageTitle'));
+      return View::make('auth/register', compact('form', 'errors'));
     }
 
     // if there where no errors, check if user already exists
-    $response = $this->checkuser($request['username'], $request['email']
+    $response = $this->checkuser($request->input('username'), $request->input('email')
     );
 
     // if the user already exists, return to the view with errors
     if ($response != null) {
-      $form = $request;
+      $form = $request->data();
       $failed = $response;
-      return View::make('auth/register', compact('form', 'failed', 'pageTitle'));
+      return View::make('auth/register', compact('form', 'failed'));
     }
 
     // if the user doesn't exist, create the user
@@ -86,9 +84,9 @@ class RegisterController extends Controller
   private function create($request)
   {
     $user = User::create([
-      'username' => $request['username'],
-      'email' => $request['email'],
-      'password' => $request['password']
+      'username' => $request->input('username'),
+      'email' => $request->input('email'),
+      'password' => $request->input('password')
     ]);
 
     return $user;

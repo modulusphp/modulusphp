@@ -206,10 +206,12 @@ class Auth
         return __logout();
       }
       else {
+        header('HTTP/1.0 400 Bad Request');
         return View::make('app/errors/400');
       }
     }
     else {
+      header('HTTP/1.0 400 Bad Request');
       return View::make('app/errors/400');
     }
   }

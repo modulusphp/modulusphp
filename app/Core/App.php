@@ -2,33 +2,19 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
-
 class App
 {
-  /**
-   * This is what makes the app run...
-   */
-  
   protected $controller = 'HomeController';
   protected $method = 'index';
   protected $params = [];
   protected $requestType = 'get';
-  
+
+  /**
+   * check if the migrations table exists
+   * If it doesn't exist, create it.
+   */
   public function __construct()
   {
-    $service = require '../app/Config/app.php';
-    $appRoot = $service['app']['root'];
-
-    $appRoot = $appRoot != null ? $appRoot : '/public_html' ;
-
-    if ($appRoot[0] != "/") {
-      $appRoot = '/'.$appRoot;
-    }
-    
-    /**
-     * check if the migrations table exists
-     * If it doesn't exist, create it.
-     */
     if (Capsule::schema()->hasTable('migrations') == false) {
       if (file_exists('../storage/migrations/migrations.php')) {
         call_user_func(['MigrationsMigration', 'up']);
@@ -37,6 +23,65 @@ class App
       else {
         Log::error('The migrations file is missing!');
       }
+    }
+  }
+  
+  /**
+   * method
+   * 
+   * @param  string  $method
+   * @return void
+   */
+  public function boot($method = 'controller')
+  {
+    if ($method == 'routes') {
+      $this->route();
+      return;
+    }
+
+    return $this->controllerAction();
+  }
+
+  /**
+   * route
+   * 
+   * @return  void
+   */
+  private function route()
+  {
+    require_once '../app/Http/Request.php';
+    require_once '../app/Http/Route.php';
+    require_once '../routes/web.php';
+    require_once '../routes/api.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if (Route::$status == 404) {
+        header('HTTP/1.0 404 Not Found');
+        return;
+      }
+    }
+    else {
+      if (Route::$status == 404) {
+        header('HTTP/1.0 404 Not Found');
+        return View::make('404 Not Found');
+      }
+    }
+  }
+
+  /**
+   * controllerAction
+   * 
+   * @return void
+   */
+  private function controllerAction()
+  {
+    $service = require '../app/Config/app.php';
+    $appRoot = $service['app']['root'];
+
+    $appRoot = $appRoot != null ? $appRoot : '/public_html' ;
+
+    if ($appRoot[0] != "/") {
+      $appRoot = '/'.$appRoot;
     }
 
     $url = $this->parseUrl();
@@ -125,7 +170,12 @@ class App
       }
     }
   }
-
+  
+  /**
+   * parseUrl
+   * 
+   * @return string  $url
+   */
   public function parseUrl()
   {
     return $url =  explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
