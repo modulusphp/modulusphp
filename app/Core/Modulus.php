@@ -89,6 +89,11 @@ class Modulus
     $contents = preg_replace('/\{\{ \% (.*?) \}\}/', '<?php echo @$1; ?>', $contents);
     $contents = preg_replace('/\{\{ (.*?) \}\}/', '<?php echo $1; ?>', $contents);
 
+    // html
+    $contents = preg_replace('/\{\{\!\! \? (.*?) \!\!\}\}/', '<?php echo utf8_encode(htmlspecialchars(@$$1, ENT_QUOTES)); ?>', $contents);
+    $contents = preg_replace('/\{\{\!\! \% (.*?) \!\!\}\}/', '<?php echo utf8_encode(htmlspecialchars(@$1, ENT_QUOTES)); ?>', $contents);
+    $contents = preg_replace('/\{\{\!\! (.*?) \!\!\}\}/', '<?php echo utf8_encode(htmlspecialchars($1, ENT_QUOTES)); ?>', $contents);
+
     /**
      * extends
      *
