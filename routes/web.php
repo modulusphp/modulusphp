@@ -7,7 +7,7 @@ Route::get('/', 'HomeController@index');
 Route::post('/login', 'LoginController@index');
 Route::get('/login', 'LoginController@index');
 
-Route::post('/register', 'RegisterController@index');
+Route::post('/register', 'RegisterController@store');
 Route::get('/register', 'RegisterController@index');
 
 Route::get('/logout', 'LogoutController@index');
