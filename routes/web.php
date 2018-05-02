@@ -6,11 +6,10 @@ Route::get('/', 'HomeController@index');
 // Auth Controllers
 Route::post('/login', 'LoginController@index');
 Route::get('/login', 'LoginController@index');
+Route::get('/logout', 'LoginController@logout');
 
 Route::post('/register', 'RegisterController@store');
 Route::get('/register', 'RegisterController@index');
-
-Route::get('/logout', 'LogoutController@index');
 
 Route::get('/password/forgot', 'PasswordController@forgot');
 Route::get('/password/reset', 'PasswordController@reset');
