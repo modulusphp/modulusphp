@@ -56,4 +56,17 @@ class LoginController extends Controller
 
     return $response;
   }
+
+  /**
+   * Log the user out
+   * 
+   * @return void
+   */
+  public function logout()
+  {
+    $response = Auth::logout();
+    if ($response['status'] == 'success') {
+      return $this->redirect();
+    }
+  }
 }

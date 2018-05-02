@@ -22,7 +22,6 @@ return [
          */
         'controllers' => [
             'Login',
-            'Logout',
             'Password',
             'Register'
         ]

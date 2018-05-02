@@ -21,14 +21,21 @@ class RegisterController extends Controller
    * Sign up page
    *
    * @param  array $request
-   * @return redirect
+   * @return view
   */
-  public function index(Request $request = null)
+  public function index()
   {
-    if ($request == null) {
-      return View::make('auth/register');
-    }
+    return View::make('auth/register');
+  }
 
+  /**
+   * Save user
+   *
+   * @param  array $request
+   * @return view
+  */
+  public function store(Request $request = null)
+  {
     // check if the submitted values, meet the minumum requirements
     $response = $this->validator($request->data());
 
@@ -55,7 +62,7 @@ class RegisterController extends Controller
 
     // authorize the user and redirect to the home page
     Auth::authorize($user);
-    $this->redirect();
+    return $this->redirect();
   }
 
   /**
