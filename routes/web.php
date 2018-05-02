@@ -23,3 +23,8 @@ Route::get('/test/if', 'TestController@if');
 Route::get('/test/if/{name}', 'TestController@if');
 Route::get('/test/while', 'TestController@while');
 Route::get('/test/{name}/{age}', 'TestController@index');
+
+// Controller Action
+Route::get('/{controller}/{action}', function($args) {
+  App::controllerAction();
+});
