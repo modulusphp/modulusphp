@@ -16,11 +16,6 @@ class TestController extends Controller
     echo 'Hello '.ucfirst($name).', you are '.$age.' years old!';
   }
 
-  public function user($name)
-  {
-    $this->response(User::where('username', $name)->first());
-  }
-  
   /**
    * C Modulus test
    */
