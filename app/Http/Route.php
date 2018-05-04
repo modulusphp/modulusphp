@@ -100,7 +100,11 @@ class Route
       return false;
     }
 
-    if ($ajax && strtoupper($_SERVER['HTTP_X_REQUESTED_BY']) != 'XMLHTTPREQUEST') {
+    // untested
+    if ($ajax && isset($_SERVER['HTTP_X_REQUESTED_WITH']) == true) {
+      return strtoupper($_SERVER['HTTP_X_REQUESTED_WITH']) === 'XMLHTTPREQUEST' ? true : false;
+    }
+    else if ($ajax && isset($_SERVER['HTTP_X_REQUESTED_WITH']) != true) {
       return false;
     }
 
