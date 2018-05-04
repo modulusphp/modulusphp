@@ -91,6 +91,11 @@ class Route
    */
   private function search($methods, $pattern, $callback, $ajax)
   {
+    // if the a route has already been found, don't run this
+    if (static::$status == 200) {
+      return;
+    }
+
     if (!in_array(strtoupper($_SERVER['REQUEST_METHOD']), $methods)) {
       return false;
     }
@@ -118,7 +123,7 @@ class Route
     if ($matches && is_callable($callback) == false) {
       $controller = explode('@', $callback)[0];
       $action = isset(explode('@', $callback)[1]) ? explode('@', $callback)[1] : 'index';
-      
+
       $authController = '';
 
       if (file_exists('../app/Controllers/Auth/'.$controller.'.php')) {
@@ -130,7 +135,7 @@ class Route
         static::$status = 404;
         return true;
       }
-      
+
       require_once '../app/Controllers/'.$authController.$controller . '.php';
 
       $controller = new $controller;
@@ -180,7 +185,7 @@ class Route
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
-          
+
           self::isError('POST', $action, explode('@', $callback)[0]);
           return true;
         }
@@ -188,7 +193,6 @@ class Route
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
-          
           }
 
           self::isError('GET', $action, explode('@', $callback)[0]);
@@ -198,7 +202,6 @@ class Route
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
-          
           }
 
           self::isError("Any", $action, explode('@', $callback)[0]);
@@ -216,7 +219,7 @@ class Route
             call_user_func_array([$controller, $action], [$req]);
             return true;
           }
-          
+
           self::isError("POST", $action, explode('@', $callback)[0]);
           return true;
         }
@@ -224,7 +227,6 @@ class Route
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
-          
           }
 
           self::isError("GET", $action, explode('@', $callback)[0]);
@@ -234,7 +236,6 @@ class Route
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
-          
           }
 
           self::isError("Any", $action, explode('@', $callback)[0]);
