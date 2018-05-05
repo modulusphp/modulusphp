@@ -91,7 +91,7 @@ class Route
    */
   private function search($methods, $pattern, $callback, $ajax)
   {
-    // if the a route has already been found, don't run this
+    // if there's already a matched route, don't run this
     if (static::$status == 200) {
       return;
     }
@@ -100,7 +100,11 @@ class Route
       return false;
     }
 
-    if ($ajax && strtoupper($_SERVER['HTTP_X_REQUESTED_BY']) != 'XMLHTTPREQUEST') {
+    // untested
+    if ($ajax && isset($_SERVER['HTTP_X_REQUESTED_WITH']) == true) {
+      return strtoupper($_SERVER['HTTP_X_REQUESTED_WITH']) === 'XMLHTTPREQUEST' ? true : false;
+    }
+    else if ($ajax && isset($_SERVER['HTTP_X_REQUESTED_WITH']) != true) {
       return false;
     }
 
