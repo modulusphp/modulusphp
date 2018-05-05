@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
 
   <!-- stylesheets -->
-  {% Modulus::styles([
+  {% styles([
     'bootstrap.min',
     'main']
   ); %}
@@ -34,7 +34,7 @@
   </div>
 
   <!-- scripts -->
-  {% Modulus::scripts([
+  {% scripts([
     'jquery-3.3.1.min',
     'popper.min',
     'bootstrap.min',
