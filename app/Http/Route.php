@@ -91,7 +91,7 @@ class Route
    */
   private function search($methods, $pattern, $callback, $ajax)
   {
-    // if the a route has already been found, don't run this
+    // if there's already a matched route, don't run this
     if (static::$status == 200) {
       return;
     }
