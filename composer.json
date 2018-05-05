@@ -2,7 +2,15 @@
     "name": "modulusphp/modulusphp",
     "description": "A lightweight PHP Framework",
     "keywords": ["framework", "modulusphp"],
+    "version": "1.0",
+    "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Donald Pakkies",
+            "email": "donaldpakkies@gmail.com"
+        }
+    ],
     "require": {
         "illuminate/database": "^5.6",
         "symfony/console": "2.6.7",
@@ -14,6 +22,9 @@
         "illuminate/validation": "^5.6",
         "jeffochoa/validator-factory": "^1.0"
     },
+    "require-dev": {
+        "modulusphp/helper": "^1.0"
+    },
     "autoload": {
         "classmap": [
             "app",
@@ -22,13 +33,6 @@
             "storage/migrations"
         ]
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Donald Pakkies",
-            "email": "donaldpakkies@gmail.com"
-        }
-    ],
-    "minimum-stability": "alpha"
+    "minimum-stability": "dev"
 
 }
