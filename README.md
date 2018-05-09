@@ -79,7 +79,7 @@ Here's how you can write C% Code in modulusPHP.
 ```
 % // Code stored in resources/views/welcome.modulus.php %
 
-{% extends('cmod/main.c') %}
+{% extend('cmod/main.c') %}
 
 ```
 
