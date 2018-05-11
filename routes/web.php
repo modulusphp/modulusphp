@@ -1,7 +1,5 @@
 <?php
 
-use App\Mail\Mail;
-
 // HomeController
 Route::get('/', 'HomeController@index');
 
@@ -38,26 +36,4 @@ Route::group(['middleware' => 'dev', 'prefix' => 'test'], function() {
   Route::post('/profilepic', 'TestController@storeProfilePic');
   Route::post('/send', 'TestController@send');
 
-});
-
-$mail = new Mail;
-
-Route::get('/send', function() use ($mail) {
-  return view('app/email/welcome2');
-  $mail->from('donaldpakkies@gmail.com', 'Don!');
-  $mail->to('donald@sov.tech');
-  $mail->view('app/email/signature');
-
-  $res = $mail->send('Don!!', 'Subject');
-
-  // if ($res['status'] == "success") {
-  //   echo "Success!";
-  // }
-  // else {
-  //   echo "failed";
-  // }
-});
-
-Route::get('/config', function() {
-  view('app/email/welcome');
 });
