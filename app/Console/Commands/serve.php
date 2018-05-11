@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Console\Commands;
+
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

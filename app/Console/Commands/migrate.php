@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Console\Commands;
+
+use App\Models\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -50,8 +53,8 @@ class MigrateCommand extends Command
     $name = strtolower($input->getArgument($this->commandArgumentName));
     $action = $input->getArgument($this->commandOptionMigration);
 
-    require_once 'app/Config/environment.php';
-    require_once 'app/Config/database.php';
+    require 'app/Config/environment.php';
+    require 'app/Config/database.php';
 
     if (Capsule::schema()->hasTable('migrations') == false) {
       if (file_exists('storage/migrations/migrations.php')) {
@@ -117,8 +120,6 @@ class MigrateCommand extends Command
     require_once 'app/Config/environment.php';
     require_once 'app/Config/database.php';
     require_once $migrationFile;
-
-    require_once 'app/Models/Migration.php';
     
     $migration = Migration::where('title', $name)->first();
 

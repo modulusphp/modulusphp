@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Console\Commands;
+
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -44,6 +47,8 @@ class MakeModelCommand extends Command
 
     $model = "<?php
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class ".$modelName." extends Eloquent
@@ -58,7 +63,6 @@ class ".$modelName." extends Eloquent
       else {
         file_put_contents('app/Models/'. $modelName.'.php', $model);
         $output->writeln($modelName.' was successfully created!');
-        $composer = passthru('composer dump -o');
       }
     }
     else {

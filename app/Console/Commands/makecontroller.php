@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Console\Commands;
+
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,8 +18,8 @@ class MakeControllerCommand extends Command
   protected $commandArgumentName = "name";
   protected $commandArgumentDescription = "The name of the class.";
 
-  protected $commandOptionModel = "model";
-  protected $commandOptionDescription = 'Generate a resource controller for the given model.';
+  protected $commandOptionAuth = "auth";
+  protected $commandOptionDescription = 'Create a Auth Controller';
 
   protected function configure()
   {
@@ -28,10 +31,9 @@ class MakeControllerCommand extends Command
         InputArgument::REQUIRED,
         $this->commandArgumentDescription
       )
-      ->addOption(
-        $this->commandOptionModel,
-        null,
-        InputOption::VALUE_NONE,
+      ->addArgument(
+        $this->commandOptionAuth,
+        InputArgument::OPTIONAL,
         $this->commandOptionDescription
       )
     ;
@@ -40,9 +42,34 @@ class MakeControllerCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $controllerName = ucfirst(strtolower($name)).'Controller';
+    $controllerName = ucfirst(strtolower($name));
+
+    if (substr($controllerName, -10) != 'controller') {
+      $controllerName = $controllerName.'Controller';
+    }
+    else {
+      $controllerName = substr($controllerName, 0, strlen($controllerName) - 10).'Controller';
+    }
+
+    $isAuth = $input->getArgument($this->commandOptionAuth);
+
+    $auth = '';
+
+    if ($isAuth != null) {
+      if (strtolower($isAuth) == 'auth') {
+        $auth = "\\".ucfirst($isAuth)."/";
+      }
+      else {
+        $output->writeln(ucfirst($isAuth).' Controller can\'t be created');
+        return;
+      }
+    }
 
     $controller = "<?php
+
+namespace App\Http\Controllers".str_replace('/', '', $auth).";
+
+use App\Http\Controllers\Controller;
 
 class ".$controllerName." extends Controller
 {
@@ -56,11 +83,11 @@ class ".$controllerName." extends Controller
   }
 }";
 
-    if (file_exists('app/Controllers/'. $controllerName.'.php')) {
+    if (file_exists('app/Http/Controllers/'.str_replace('\\', '/', $auth)."/". $controllerName.'.php')) {
       $output->writeln('Controller already exists!');
     }
     else {
-      file_put_contents('app/Controllers/'. $controllerName.'.php', $controller);
+      file_put_contents('app/Http/Controllers/'.str_replace('\\', '/', $auth). $controllerName.'.php', $controller);
       $output->writeln($controllerName.' was successfully created!');
     }
   }
