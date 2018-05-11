@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Core;
+
+use Dotenv;
+
 class Log
 {
   /**
@@ -9,7 +13,7 @@ class Log
    * @param  boolean $trace
    * @return output
    */
-  public function info($text = null, $trace = false)
+  public static function info($text = null, $trace = false)
   {
     Log::output($text, $trace, '.INFO');
   }
@@ -21,7 +25,7 @@ class Log
    * @param  boolean $trace
    * @return output
    */
-  public function error($text = null, $trace = false)
+  public static function error($text = null, $trace = false)
   {
     Log::output($text, $trace, '.ERROR');
   }
@@ -33,7 +37,7 @@ class Log
    * @param  boolean $trace
    * @return output
    */
-  public function warning($text = null, $trace = false)
+  public static function warning($text = null, $trace = false)
   {
     Log::output($text, $trace, '.WARNING');
   }
@@ -44,9 +48,10 @@ class Log
    * @param  string  $text
    * @return
    */
-  public function debug($text = null)
+  public static function debug($text = null)
   {
     $logfile = '../storage/logs/modulus.log';
+    $text = print_r($text, true);
     file_put_contents($logfile, $text.PHP_EOL, FILE_APPEND);
   }
 
@@ -58,7 +63,7 @@ class Log
    * @param  string  $type
    * @return
    */
-  private function output($text = null, $trace = false, $type = '.INFO:')
+  private static function output($text = null, $trace = false, $type = '.INFO:')
   {
     /**
      * ['file']
@@ -78,6 +83,8 @@ class Log
     $line_trace = debug_backtrace()[$key]['line'];
 
     ($trace == true) ? $track_back = '['.$file_trace.'][line: '.$line_trace.']' : $track_back = '';
+
+    $text = print_r($text, true);
 
     file_put_contents($logfile, $track_back.'['.$currentdate.'] '.getenv('APP_ENV').$type.' '.$text.PHP_EOL, FILE_APPEND);
   }
