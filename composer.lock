@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f360e1aaf3174d35ee83f13a74e60608",
+    "content-hash": "a9985fc18b4a20ec0b71a7f90de68487",
     "packages": [
         {
             "name": "birke/rememberme",
@@ -286,12 +286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "7ab07d133ece8098b6f5f872ec95d080087236c0"
+                "reference": "672416e6deb6b34ab631f8f1b356562e38fceac0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/7ab07d133ece8098b6f5f872ec95d080087236c0",
-                "reference": "7ab07d133ece8098b6f5f872ec95d080087236c0",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/672416e6deb6b34ab631f8f1b356562e38fceac0",
+                "reference": "672416e6deb6b34ab631f8f1b356562e38fceac0",
                 "shasum": ""
             },
             "require": {
@@ -337,7 +337,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2018-05-07T14:20:13+00:00"
+            "time": "2018-05-10T13:18:59+00:00"
         },
         {
             "name": "illuminate/filesystem",
@@ -1671,16 +1671,16 @@
         },
         {
             "name": "modulusphp/helper",
-            "version": "1.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modulusphp/modulus-helper-functions.git",
-                "reference": "dd9e0e5f9646b915e28f4819012985e288ae7c8e"
+                "reference": "09d1a0ca009e739ba581da63e92126d29f1bb8e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modulusphp/modulus-helper-functions/zipball/dd9e0e5f9646b915e28f4819012985e288ae7c8e",
-                "reference": "dd9e0e5f9646b915e28f4819012985e288ae7c8e",
+                "url": "https://api.github.com/repos/modulusphp/modulus-helper-functions/zipball/09d1a0ca009e739ba581da63e92126d29f1bb8e6",
+                "reference": "09d1a0ca009e739ba581da63e92126d29f1bb8e6",
                 "shasum": ""
             },
             "require": {
@@ -1703,7 +1703,7 @@
                 }
             ],
             "description": "Helper functions for modulusPHP",
-            "time": "2018-05-09T08:29:40+00:00"
+            "time": "2018-05-11T11:37:44+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2143,12 +2143,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "75beac9ca590b510c2235af2cb24a7f5ac1b3fee"
+                "reference": "a60b7297d290f3f5e0c0e56efafd1a78f68a2a35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/75beac9ca590b510c2235af2cb24a7f5ac1b3fee",
-                "reference": "75beac9ca590b510c2235af2cb24a7f5ac1b3fee",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/a60b7297d290f3f5e0c0e56efafd1a78f68a2a35",
+                "reference": "a60b7297d290f3f5e0c0e56efafd1a78f68a2a35",
                 "shasum": ""
             },
             "require": {
@@ -2206,7 +2206,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-07T14:51:25+00:00"
+            "time": "2018-05-09T16:25:25+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -2614,6 +2614,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "modulusphp/helper": 20,
         "lavary/crunz": 20
     },
     "prefer-stable": false,

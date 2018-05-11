@@ -23,7 +23,7 @@
         "jeffochoa/validator-factory": "^1.0"
     },
     "require-dev": {
-        "modulusphp/helper": "^1.1.1",
+        "modulusphp/helper": "dev-master",
         "lavary/crunz": "dev-master"
     },
     "autoload": {
