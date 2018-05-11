@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+
 class ApiController extends Controller 
 {
   /**
@@ -18,6 +22,6 @@ class ApiController extends Controller
    */
   public function docs()
   {
-    return View::make('app/api/docs');
+    return view('app/api/docs');
   }
 }

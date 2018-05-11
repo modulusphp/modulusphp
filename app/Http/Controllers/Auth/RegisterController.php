@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Http\Controllers\Auth;
+
+use App\Core\Auth;
+use App\Models\User;
+use App\Http\Requests\Request;
+use App\Http\Controllers\Controller;
+
 class RegisterController extends Controller
 {
   /*
@@ -11,11 +18,6 @@ class RegisterController extends Controller
   | validation and creation.
   |
   */
-
-  public function __construct()
-  {
-    $this->allowed('guest');
-  }
   
   /**
    * Sign up page
@@ -25,7 +27,7 @@ class RegisterController extends Controller
   */
   public function index()
   {
-    return View::make('auth/register');
+    return view('auth/register');
   }
 
   /**
@@ -43,18 +45,17 @@ class RegisterController extends Controller
     if ($response != null) {
       $form = $request->data();
       $errors = $response->ToArray();
-      return View::make('auth/register', compact('form', 'errors'));
+      return view('auth/register', compact('form', 'errors'));
     }
 
     // if there where no errors, check if user already exists
-    $response = $this->checkuser($request->input('username'), $request->input('email')
-    );
+    $response = $this->checkuser($request->input('username'), $request->input('email'));
 
     // if the user already exists, return to the view with errors
     if ($response != null) {
       $form = $request->data();
       $failed = $response;
-      return View::make('auth/register', compact('form', 'failed'));
+      return view('auth/register', compact('form', 'failed'));
     }
 
     // if the user doesn't exist, create the user
@@ -109,18 +110,18 @@ class RegisterController extends Controller
   private function checkuser($username, $email)
   {
     $response = array();
-    $username_error = array('username' => 'The username has already been taken');
-    $email_error = array('email' => 'The email address has already been taken');
+    $usernameError = array('username' => 'The username has already been taken');
+    $emailError = array('email' => 'The email address has already been taken');
 
-    $check_username = User::where('username', $username)->first();
-    $check_email = User::where('email', $email)->first();
+    $checkUsername = User::where('username', $username)->first();
+    $checkEmail = User::where('email', $email)->first();
 
-    if ($check_username != null) {
-      $response = array_merge($response, $username_error);
+    if ($checkUsername != null) {
+      $response = array_merge($response, $usernameError);
     }
 
-    if ($check_email != null) {
-      $response = array_merge($response, $email_error);
+    if ($checkEmail != null) {
+      $response = array_merge($response, $emailError);
     }
 
     return $response;

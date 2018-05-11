@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Core\Auth;
+use App\Http\Controllers\Controller;
+
 class HomeController extends Controller
 {
   /**
@@ -10,6 +15,6 @@ class HomeController extends Controller
    */
   public function index()
   {
-    return $this->view('welcome');
+    view('welcome');
   }
 }

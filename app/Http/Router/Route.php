@@ -1,9 +1,19 @@
 <?php
 
+use App\Http\HttpFoundation;
+use App\Http\Requests\Request;
+
 class Route
 {
   static public $status = 404;
   static public $executed = false;
+
+  /**
+   * 
+   */
+  public static function group(Array $group, Closure $callback) {
+    call_user_func($callback);
+  }
 
   /**
    * get
@@ -14,7 +24,7 @@ class Route
    * @return
    */
   public static function get($pattern, $callback, $ajax = false)
-  {
+  {    
     if (self::search(['GET'], $pattern, $callback, $ajax) == true) {
       static::$executed = true;
     }
@@ -89,8 +99,24 @@ class Route
    * @param  boolean $ajax
    * @return
    */
-  private function search($methods, $pattern, $callback, $ajax)
+  private static function search($methods, $pattern, $callback, $ajax)
   {
+    // grouped routes support
+    if (isset(debug_backtrace()[3]['args'][0]['prefix'])) {
+      $pattern = '/'.debug_backtrace()[3]['args'][0]['prefix'].$pattern;
+    }
+
+    if (isset(debug_backtrace()[3]['args'][0]['auth'])) {
+      if (debug_backtrace()[3]['args'][0]['auth'] == true && is_string($callback)) {
+        $callback = 'Auth\\'.$callback;
+      }
+    }
+
+    $middleware = null;
+    if (isset(debug_backtrace()[3]['args'][0]['middleware'])) {
+      $middleware = debug_backtrace()[3]['args'][0]['middleware'];
+    }
+
     // if there's already a matched route, don't run this
     if (static::$status == 200) {
       return;
@@ -128,21 +154,14 @@ class Route
       $controller = explode('@', $callback)[0];
       $action = isset(explode('@', $callback)[1]) ? explode('@', $callback)[1] : 'index';
 
-      $authController = '';
-
-      if (file_exists('../app/Controllers/Auth/'.$controller.'.php')) {
-        $authController = 'Auth/';
-      }
-
-      if (!file_exists('../app/Controllers/'.$authController.$controller.'.php')) {
-        Log::error($controller.' doesn\'t exist');
+      if (!file_exists('../app/Http/Controllers/'.str_replace('\\', '/', $controller).'.php')) {
+        App\Core\Log::error($controller.' doesn\'t exist');
         static::$status = 404;
         return true;
       }
 
-      require_once '../app/Controllers/'.$authController.$controller . '.php';
-
-      $controller = new $controller;
+      $controllerClass = 'App\\Http\\Controllers\\'.str_replace('/', '\\', $controller);
+      $controller = new $controllerClass;
     }
 
     if ($pattern != "/") {
@@ -171,14 +190,17 @@ class Route
       }
 
       if ($matches && is_callable($callback) && $modifiedPattern == $modifiedUrl) {
+        self::middleware($middleware);
         call_user_func($callback, (object)$matches);
         return true;
       }
       else if ($uri == $pattern && is_callable($callback) && $modifiedPattern == $modifiedUrl) {
+        self::middleware($middleware);
         call_user_func($callback, (object)$matches);
         return true;
       }
       else if ($uri == $pattern && $modifiedPattern == $modifiedUrl) {
+        self::middleware($middleware);
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $req = new Request;
           if ($ajax == true) {
@@ -194,6 +216,7 @@ class Route
           return true;
         }
         else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+          self::middleware($middleware);
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
@@ -203,6 +226,7 @@ class Route
           return true;
         }
         else {
+          self::middleware($middleware);
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
@@ -213,6 +237,7 @@ class Route
         }
       }
       else if ($matches && is_string($callback) && $modifiedPattern == $modifiedUrl) {
+        self::middleware($middleware);
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $req = new Request;
           if ($ajax == true) {
@@ -228,6 +253,7 @@ class Route
           return true;
         }
         else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+          self::middleware($middleware);
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
@@ -237,6 +263,7 @@ class Route
           return true;
         }
         else {
+          self::middleware($middleware);
           if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $matches);
             return true;
@@ -254,9 +281,36 @@ class Route
    * 
    * @return string  $url
    */
-  private function parseUrl()
+  private static function parseUrl()
   {
     return $url =  explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
+  }
+
+  private static function middleware($routes = null)
+  {
+    if ($routes == null) {
+      return;
+    }
+
+    if (is_string($routes)) {
+      foreach(HttpFoundation::$Middleware as $middlewareName => $middleroute) {
+        if ($middlewareName == $routes) {
+          (new $middleroute)->handle();
+        }
+      }
+      
+      return;
+    }
+
+    foreach($routes as $i) {
+      foreach(HttpFoundation::$Middleware as $middlewareName => $middleroute) {
+        if ($middlewareName == $i) {
+          if ((new $middleroute)->handle() == false) {
+            return;
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -267,20 +321,20 @@ class Route
    * @param  controller $controller
    * @return void;
    */
-  private function isError($requestMethod = "Any", $action, $controller)
+  private static function isError($requestMethod = "Any", $action, $controller)
   {
     header('HTTP/1.0 500 Internal Error');
     if ($requestMethod == "POST") {
-      echo Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.$controller));
-      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+      echo App\Http\Controllers\Controller::response(array('error' => '@'.$action.' doesn\'t exist in '.$controller));
+      App\Core\Log::error('@'.$action.' doesn\'t exist in '.$controller);
     }
     else if ($requestMethod == "GET") {
-      View::make('app/errors/500');
-      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+      App\Core\View::error(500);
+      App\Core\Log::error('@'.$action.' doesn\'t exist in '.$controller);
     }
     else {
-      echo Controller::response('@'.$action.' doesn\'t exist in '.$controller);
-      Log::error('@'.$action.' doesn\'t exist in '.$controller);
+      echo App\Http\Controllers\Controller::response('@'.$action.' doesn\'t exist in '.$controller);
+      App\Core\Log::error('@'.$action.' doesn\'t exist in '.$controller);
     }
   }
 }

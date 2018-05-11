@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Http\Controllers\Auth;
+
+use App\Core\Auth;
+use App\Http\Requests\Request;
+use App\Http\Controllers\Controller;
+
 class LoginController extends Controller
 {
   /*
@@ -12,11 +18,6 @@ class LoginController extends Controller
   |
   */
 
-  public function __construct()
-  {
-    $this->allowed('guest');
-  }
-
   /**
    * Sign in page
    *
@@ -26,7 +27,7 @@ class LoginController extends Controller
   public function index(Request $request = null)
   {
     if ($request == null) {
-      return View::make('auth/login');
+      return view('auth/login');
     }
 
     $response = $this->validator($request->data());
@@ -34,10 +35,10 @@ class LoginController extends Controller
     if (@$response->status == 'failed') {
       $form = (array)$response->submission;
       $errors = $response->validator;
-      return View::make('auth/login', compact('form', 'errors'));
+      return view('auth/login', compact('form', 'errors'));
     }
     else if (@$response->status == 'success') {
-      return $this->redirect();
+      return redirect();
     }
   }
 
@@ -66,7 +67,7 @@ class LoginController extends Controller
   {
     $response = Auth::logout();
     if ($response['status'] == 'success') {
-      return $this->redirect();
+      return redirect();
     }
   }
 }
