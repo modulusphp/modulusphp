@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Touch\CModulus;
+
 class Transpiler
 {
   public function compile($script)

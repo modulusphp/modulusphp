@@ -1,8 +1,10 @@
 <?php
 
-use Transpiler as CModulus;
+namespace App\Touch;
 
-class Modulus
+use App\Touch\CModulus\Transpiler as CModulus;
+
+class Compiler
 {
   public static $cont = [];
   /**
@@ -12,7 +14,7 @@ class Modulus
    * @param  array  $data
    * @return eval
    */
-  public function render($contents, $data = [])
+  public static function render($contents, $data = [], $email = false)
   {
     extract($data);
 
@@ -26,7 +28,7 @@ class Modulus
     $cmoudlus_enabled = getenv('C_MODULUS_ENABLE');
     if ($cmoudlus_enabled != null && strtolower($cmoudlus_enabled) == "true") {
       $contents = preg_replace_callback('/\<\@cmodulus(.*?)\@\>/s', function($match) {
-        $CModulusCode = CModulus::compile($match[1]);
+        $CModulusCode = (new CModulus)->compile($match[1]);
 
         return $CModulusCode;
       }, $contents);
@@ -55,7 +57,7 @@ class Modulus
     $contents = preg_replace('/\{\% crf_(.*?) \%\}/', "{% referred(@$$1['modulus_referred']) %}", $contents);
 
     // token
-    $contents = preg_replace('/\{\% csrf_field \%\}/', "<?php echo Modulus::csrf_field(); ?>", $contents);
+    $contents = preg_replace('/\{\% csrf_field \%\}/', "<?php echo self::csrf_field(); ?>", $contents);
 
     // if statement
     $contents = preg_replace('/\{\% if (.*?) \%\}/', '<?php if ($1) : ?>', $contents);
@@ -95,12 +97,6 @@ class Modulus
     $contents = preg_replace('/\{\{\!\! (.*?) \!\!\}\}/', '<?php echo utf8_encode(htmlspecialchars($1, ENT_QUOTES)); ?>', $contents);
 
     /**
-     * extends
-     *
-     */
-    $contents = preg_replace('/\{\% extends(.*?) \%\}/', '<?php Modulus::extends$1 ?> ', $contents);
-
-    /**
      * I can't explain this, but it works
      */
     $contents = preg_replace_callback('/\{\% in\((.*?)\) \%\}(.*?)\{\% endin \%\}/s', function($match) {
@@ -131,7 +127,7 @@ class Modulus
      * referred
      *
      */
-    $contents = preg_replace('/\{\% referred(.*?) \%\}/', '<?php Modulus::referred$1 ?> ', $contents);
+    $contents = preg_replace('/\{\% referred(.*?) \%\}/', '<?php self::referred$1 ?> ', $contents);
 
     /**
      * modulus brackets
@@ -143,19 +139,27 @@ class Modulus
      * comment
      */
     $contents = preg_replace('/\% \/\/ (.*?)\%/', '<?php //$1 ?>', $contents);
-    $contents = preg_replace('/\{\{\-\-(.*?)\-\-\}\}/', '<?php /*$1*/ ?>', $contents);
+    $contents = preg_replace('/\{\{\-\-(.*?)\-\-\}\}/s', '<?php /*$1*/ ?>', $contents);
+
+    if ($email == true) {
+      ob_start();
+      eval('?> '.$contents);
+      $output = ob_get_contents();;
+      ob_end_clean();
+      return $output;
+    }
 
     eval('?> '.$contents);
   }
 
   /**
-   * Extends
+   * Extend
    *
    * @param  string $view
    * @param  array $data
    * @return
    */
-  public function extends($view, $data = [])
+  public static function extend($view, $data = [])
   {
     file_exists('../resources/views/' . $view . '.modulus.php') == true ? $view = $view . '.modulus' : $view = $view;
 
@@ -164,7 +168,7 @@ class Modulus
 
       if (substr($view, -8) == '.modulus') {
         $contents = file_get_contents('../resources/views/'. $view . '.php');
-        Modulus::render($contents, $data);
+        self::render($contents, $data);
       }
       else {
         require_once '../resources/views/'. $view . '.php';
@@ -179,7 +183,7 @@ class Modulus
    * @param  string $string
    * @return boolean
    */
-  public function urlIncludes($string = '')
+  public static function urlIncludes($string = '')
   {
     if (0 === strpos($_SERVER['REQUEST_URI'], $string)) {
       return true;
@@ -193,7 +197,7 @@ class Modulus
    *
    * @return string currentUrl ?
    */
-  public function currentUrl()
+  public static function currentUrl()
   {
     return (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   }
@@ -203,7 +207,7 @@ class Modulus
    *
    * @return string $env_host ?
    */
-  public function host()
+  public static function host()
   {
     $env_host = getenv('APP_URL');
 
@@ -220,9 +224,9 @@ class Modulus
    * @param  string $previous
    * @return string $backlink ? $previous
    */
-  public function referred($previous = null)
+  public static function referred($previous = null)
   {
-    $currentURL = Modulus::currentUrl();
+    $currentURL = self::currentUrl();
 
     if ($previous != null) {
       echo '<input type="hidden" value="'.$previous.'" name="modulus_referred"/>';
@@ -238,7 +242,7 @@ class Modulus
    *
    * @return string
    */
-  public function csrf_field()
+  public static function csrf_field()
   {
     // something goes here...
   }
@@ -249,7 +253,7 @@ class Modulus
    * @param  string $location
    * @return string $location
    */
-  public function resource($location)
+  public static function resource($location)
   {
     $v = explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
     $int = count($v) - 1;
@@ -269,16 +273,16 @@ class Modulus
    * @param  array $scripts
    * @return string $script
    */
-  public function scripts($scripts = [])
+  public static function scripts($scripts = [])
   {
     foreach($scripts as $script)
     {
-      if (file_exists("..".Modulus::root()."/js/$script.js")) {
+      if (file_exists("..".self::root()."/js/$script.js")) {
         $script = '<script src="/js/'.$script.'.js"></script>';
         echo $script;
       }
       else {
-        Log::error(Modulus::root()."/js/$script.js doesn't exist.");
+        App\Core\Log::error(self::root()."/js/$script.js doesn't exist.");
       }
     }
   }
@@ -289,21 +293,21 @@ class Modulus
    * @param  array $styles
    * @return string $style
    */
-  public function styles($styles = [])
+  public static function styles($styles = [])
   {
     foreach($styles as $style)
     {
-      if (file_exists("..".Modulus::root()."/css/$style.css")) {
+      if (file_exists("..".self::root()."/css/$style.css")) {
         $style = '<link rel="stylesheet" href="/css/'.$style.'.css">';
         echo $style;
       }
       else {
-        Log::error(Modulus::root()."/css/$tyle.css doesn't exist.");
+        \App\Core\Log::error(self::root()."/css/$tyle.css doesn't exist.");
       }
     }
   }
 
-  private function root() {
+  private static function root() {
     $service = require '../app/Config/app.php';
     $appRoot = $service['app']['root'];
 
