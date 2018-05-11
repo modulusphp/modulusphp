@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'name' => getenv('APP_NAME'),
-        'root' => getenv('APP_ROOT')
+        'name' => env('APP_NAME'),
+        'root' => env('APP_ROOT')
     ]
 ];

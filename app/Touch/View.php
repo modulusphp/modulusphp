@@ -15,7 +15,7 @@ class View
    */
   public static function make($view, $data = [])
   {
-    $resources = str_replace(getenv('APP_ROOT'), '/resources/views/', getcwd());
+    $resources = str_replace(env('APP_ROOT'), '/resources/views/', getcwd());
     file_exists($resources.$view.'.modulus.php') == true ? $view = $view . '.modulus' : $view = $view;
 
     if (file_exists($resources.$view.'.php') == true) {
@@ -36,7 +36,7 @@ class View
 
   public static function error($status = 404)
   {
-    $resources = str_replace(getenv('APP_ROOT'), '/resources/views/', getcwd());
+    $resources = str_replace(env('APP_ROOT'), '/resources/views/', getcwd());
 
     if ($status == 400) {
       header('HTTP/1.0 400 Bad Request');

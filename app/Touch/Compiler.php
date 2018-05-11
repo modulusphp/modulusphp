@@ -25,7 +25,7 @@ class Compiler
     }
 
     // The C Modulus Programming Language (experimental)
-    $cmoudlus_enabled = getenv('C_MODULUS_ENABLE');
+    $cmoudlus_enabled = env('C_MODULUS_ENABLE');
     if ($cmoudlus_enabled != null && strtolower($cmoudlus_enabled) == "true") {
       $contents = preg_replace_callback('/\<\@cmodulus(.*?)\@\>/s', function($match) {
         $CModulusCode = (new CModulus)->compile($match[1]);
@@ -209,7 +209,7 @@ class Compiler
    */
   public static function host()
   {
-    $env_host = getenv('APP_URL');
+    $env_host = env('APP_URL');
 
     if ($env_host == null) {
       return (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";

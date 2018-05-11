@@ -48,7 +48,7 @@ class Mail
       $data = array_merge($data, $body);
     }
 
-    $resources = str_replace(getenv('APP_ROOT'), '/resources/views/', getcwd());
+    $resources = str_replace(env('APP_ROOT'), '/resources/views/', getcwd());
     file_exists($resources.$view.'.modulus.php') == true ? $view = $view . '.modulus' : $view = $view;
 
     if (file_exists($resources.$view.'.php') == true) {
@@ -103,18 +103,18 @@ class Mail
     $mail->IsSMTP();
     $mail->SMTPDebug = 0;
     $mail->SMTPAuth = true;
-    $mail->SMTPSecure = getenv('EMAIL_SMTP_SECURE');
-    $mail->Host = getenv('EMAIL_HOST');
-    $mail->Port = getenv('EMAIL_PORT'); // or 587
+    $mail->SMTPSecure = env('EMAIL_SMTP_SECURE');
+    $mail->Host = env('EMAIL_HOST');
+    $mail->Port = env('EMAIL_PORT'); // or 587
     $mail->IsHTML(true);
-    $mail->Username = getenv('EMAIL_USERNAME');
-    $mail->Password = getenv('EMAIL_PASSWORD');
+    $mail->Username = env('EMAIL_USERNAME');
+    $mail->Password = env('EMAIL_PASSWORD');
 
     if ($this->from != null) {
       $mail->SetFrom($this->from['email'], $this->from['name']);
     }
     else {
-      $mail->SetFrom(getenv('EMAIL_USERNAME'));
+      $mail->SetFrom(env('EMAIL_USERNAME'));
     }
 
     $mail->Subject = $this->subject;
