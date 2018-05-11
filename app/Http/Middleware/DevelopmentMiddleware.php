@@ -8,7 +8,7 @@ class DevelopmentMiddleware
 {
   public function handle()
   {
-    if (getenv('APP_ENV') != 'local') {
+    if (env('APP_ENV') != 'local') {
       redirect();
     }
   }
