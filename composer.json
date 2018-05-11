@@ -2,7 +2,7 @@
     "name": "modulusphp/modulusphp",
     "description": "A lightweight PHP Framework",
     "keywords": ["framework", "modulusphp"],
-    "version": "1.0.1",
+    "version": "2.0",
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -23,16 +23,14 @@
         "jeffochoa/validator-factory": "^1.0"
     },
     "require-dev": {
-        "modulusphp/helper": "^1.0",
+        "modulusphp/helper": "^1.1.1",
         "lavary/crunz": "dev-master"
     },
     "autoload": {
-        "classmap": [
-            "app",
-            "app/Models",
-            "app/Controllers",
-            "storage/migrations"
-        ]
+        "psr-4": {
+          "App\\": "app/",
+          "Storage\\": "storage/"
+        }
     },
     "minimum-stability": "dev"
 
