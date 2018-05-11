@@ -1,9 +1,15 @@
 <?php
 
+namespace App\Core\Filesystem;
+
 class File
 {
   private $extendedPath = '';
 
+  public function __construct($folderName)
+  {
+    $this->location($folderName);
+  }
   /**
    * Set location
    * 
@@ -32,7 +38,7 @@ class File
    */
   public function upload($file, $private = true, $name = null, $extensionOn = true)
   {
-    $private == true ? $path = '../storage/uploads/' : $path = 'uploads/';
+    $private == true ? $path = '../storage/uploads/' : $path = '..'.$this->root().'/uploads/';
 
     $ext = '';
     $extensionOn == true ? $ext = '.'.pathinfo($file['name'], PATHINFO_EXTENSION) : $ext = '' ;
@@ -54,5 +60,17 @@ class File
     else {
       return array('status' => 'failed', 'reason' => 'something went wrong');
     }
+  }
+
+  private function root() {
+    $service = require '../app/Config/app.php';
+    $appRoot = $service['app']['root'];
+
+    $appRoot = $appRoot != null ? $appRoot : '/public' ;
+
+    if ($appRoot[0] != "/") {
+      $appRoot = '/'.$appRoot;
+    }
+    return $appRoot;
   }
 }
