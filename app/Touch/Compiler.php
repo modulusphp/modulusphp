@@ -178,6 +178,53 @@ class Compiler
   }
 
   /**
+   * Load CSS
+   * 
+   * @param  string  $location
+   * @return
+   */
+  public static function loadCSS()
+  {
+    $sheet = func_get_args()[0];
+    
+    if (is_string($sheet)) {
+
+      $sheet = substr($sheet, -4) == '.css' ?: $sheet.'.css';
+
+      if (file_exists('..'.config('app.root').'/css/'.$sheet)) {
+        $contents = file_get_contents('..'.config('app.root').'/css/'. $sheet);
+        echo '<style>'.PHP_EOL.$contents.PHP_EOL.'</style>';
+      }
+      else {
+        \App\Core\Log::error('css/'.$sheet.' doesn\'t exist.');
+      }
+      return;
+    }
+    else if (is_array($sheet)) {
+      $sheets;
+      foreach($sheet as $file) {
+        $file = substr($file, -4) == '.css' ?: $file.'.css';
+
+        if (file_exists('..'.config('app.root').'/css/'.$file)) {
+          $contents = '/* '.$file.' */'.PHP_EOL.file_get_contents('..'.config('app.root').'/css/'. $file);
+          
+          if ($sheets == null) {
+            $sheets = $contents;
+          } 
+          else {
+            $sheets = $sheets.PHP_EOL.PHP_EOL.$contents;
+          }
+        }
+        else {
+          \App\Core\Log::error('css/'.$sheet.' doesn\'t exist.');
+        }
+      }
+
+      echo '<style>'.PHP_EOL.$sheets.PHP_EOL.'</style>';
+    }
+  }
+
+  /**
    * urlIncludes
    *
    * @param  string $string
