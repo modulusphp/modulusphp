@@ -1,5 +1,14 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Application Services
+|--------------------------------------------------------------------------
+|
+| This is where you should add configurations for your services.
+|
+*/
+
 return [
 
   'logic' => [
