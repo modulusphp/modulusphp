@@ -1,5 +1,5 @@
 .env
 vendor
+storage/logs
 storage/tokens
 storage/uploads
-storage/logs/modulus.log
