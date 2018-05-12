@@ -2,7 +2,9 @@
 
 namespace App\Touch\CModulus;
 
-class Transpiler
+use App\Touch\Transpiler as BaseTranspiler;
+
+class Transpiler implements BaseTranspiler
 {
   public function compile($script)
   {
