@@ -86,6 +86,6 @@ class Log
 
     $text = print_r($text, true);
 
-    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.env('APP_ENV').$type.' '.$text.PHP_EOL, FILE_APPEND);
+    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.config('app.env').$type.' '.$text.PHP_EOL, FILE_APPEND);
   }
 }
