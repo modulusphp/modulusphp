@@ -20,7 +20,8 @@
         "birke/rememberme": "^2.0",
         "phpmailer/phpmailer": "^6.0",
         "illuminate/validation": "^5.6",
-        "jeffochoa/validator-factory": "^1.0"
+        "jeffochoa/validator-factory": "^1.0",
+        "phpunit/phpunit": "^7.2@dev"
     },
     "require-dev": {
         "modulusphp/helper": "dev-master",
