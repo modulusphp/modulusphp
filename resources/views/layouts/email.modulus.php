@@ -373,7 +373,7 @@
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">{{ env('APP_NAME') }}, Address</span>
+                    <span class="apple-link">{{ config('app.name') }}, Address</span>
                   </td>
                 </tr>
                 <tr>
