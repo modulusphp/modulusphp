@@ -25,11 +25,10 @@ class Compiler
     }
 
     // The C Modulus Programming Language (experimental)
-    $cmoudlus_enabled = env('C_MODULUS_ENABLE');
-    if ($cmoudlus_enabled != null && strtolower($cmoudlus_enabled) == "true") {
+    $cmoudlus_enabled = config('modulus.c.enable');
+    if ($cmoudlus_enabled != null && $cmoudlus_enabled == true) {
       $contents = preg_replace_callback('/\<\@cmodulus(.*?)\@\>/s', function($match) {
         $CModulusCode = (new CModulus)->compile($match[1]);
-
         return $CModulusCode;
       }, $contents);
     }
@@ -49,7 +48,7 @@ class Compiler
         return file_get_contents('../resources/views/'. $view . '.php');
       }
       else {
-        Log::error($view.' doesn\'t exist');
+        \App\Core\Log::error($view.' doesn\'t exist');
       }
     }, $contents);
 
