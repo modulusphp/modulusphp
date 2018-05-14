@@ -24,8 +24,8 @@
         "phpunit/phpunit": "^7.2@dev"
     },
     "require-dev": {
-        "modulusphp/helper": "dev-master",
-        "lavary/crunz": "dev-master"
+        "modulusphp/helper": "v1.1.3",
+        "lavary/crunz": "v1.6.1"
     },
     "autoload": {
         "psr-4": {
