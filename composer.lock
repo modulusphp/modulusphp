@@ -297,12 +297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "6a11fbccbc7da16a85fcd1d4b08e51b5658de0d4"
+                "reference": "3dc639feabe0f302f574157a782ede323881a944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/6a11fbccbc7da16a85fcd1d4b08e51b5658de0d4",
-                "reference": "6a11fbccbc7da16a85fcd1d4b08e51b5658de0d4",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/3dc639feabe0f302f574157a782ede323881a944",
+                "reference": "3dc639feabe0f302f574157a782ede323881a944",
                 "shasum": ""
             },
             "require": {
@@ -333,7 +333,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
-            "time": "2018-05-08T13:22:33+00:00"
+            "time": "2018-05-11T23:38:58+00:00"
         },
         {
             "name": "illuminate/database",
@@ -341,12 +341,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "672416e6deb6b34ab631f8f1b356562e38fceac0"
+                "reference": "ce9c081854f0150fc7c323d36c560c0656ab5a59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/672416e6deb6b34ab631f8f1b356562e38fceac0",
-                "reference": "672416e6deb6b34ab631f8f1b356562e38fceac0",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/ce9c081854f0150fc7c323d36c560c0656ab5a59",
+                "reference": "ce9c081854f0150fc7c323d36c560c0656ab5a59",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +392,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2018-05-10T13:18:59+00:00"
+            "time": "2018-05-13T13:27:36+00:00"
         },
         {
             "name": "illuminate/filesystem",
@@ -452,12 +452,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6e84d4140310246ace38fdb0909da5b2fb22eadf"
+                "reference": "2ef559ad8840481d5247bd7ebfd04eb37d3f6889"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6e84d4140310246ace38fdb0909da5b2fb22eadf",
-                "reference": "6e84d4140310246ace38fdb0909da5b2fb22eadf",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/2ef559ad8840481d5247bd7ebfd04eb37d3f6889",
+                "reference": "2ef559ad8840481d5247bd7ebfd04eb37d3f6889",
                 "shasum": ""
             },
             "require": {
@@ -501,7 +501,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2018-05-07T14:12:37+00:00"
+            "time": "2018-05-12T17:43:47+00:00"
         },
         {
             "name": "illuminate/translation",
@@ -1420,30 +1420,30 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9518db9d468f67c78e0724c0325a894d7ef47ee7"
+                "reference": "8fa2aff0793e896be20f3e85585c827bc5e60530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9518db9d468f67c78e0724c0325a894d7ef47ee7",
-                "reference": "9518db9d468f67c78e0724c0325a894d7ef47ee7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8fa2aff0793e896be20f3e85585c827bc5e60530",
+                "reference": "8fa2aff0793e896be20f3e85585c827bc5e60530",
                 "shasum": ""
             },
             "require": {
+                "doctrine/instantiator": "^1.1",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "ext-xml": "*",
-                "myclabs/deep-copy": "^1.6.1",
+                "myclabs/deep-copy": "^1.7",
                 "phar-io/manifest": "^1.0.1",
                 "phar-io/version": "^1.0",
                 "php": "^7.1",
                 "phpspec/prophecy": "^1.7",
-                "phpunit/php-code-coverage": "^6.0.1",
-                "phpunit/php-file-iterator": "^1.4.3",
+                "phpunit/php-code-coverage": "^6.0.4",
+                "phpunit/php-file-iterator": "^1.4.5",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.0",
-                "phpunit/phpunit-mock-objects": "^6.1.1",
                 "sebastian/comparator": "^3.0",
                 "sebastian/diff": "^3.0",
                 "sebastian/environment": "^3.1",
@@ -1453,10 +1453,14 @@
                 "sebastian/resource-operations": "^1.0",
                 "sebastian/version": "^2.0.1"
             },
+            "conflict": {
+                "phpunit/phpunit-mock-objects": "*"
+            },
             "require-dev": {
                 "ext-pdo": "*"
             },
             "suggest": {
+                "ext-soap": "*",
                 "ext-xdebug": "*",
                 "phpunit/php-invoker": "^2.0"
             },
@@ -1492,63 +1496,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-05-11T07:25:41+00:00"
-        },
-        {
-            "name": "phpunit/phpunit-mock-objects",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "a75f06cca35652683c2b993247cb9ab2f8c57fb9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/a75f06cca35652683c2b993247cb9ab2f8c57fb9",
-                "reference": "a75f06cca35652683c2b993247cb9ab2f8c57fb9",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/instantiator": "^1.0.5",
-                "php": "^7.1",
-                "phpunit/php-text-template": "^1.2.1",
-                "sebastian/exporter": "^3.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0"
-            },
-            "suggest": {
-                "ext-soap": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.1-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
-                }
-            ],
-            "description": "Mock Object library for PHPUnit",
-            "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
-            "keywords": [
-                "mock",
-                "xunit"
-            ],
-            "time": "2018-04-24T05:40:33+00:00"
+            "time": "2018-05-14T07:10:51+00:00"
         },
         {
             "name": "psr/container",
@@ -3060,12 +3008,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lavary/crunz.git",
-                "reference": "d5f82e1f9f7045fcd2934e902ada466c78eef5a2"
+                "reference": "a3993069ffbd9629fd1a41d29cb17696276bedcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lavary/crunz/zipball/d5f82e1f9f7045fcd2934e902ada466c78eef5a2",
-                "reference": "d5f82e1f9f7045fcd2934e902ada466c78eef5a2",
+                "url": "https://api.github.com/repos/lavary/crunz/zipball/a3993069ffbd9629fd1a41d29cb17696276bedcf",
+                "reference": "a3993069ffbd9629fd1a41d29cb17696276bedcf",
                 "shasum": ""
             },
             "require": {
@@ -3127,7 +3075,7 @@
                 "cron jobs",
                 "scheduler"
             ],
-            "time": "2018-04-22T05:29:09+00:00"
+            "time": "2018-05-13T19:36:16+00:00"
         },
         {
             "name": "modulusphp/helper",
@@ -3293,12 +3241,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "e6452e8d15cab62075ffabeed44d1e378f3fc270"
+                "reference": "7b201b63d2cef4ec795d52044a31d20e79e871fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e6452e8d15cab62075ffabeed44d1e378f3fc270",
-                "reference": "e6452e8d15cab62075ffabeed44d1e378f3fc270",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/7b201b63d2cef4ec795d52044a31d20e79e871fb",
+                "reference": "7b201b63d2cef4ec795d52044a31d20e79e871fb",
                 "shasum": ""
             },
             "require": {
@@ -3336,7 +3284,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-05-05T21:45:25+00:00"
+            "time": "2018-05-13T14:28:08+00:00"
         },
         {
             "name": "psr/http-message",

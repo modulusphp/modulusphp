@@ -70,7 +70,7 @@ class App
   private function controllerAction()
   {
     $service = require '../app/Config/app.php';
-    $appRoot = $service['app']['root'];
+    $appRoot = $service['root'];
 
     $appRoot = $appRoot != null ? $appRoot : '/public_html' ;
 

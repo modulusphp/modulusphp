@@ -29,10 +29,29 @@
     },
     "autoload": {
         "psr-4": {
-          "App\\": "app/",
-          "Storage\\": "storage/"
+            "App\\": "app/",
+            "Storage\\": "storage/"
         }
     },
-    "minimum-stability": "dev"
-
+    "minimum-stability": "dev",
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "composer dump-autoload -o"
+        ],
+        "post-install-cmd": [
+            "composer dump-autoload -o"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload -o"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
 }
