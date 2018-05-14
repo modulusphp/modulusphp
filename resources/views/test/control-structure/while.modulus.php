@@ -1,4 +1,4 @@
-<!-- endpoint: {domain}/test/while -->
+{{-- endpoint: {domain}/test/while --}}
 
 {% $age = 1 %}
 

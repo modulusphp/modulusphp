@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Core;
+
+use App\Models\User;
+use App\Http\Request;
+use App\Touch\Compiler;
+use JeffOchoa\ValidatorFactory;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class Auth
@@ -9,7 +15,7 @@ class Auth
    * 
    * @return boolean __isGuest()
    */
-  public function isGuest()
+  public static function isGuest()
   {
     return __isGuest();
   }
@@ -19,7 +25,7 @@ class Auth
    * 
    * @return array user
    */
-  public function user()
+  public static function user()
   {
     if (__isGuest() != true) {
       $user = __user();
@@ -41,7 +47,7 @@ class Auth
    * @param  string $hashed
    * @return boolean
    */
-  private function attempt($password, $hashed)
+  private static function attempt($password, $hashed)
   {
     return password_verify($password, $hashed);
   }
@@ -53,7 +59,7 @@ class Auth
    * @param  array $validator
    * @return array
    */
-  public function login($request, $validator = [])
+  public static function login($request, $validator = [])
   {
     $username = $request['username'];
 
@@ -66,7 +72,7 @@ class Auth
     
     $valid = Auth::validate($request, $validator) != null ? Auth::validate($request, $validator)->toArray() : null ;
 
-    if (@$request['modulus_referred'] != null || @$request['modulus_referred'] != Modulus::currentUrl()) {
+    if (@$request['modulus_referred'] != null || @$request['modulus_referred'] != Compiler::currentUrl()) {
       $_SERVER['HTTP_REFERRE'] = @$request['modulus_referred'];
     }
     
@@ -80,8 +86,8 @@ class Auth
         if (self::attempt($request['password'], $user->password) == true) {
           if (__login($email)['status'] == 'success') {
             if (isset($request['modulus_referred'])) {
-              if (0 === strpos($request['modulus_referred'], Modulus::host())) {
-                return Controller::redirect($request['modulus_referred']);
+              if (0 === strpos($request['modulus_referred'], Compiler::host())) {
+                return redirect($request['modulus_referred']);
               }
             }
             
@@ -121,8 +127,8 @@ class Auth
       if (self::attempt($request['password'], $user->password) == true) {
         if (__login($username)['status'] == 'success') {
           if (isset($request['modulus_referred'])) {
-            if (0 === strpos($request['modulus_referred'], Modulus::host())) {
-              return Controller::redirect($request['modulus_referred']);
+            if (0 === strpos($request['modulus_referred'], Compiler::host())) {
+              return redirect($request['modulus_referred']);
             }
           }
 
@@ -163,10 +169,10 @@ class Auth
    * @param  array $validation
    * @return array
    */
-  public function validate($data = null, $validation = [])
+  public static function validate($data = null, $validation = [])
   {
     if ($validation != []) {
-      $factory = new JeffOchoa\ValidatorFactory();
+      $factory = new ValidatorFactory();
 
       if ($data !== null && $validation !== []) {
         $response = $factory->make((array)$data, $validation);
@@ -185,10 +191,10 @@ class Auth
    * @param  string $user
    * @return redirect
    */
-  public function authorize($user)
+  public static function authorize($user)
   {
     if (__login($user->email)['status'] != 'success') {
-      Controller::redirect('/register');
+      redirect('/register');
     }
     
   }
@@ -198,21 +204,21 @@ class Auth
    * 
    * @return view
    */
-  public function logout()
+  public static function logout()
   {
     if (isset($_SERVER['HTTP_REFERER'])) {
-      if (0 === strpos($_SERVER['HTTP_REFERER'], Modulus::host()))
+      if (0 === strpos($_SERVER['HTTP_REFERER'], Compiler::host()))
       {
         return __logout();
       }
       else {
         header('HTTP/1.0 400 Bad Request');
-        return View::make('app/errors/400');
+        return view('app/errors/400');
       }
     }
     else {
       header('HTTP/1.0 400 Bad Request');
-      return View::make('app/errors/400');
+      return view('app/errors/400');
     }
   }
 }

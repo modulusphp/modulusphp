@@ -19,20 +19,30 @@ composer create-project modulusphp/modulusphp <app-name>
 Rename `.env.example` to `.env`
 
 ```
+# Application
 APP_NAME=modulusPHP
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
 APP_ROOT=/public
 
+# C Modulus
 C_MODULUS_ENABLE=false
 
+# Email Service
+EMAIL_USERNAME=example@domain.com
+EMAIL_PASSWORD=secret
+EMAIL_HOST=smtp.domain.com
+EMAIL_PORT=465 # or 587
+EMAIL_SMTP_SECURE=ssl # or tls
+
+# Database
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=modulusphp
 DB_USERNAME=root
-DB_PASSWORD=
+DB_PASSWORD=secret
 ```
 
 Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"**.
@@ -79,7 +89,7 @@ Here's how you can write C% Code in modulusPHP.
 ```
 % // Code stored in resources/views/welcome.modulus.php %
 
-{% extends('cmod/main.c') %}
+{% extend('cmod/main.c') %}
 
 ```
 

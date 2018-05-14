@@ -1,4 +1,4 @@
-<!-- endpoint: {domain}/test/foreach -->
+{{-- endpoint: {domain}/test/foreach --}}
 
 {% foreach $data as $info %}
   <p>{{ $info }}</p>

@@ -12,7 +12,7 @@
       </div>
 
       <div class="info">
-        <span>Requested: %pageURL</span>
+        <span>Requested: {{ $_SERVER['REQUEST_URI'] }}</span>
         <a href="/">go home</a>
       </div>
     </div>

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Debug
 {
   /**
@@ -9,7 +11,7 @@ class Debug
    * @param  boolean $trace
    * @return output
    */ 
-  public function info($text = null, $trace = false)
+  public static function info($text = null, $trace = false)
   {
     Debug::output($text, $trace, '.INFO');
   }
@@ -21,7 +23,7 @@ class Debug
    * @param  boolean $trace
    * @return output
    */
-  public function error($text = null, $trace = false)
+  public static function error($text = null, $trace = false)
   {
     Debug::output($text, $trace, '.ERROR');
   }
@@ -33,7 +35,7 @@ class Debug
    * @param  boolean $trace
    * @return output
    */
-  public function warning($text = null, $trace = false)
+  public static function warning($text = null, $trace = false)
   {
     Debug::output($text, $trace, '.WARNING');
   }
@@ -44,9 +46,10 @@ class Debug
    * @param  string $text
    * @return
    */
-  public function debug($text = null)
+  public static function debug($text = null)
   {
     $logfile = 'storage/logs/modulus.log';
+    $text = print_r($text, true);
     file_put_contents($logfile, $text.PHP_EOL, FILE_APPEND);
   }
 
@@ -58,7 +61,7 @@ class Debug
    * @param  string $type
    * @return
    */
-  private function output($text = null, $trace = false, $type = '.INFO:')
+  private static function output($text = null, $trace = false, $type = '.INFO:')
   {
     /**
      * ['file']
@@ -76,6 +79,8 @@ class Debug
 
     ($trace == true) ? $track_back = '['.$file_trace.'][line: '.$line_trace.']' : $track_back = '';
 
-    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.getenv('APP_ENV').$type.' '.$text.PHP_EOL, FILE_APPEND);
+    $text = print_r($text, true);
+
+    file_put_contents($logfile, $track_back.'['.$currentdate.'] '.config('app.env').$type.' '.$text.PHP_EOL, FILE_APPEND);
   }
 }

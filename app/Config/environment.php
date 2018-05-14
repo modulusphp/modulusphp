@@ -1,7 +1,7 @@
 <?php
 
 $dotenv = new Dotenv\Dotenv(__DIR__.'/../../');
-$dotenv->load();
+$dotenv->overload(__DIR__.'/../../.env');
 
 $dotenv->required([
   'DB_CONNECTION',

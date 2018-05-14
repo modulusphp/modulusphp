@@ -14,13 +14,9 @@ if (!is_dir('../storage/tokens')) {
 
 function __isGuest()
 {
-  // Initialize RememberMe Library with file storage
   $storagePath = '../storage/tokens';
   if (!is_writable($storagePath) || !is_dir($storagePath)) {
-      die(
-          "'$storagePath' does not exist or is not writable by the web server.\n".
-          "To run the example, please create the directory and give it the correct permissions."
-      );
+    die("'$storagePath' does not exist or is not writable by the web server");
   }
   $storage = new FileStorage($storagePath);
   $rememberMe = new Authenticator($storage);
@@ -29,8 +25,7 @@ function __isGuest()
 
   // if user is not set then return true
   if (isset($_SESSION['user'])) {
-    if ($_SESSION['user'] == null)
-    {
+    if ($_SESSION['user'] == null) {
       return true;
     }
     else {
@@ -43,13 +38,9 @@ function __isGuest()
 
 function __beforeLogin()
 {
-  // Initialize RememberMe Library with file storage
   $storagePath = '../storage/tokens';
   if (!is_writable($storagePath) || !is_dir($storagePath)) {
-      die(
-          "'$storagePath' does not exist or is not writable by the web server.\n".
-          "To run the example, please create the directory and give it the correct permissions."
-      );
+    die("'$storagePath' does not exist or is not writable by the web server");
   }
   $storage = new FileStorage($storagePath);
   $rememberMe = new Authenticator($storage);
@@ -58,8 +49,6 @@ function __beforeLogin()
 
   if ($loginResult->isSuccess()) {
     $_SESSION['user'] = $loginResult->getCredential();
-    // There is a chance that an attacker has stolen the login token, so we store
-    // the fact that the user was logged in via RememberMe (instead of login form)
     $_SESSION['remembered_by_cookie'] = true;
 
     return;
@@ -97,13 +86,9 @@ function __user()
 
 function __login($user)
 {
-  // Initialize RememberMe Library with file storage
   $storagePath = '../storage/tokens';
   if (!is_writable($storagePath) || !is_dir($storagePath)) {
-      die(
-          "'$storagePath' does not exist or is not writable by the web server.\n".
-          "To run the example, please create the directory and give it the correct permissions."
-      );
+    die("'$storagePath' does not exist or is not writable by the web server");
   }
   $storage = new FileStorage($storagePath);
   $rememberMe = new Authenticator($storage);
@@ -118,23 +103,19 @@ function __login($user)
 
 function __logout()
 {
-    // Initialize RememberMe Library with file storage
-    $storagePath = '../storage/tokens';
-    if (!is_writable($storagePath) || !is_dir($storagePath)) {
-        die(
-            "'$storagePath' does not exist or is not writable by the web server.\n".
-            "To run the example, please create the directory and give it the correct permissions."
-        );
-    }
-    $storage = new FileStorage($storagePath);
-    $rememberMe = new Authenticator($storage);
+  $storagePath = '../storage/tokens';
+  if (!is_writable($storagePath) || !is_dir($storagePath)) {
+    die("'$storagePath' does not exist or is not writable by the web server");
+  }
+  $storage = new FileStorage($storagePath);
+  $rememberMe = new Authenticator($storage);
 
-    $storage->cleanAllTriplets($_SESSION['user']);
-    $_SESSION = [];
-    session_regenerate_id();
-    $rememberMe->clearCookie();
+  $storage->cleanAllTriplets($_SESSION['user']);
+  $_SESSION = [];
+  session_regenerate_id();
+  $rememberMe->clearCookie();
 
-    return array(
-        'status' => 'success'
-    );
+  return array(
+      'status' => 'success'
+  );
 }

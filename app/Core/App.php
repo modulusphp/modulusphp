@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
+
 class App
 {
   protected $controller = 'HomeController';
@@ -29,17 +30,11 @@ class App
   /**
    * method
    * 
-   * @param  string  $method
    * @return void
    */
-  public function boot($method = 'controller')
+  public function boot()
   {
-    if ($method == 'routes') {
-      $this->route();
-      return;
-    }
-
-    return $this->controllerAction();
+    $this->route();
   }
 
   /**
@@ -49,8 +44,8 @@ class App
    */
   private function route()
   {
-    require_once '../app/Http/Request.php';
-    require_once '../app/Http/Route.php';
+    require_once '../app/Http/Requests/Request.php';
+    require_once '../app/Http/Router/Route.php';
     require_once '../routes/web.php';
     require_once '../routes/api.php';
 
@@ -62,8 +57,7 @@ class App
     }
     else {
       if (Route::$status == 404) {
-        header('HTTP/1.0 404 Not Found');
-        return View::make('404 Not Found');
+        return App\Touch\View::error(404);
       }
     }
   }
@@ -176,7 +170,7 @@ class App
    * 
    * @return string  $url
    */
-  public function parseUrl()
+  public static function parseUrl()
   {
     return $url =  explode('/', filter_var(rtrim(substr($_SERVER['REQUEST_URI'], 1),'/'), FILTER_SANITIZE_URL));
   }

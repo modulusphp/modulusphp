@@ -1,5 +1,5 @@
 % // modulusPHP Script Loader %
 
-{% Modulus::scripts(['seshaUI.web']); %}
+{% scripts(['seshaUI.web']); %}
 
-{% extends('test/cmodulus/script.c', compact('name')) %}
+{% extend('test/cmodulus/script.c', compact('name')) %}
