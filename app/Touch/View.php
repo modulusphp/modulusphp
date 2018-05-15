@@ -23,6 +23,22 @@ class View
       
       if (substr($view, -8) == '.modulus') {
         $contents = file_get_contents($resources.$view.'.php');
+
+        if (file_exists('../app/Config/grammer.php')) {
+          $grammers = require '../app/Config/grammer.php';
+
+          try {
+            foreach ($grammers as $key => $grammer) {
+              if ($grammer['enabled']) {
+                $contents = (new $grammer['class']($contents))->handle();
+              }
+            }
+          }
+          catch (Exception $e) {
+            \App\Core\Log::error($e);
+          }
+        }
+
         Modulus::render($contents, $data);
       }
       else {
