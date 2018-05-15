@@ -11,10 +11,9 @@
 
 return [
 
-  /* Example
-    'blade' => [
-    'enabled' => true,
+  'blade' => [
+    'enabled' => false,
     'class' => App\Grammer\Blade::class
-  ]*/
+  ]
 
 ];
