@@ -22,7 +22,7 @@ Route::group(['middleware' => 'guest', 'auth' => true], function() {
 
 // TestController
 Route::group(['middleware' => 'dev', 'prefix' => 'test'], function() {
-
+  
   Route::get('/cmodulus', 'TestController@cmodulus');
   Route::get('/cmodulus/{name}', 'TestController@cmodulus');
   Route::get('/for', 'TestController@for');

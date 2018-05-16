@@ -2,7 +2,7 @@
 
 namespace App\Touch;
 
-class Grammer
+class Grammar
 {
   public $code;
 

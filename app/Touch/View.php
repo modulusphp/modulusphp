@@ -24,13 +24,13 @@ class View
       if (substr($view, -8) == '.modulus') {
         $contents = file_get_contents($resources.$view.'.php');
 
-        if (file_exists('../app/Config/grammer.php')) {
-          $grammers = require '../app/Config/grammer.php';
+        if (file_exists('../app/Config/grammar.php')) {
+          $grammars = require '../app/Config/grammar.php';
 
           try {
-            foreach ($grammers as $key => $grammer) {
-              if ($grammer['enabled']) {
-                $contents = (new $grammer['class']($contents))->handle();
+            foreach ($grammars as $key => $grammar) {
+              if ($grammar['enabled']) {
+                $contents = (new $grammar['class']($contents))->handle();
               }
             }
           }
