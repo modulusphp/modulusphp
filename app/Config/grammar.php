@@ -2,18 +2,18 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Grammer
+| Application Grammar
 |--------------------------------------------------------------------------
 |
-| This is where you should add new application grammer.
+| This is where you should add new application grammar.
 |
 */
 
 return [
 
-  'blade' => [
+  'don47-blade' => [
     'enabled' => false,
-    'class' => App\Grammer\Blade::class
+    'class' => Don47\Grammar\Blade::class
   ]
 
 ];

@@ -10,10 +10,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
-class MakeGrammerCommand extends Command
+class MakeGrammarCommand extends Command
 {
-  protected $commandName = 'make:grammer';
-  protected $commandDescription = "Create a new Grammer class";
+  protected $commandName = 'make:grammar';
+  protected $commandDescription = "Create a new Grammar class";
 
   protected $commandArgumentName = "name";
   protected $commandArgumentDescription = "The name of the class.";
@@ -34,23 +34,16 @@ class MakeGrammerCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $grammerName = ucfirst(strtolower($name));
+    $grammarName = ucfirst(strtolower($name));
 
-    // if (substr($grammerName, -10) != 'middleware') {
-    //   $grammerName = $grammerName.'Middleware';
-    // }
-    // else {
-    //   $grammerName = substr($grammerName, 0, strlen($grammerName) - 10).'Middleware';
-    // }
+    $grammar = '<?php
 
-    $grammer = '<?php
-
-namespace App\Grammer;
+namespace App\Grammar;
 
 use App\Touch\Fluent;
-use App\Touch\Grammer;
+use App\Touch\Grammar;
 
-class '.$grammerName.' extends Grammer implements Fluent
+class '.$grammarName.' extends Grammar implements Fluent
 {
   public function handle()
   {
@@ -58,17 +51,17 @@ class '.$grammerName.' extends Grammer implements Fluent
   }
 }';
 
-    if ($grammerName != null || $grammerName != '') {
-      if (file_exists('app/Grammer/'. $grammerName.'.php')) {
-        $output->writeln('Grammer already exists!');
+    if ($grammarName != null || $grammarName != '') {
+      if (file_exists('app/Grammar/'. $grammarName.'.php')) {
+        $output->writeln('Grammar already exists!');
       }
       else {
-        file_put_contents('app/Grammer/'. $grammerName.'.php', $grammer);
-        $output->writeln($grammerName.' was successfully created!');
+        file_put_contents('app/Grammar/'. $grammarName.'.php', $grammar);
+        $output->writeln($grammarName.' was successfully created!');
       }
     }
     else {
-      $output->writeln('Specify Grammer name!');
+      $output->writeln('Specify Grammar name!');
     }
   }
 }
