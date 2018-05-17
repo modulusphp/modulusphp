@@ -55,6 +55,22 @@ class Mail
       extract($data);
       if (substr($view, -8) == '.modulus') {
         $contents = file_get_contents($resources.$view.'.php');
+        
+        if (file_exists('../app/Config/grammar.php')) {
+          $grammars = require '../app/Config/grammar.php';
+
+          try {
+            foreach ($grammars as $key => $grammar) {
+              if ($grammar['enabled']) {
+                $contents = (new $grammar['class']($contents))->handle();
+              }
+            }
+          }
+          catch (Exception $e) {
+            \App\Core\Log::error($e);
+          }
+        }
+
         $this->outputdata = Modulus::render($contents, $data, true);
       }
     }
