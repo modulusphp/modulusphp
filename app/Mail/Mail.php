@@ -1,6 +1,6 @@
 <?php
 
-namespace Flashlight\Mail;
+namespace App\Mail;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
