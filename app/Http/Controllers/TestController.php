@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Mail as Email;
-use App\Core\Filesystem\File;
-use App\Http\Requests\Request;
+use ModulusPHP\File\File;
+use ModulusPHP\Mail\Mail;
 use App\Http\Controllers\Controller;
+use ModulusPHP\Http\Requests\Request;
 
 class TestController extends Controller
 {
@@ -70,7 +70,7 @@ class TestController extends Controller
   {
     if ($request->hasFile('profile_pic')) {
       $file = new File('images/');
-      $response = $file->upload($request->file('profile_pic'), false, uniqid('picture_'));
+      $response = $file->upload($request->file('profile_pic'), true, uniqid('picture_'));
       response($response);
     }
   }
@@ -80,7 +80,7 @@ class TestController extends Controller
    */
   public function send(Request $request)
   {
-    $email = new Email;
+    $email = new Mail;
   
     $email->subject = "Test Email!";
 
@@ -96,7 +96,7 @@ class TestController extends Controller
       $email->attachment($file['tmp_name'], $file['name']);
     }
     
-    $email->to('recipient email');
+    $email->to($request->input('email'));
     $email->view('app/email/test');
 
     $res = $email->send();
@@ -105,7 +105,7 @@ class TestController extends Controller
       echo "Success!";
     }
     else {
-      echo "failed";
+      echo $res['reason'];
     }
   }
 }

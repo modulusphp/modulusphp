@@ -3,13 +3,15 @@
 namespace App\Core;
 
 use App\Models\User;
-use App\Http\Request;
-use App\Touch\Compiler;
+use ModulusPHP\Http\Request;
+use ModulusPHP\Touch\Compiler;
 use JeffOchoa\ValidatorFactory;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class Auth
 {
+  // need to re-write this whole garbage
+
   /**
    * isGuest
    * 
