@@ -14,6 +14,6 @@ try {
 }
 catch (Exception $e) {
   \App\Core\Log::debug($e);
-  \App\Touch\View::error(500);
+  \ModulusPHP\Touch\View::error(500);
   return false;
 }

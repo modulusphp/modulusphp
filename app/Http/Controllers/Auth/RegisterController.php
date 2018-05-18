@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Core\Auth;
 use App\Models\User;
-use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
+use ModulusPHP\Http\Requests\Request;
 
 class RegisterController extends Controller
 {

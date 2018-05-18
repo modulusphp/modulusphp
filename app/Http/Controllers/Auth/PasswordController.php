@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Mail\Mail;
 use App\Core\Auth;
 use App\Models\User;
-use App\Http\Requests\Request;
+use ModulusPHP\Mail\Mail;
 use App\Http\Controllers\Controller;
+use ModulusPHP\Http\Requests\Request;
 
 class PasswordController extends Controller
 {

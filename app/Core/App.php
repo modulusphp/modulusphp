@@ -44,7 +44,6 @@ class App
    */
   private function route()
   {
-    require_once '../app/Http/Requests/Request.php';
     require_once '../app/Http/Router/Route.php';
     require_once '../routes/web.php';
     require_once '../routes/api.php';
@@ -57,13 +56,13 @@ class App
     }
     else {
       if (Route::$status == 404) {
-        return App\Touch\View::error(404);
+        return ModulusPHP\Touch\View::error(404);
       }
     }
   }
 
   /**
-   * controllerAction
+   * controllerAction (will remove this, i no longer need it)
    * 
    * @return void
    */
