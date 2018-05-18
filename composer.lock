@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "98e12464d9a41ecd684ac2118c40a630",
+    "content-hash": "b13b257ba24cf7aa0937e7dbd7c9cd5e",
     "packages": [
         {
             "name": "birke/rememberme",
@@ -386,12 +386,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "2ef559ad8840481d5247bd7ebfd04eb37d3f6889"
+                "reference": "7ba15bb00ac57c621e8291ce737ae7ea497ba02b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/2ef559ad8840481d5247bd7ebfd04eb37d3f6889",
-                "reference": "2ef559ad8840481d5247bd7ebfd04eb37d3f6889",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/7ba15bb00ac57c621e8291ce737ae7ea497ba02b",
+                "reference": "7ba15bb00ac57c621e8291ce737ae7ea497ba02b",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +435,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2018-05-12T17:43:47+00:00"
+            "time": "2018-05-18T13:51:23+00:00"
         },
         {
             "name": "illuminate/translation",
@@ -578,12 +578,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/modulusphp/console.git",
-                "reference": "be6d600d146ce9efd0b0be625c1262bc20a3e926"
+                "reference": "3ef90dc99a7dcecf678b5517c5e2175cb2551abf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modulusphp/console/zipball/be6d600d146ce9efd0b0be625c1262bc20a3e926",
-                "reference": "be6d600d146ce9efd0b0be625c1262bc20a3e926",
+                "url": "https://api.github.com/repos/modulusphp/console/zipball/3ef90dc99a7dcecf678b5517c5e2175cb2551abf",
+                "reference": "3ef90dc99a7dcecf678b5517c5e2175cb2551abf",
                 "shasum": ""
             },
             "require": {
@@ -607,7 +607,7 @@
                 }
             ],
             "description": "Console Commands for modulusPHP",
-            "time": "2018-05-18T12:01:28+00:00"
+            "time": "2018-05-18T14:08:14+00:00"
         },
         {
             "name": "modulusphp/file",
@@ -4176,6 +4176,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "modulusphp/console": 20,
         "phpunit/phpunit": 20
     },
     "prefer-stable": false,
