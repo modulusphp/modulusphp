@@ -12,8 +12,12 @@
 return [
 
   'don47-blade' => [
-    'enabled' => true,
+    'enabled' => false,
     'class' => Don47\Grammar\Blade::class
+  ],
+  'default' => [
+    'enabled' => true,
+    'class' => App\Grammar\Grammar::class
   ]
 
 ];
