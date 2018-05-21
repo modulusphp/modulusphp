@@ -6,7 +6,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $capsule = new Capsule();
 
 $capsule->addConnection([
-  'driver' => env('DB_CONNECTION'), 
+  'driver' => env('DB_CONNECTION'),
   'host' => env('DB_HOST'),
   'username' => env('DB_USERNAME'),
   'password' => env('DB_PASSWORD'),
