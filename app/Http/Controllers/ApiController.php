@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class ApiController extends Controller 
+class ApiController extends Controller
 {
   /**
    * greet
