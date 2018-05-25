@@ -1,4 +1,4 @@
-{% partials('layouts/auth') %}
+{% partials('layouts.auth') %}
 
 {% in('title') %}
   Register | modulusPHP

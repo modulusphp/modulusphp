@@ -1,4 +1,4 @@
-{% partials('layouts/error') %}
+{% partials('layouts.error') %}
 
 {% in('title') %}
   404 Not Found | modulusPHP

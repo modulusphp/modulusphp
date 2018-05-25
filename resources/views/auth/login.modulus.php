@@ -1,4 +1,4 @@
-{% partials('layouts/auth') %}
+{% partials('layouts.auth') %}
 
 {% in('title') %}
   Login | modulusPHP
@@ -28,7 +28,11 @@
     {% endif %}
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="">
-    
+  
+    <div class="float-right forgot-pass">
+      <a href="/password/forgot">Forgot password</a>
+    </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     
     <div class="text-center">

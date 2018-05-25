@@ -1,4 +1,4 @@
-{% partials('layouts/error') %}
+{% partials('layouts.error') %}
 
 {% in('title') %}
   This page isn’t working| modulusPHP
