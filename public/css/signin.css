@@ -59,9 +59,31 @@ input[type="text"].forgot {
   border-top-right-radius: 0;
 }
 
+.form-signin .form-control.password {
+  margin-bottom: -1px;
+  border-radius: .25rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .success {
   background: antiquewhite;
   margin-bottom: 10px;
   padding: 7px;
   border-radius: 4px;
+}
+
+.danger {
+  background: #fad7d7;
+  margin-bottom: 10px;
+  padding: 7px;
+  border-radius: 4px;
+}
+
+.hidden {
+  display: none;
+}
+
+.forgot-pass {
+  margin-bottom: 10px;
 }
