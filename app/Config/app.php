@@ -61,4 +61,22 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Settings
+    |--------------------------------------------------------------------------
+    |
+    | reset_token.expire: minutes. e.g: 40
+    | remember_me.expire: real time. e.g: '2 week'
+    |
+    */
+
+    'reset_token' => [
+        'expire' => 15
+    ],
+
+    'remember_me' => [
+        'expire' => '1 week' /** Doesn't work yet */
+    ]
 ];
