@@ -68,7 +68,7 @@ class RegisterController extends Controller
 
   /**
    * Get a validator for an incoming registration request.
-   * 
+   *
    * @param  array $request
    * @return response
    */
@@ -85,7 +85,7 @@ class RegisterController extends Controller
 
   /**
    * Create a new user
-   * 
+   *
    * @param  array $request
    * @return response
    */
@@ -102,7 +102,7 @@ class RegisterController extends Controller
   
   /**
    * Check if user exists
-   * 
+   *
    * @param  string $username
    * @param  string $email
    * @return response

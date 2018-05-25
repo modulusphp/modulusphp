@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Core\Auth;
 use App\Models\User;
-use ModulusPHP\Mail\Mail;
+use App\Models\Password;
 use App\Http\Controllers\Controller;
 use ModulusPHP\Http\Requests\Request;
 
@@ -22,115 +22,107 @@ class PasswordController extends Controller
 
   /**
    * Forgot Password
-   * 
+   *
    * @return string
    */
   public function forgot(Request $request = null)
   {
     if ($request == null) {
-      return view('auth/forgot');
+      return view('auth.forgot');
     }
 
-    $response = $this->validator($request->data());
-    
+    $response = $this->validator($request->data(), true);
+
     if ($response != null) {
       $form = $request->data();
       $errors = $response->ToArray();
-      return view('auth/forgot', compact('form', 'errors'));
+      return view('auth.forgot', compact('form', 'errors'));
     }
 
-    // if there where no errors, check if user exists
-    $response = $this->checkuser($request->input('username'));
+    $response = User::check($request->input('username'));
 
-    // if the user already exists, return to the view with errors
     if ($response != null) {
       $form = $request->data();
       $failed = $response;
-      return view('auth/forgot', compact('form', 'failed'));
+      return view('auth.forgot', compact('form', 'failed'));
     }
 
-    $user = $this->getUser($request->input('username'));
-    $this->notify($user);
+    $response = User::search($request->input('username'))->notify();
 
-    $success = "A reset link has been sent to your email address.";
-    return view('auth/forgot', compact('success'));
+    if ($response['status'] == 'success') {
+      $message = "A reset link has been sent to your email address.";
+      return view('auth.forgot', compact('message'));
+    }
+    else {
+      $message = "An error occured, could not send a reset link.";
+      return view('auth.forgot', compact('message'));
+    }
   }
 
   /**
    * Reset password
-   * 
-   * @return string
+   *
+   * @return  view
    */
-  public function reset()
+  public function reset($request = null)
   {
-    echo 'reset password';
+    if (is_string($request)) {
+      if (Password::verify($request) == false) {
+        $error = "Opps, the \"reset token\" is invalid";
+        return view('auth/reset', compact('error'));
+      }
+  
+      $reset = Password::where('token', $request)->first();
+      $user = User::where('email', $reset->email)->first();
+      $token = $request;
+  
+      return view('auth/reset', compact('user', 'token'));
+    }
+
+    if ($request == null) {
+      return redirect('/login');
+    }
+
+    $response  = $this->validator($request->data());
+
+    $reset = Password::where('token', $request->input('reset_token'))->first();
+    $user = User::where('email', $reset->email)->first();
+    $token = $reset->token;
+
+    if ($response != null) {
+      $errors = $response->ToArray();
+      return view('auth/reset', compact('errors', 'user', 'token'));
+    }
+
+    // save password
+    $user = User::where('email', $user->email)->first();
+    $user->password = $request->input('password');
+    $user->save();
+
+    $success = true;
+    return view('auth/reset', compact('success'));
   }
 
   /**
    * Get a validator for an incoming login request.
-   * 
+   *
    * @param  array $request
    * @return array
    */
-  private function validator($request)
+  private function validator($request, $forgot = false)
   {
+    if ($forgot == true) {
+      $response = Auth::validate($request, [
+        'username' => 'required'
+      ]);
+
+      return $response;
+    }
+
     $response = Auth::validate($request, [
-      'username' => 'required'
+      'password' => 'required|confirmed|min:8',
     ]);
 
     return $response;
-  }
-
-  /**
-   * Check if user exists
-   * 
-   * @param  string $username
-   * @param  string $email
-   * @return response
-   */
-  private function checkuser($username)
-  {
-    $response = array();
-    $usernameError = array('username' => 'A user with the username "'.$username.'" doesn\'t exist.');
-    $emailError = array('email' => 'A user with the email "'.$username.'" doesn\'t exist.');
-
-    if (filter_var(($username), FILTER_VALIDATE_EMAIL)) {
-      $checkEmail = User::where('email', $username)->first();
-
-      if ($checkEmail == null) {
-        $response = array_merge($response, $emailError);
-      }
-    }
-    else {
-      $checkUsername = User::where('username', $username)->first();
-
-      if ($checkUsername == null) {
-        $response = array_merge($response, $usernameError);
-      }
-    }
-
-    return $response;
-  }
-
-  private function getUser($username) {
-    if (filter_var(($username), FILTER_VALIDATE_EMAIL)) {
-      $checkEmail = User::where('email', $username)->first();
-      return $checkEmail;
-    }
-    else {
-      $checkUsername = User::where('username', $username)->first();
-      return $checkUsername;
-    }
-  }
-
-  public function notify($user)
-  {
-    $username = $user->username;
-    $email = new Mail;
-
-    $email->to($user->email);
-    $email->view('app/email/reset', compact('username'));
-
-    $res = $email->send('click on the button below to reset your password', 'Forgot password?');
   }
 }
