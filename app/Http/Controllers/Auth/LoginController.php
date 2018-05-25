@@ -31,7 +31,7 @@ class LoginController extends Controller
     }
 
     $response = $this->validator($request->data());
-    
+
     if (@$response->status == 'failed') {
       $form = (array)$response->submission;
       $errors = $response->validator;
@@ -44,7 +44,7 @@ class LoginController extends Controller
 
   /**
    * Get a validator for an incoming login request.
-   * 
+   *
    * @param  array $request
    * @return array
    */
@@ -60,7 +60,7 @@ class LoginController extends Controller
 
   /**
    * Log the user out
-   * 
+   *
    * @return void
    */
   public function logout()

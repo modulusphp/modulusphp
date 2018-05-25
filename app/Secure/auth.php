@@ -23,7 +23,6 @@ function __isGuest()
 
   $loginResult = $rememberMe->login();
 
-  // if user is not set then return true
   if (isset($_SESSION['user'])) {
     if ($_SESSION['user'] == null) {
       return true;
@@ -57,21 +56,15 @@ function __beforeLogin()
   if ($loginResult->hasPossibleManipulation()) {
     exit();
   }
-
-  // Log out when tokens have expired and user is still logged in with remember me
-  // This state can happen in two cases:
-  // a) The triples were cleared after an attack or a "global logout"
-  // b) The triples have expired
+  
   if ($loginResult->isExpired() && !empty($_SESSION['user']) && !empty($_SESSION['remembered_by_cookie'])) {
     $rememberMe->clearCookie();
     unset($_SESSION['username']);
     unset($_SESSION['remembered_by_cookie']);
-    // render_template('login', 'You were logged out because the "Remember Me" cookie was no longer valid.');
     exit();
   }
 
   if ($loginResult->isExpired() && !empty($_SESSION['user'])) {
-    // Do rate limiting here. Lots of requests for non-existing triplets can be an indicator of a brute force attack
     sleep(5);
   }
 }
@@ -92,6 +85,7 @@ function __login($user)
   }
   $storage = new FileStorage($storagePath);
   $rememberMe = new Authenticator($storage);
+  $rememberMe->setCleanExpiredTokensOnLogin(true);
 
   $_SESSION['user'] = $user;
   $rememberMe->createCookie($user);

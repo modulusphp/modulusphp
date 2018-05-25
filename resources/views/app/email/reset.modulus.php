@@ -1,4 +1,4 @@
-{% partials('layouts/email') %}
+{% partials('layouts.email') %}
 
 {% in('title') %} {{ $subject }} {% endin %}
 
@@ -14,7 +14,7 @@
             <tbody>
               <tr>
                 <td>
-                  <a href="{{ host(true).'/password/reset/'.$token }}" target="_blank">Reset</a>
+                  <a href="{{ % host("/password/reset/$token") }}" target="_blank">Reset</a>
                 </td>
               </tr>
             </tbody>

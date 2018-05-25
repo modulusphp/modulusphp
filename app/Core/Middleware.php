@@ -3,27 +3,11 @@
 namespace App\Core;
 
 use App\Http\HttpFoundation;
+use ModulusPHP\Framework\Core\Middleware as BaseMiddleware;
 
-class Middleware
+class Middleware extends BaseMiddleware
 {
-  public function run($routes)
-  {
-    if (is_string($routes)) {
-      foreach(HttpFoundation::$Middleware as $middlewareName => $middleroute) {
-        if ($middlewareName == $routes) {
-          $middleroute::handle();
-        }
-      }
-
-      return;
-    }
-
-    foreach($routes as $i) {
-      foreach(HttpFoundation::$Middleware as $middlewareName => $middleroute) {
-        if ($middlewareName == $i) {
-          $middleroute::handle();
-        }
-      }
-    }
-  }
+  /*
+  | This is your Application Middleware
+  */
 }

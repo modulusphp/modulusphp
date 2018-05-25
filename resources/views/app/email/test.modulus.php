@@ -1,4 +1,4 @@
-{% partials('layouts/email') %}
+{% partials('layouts.email') %}
 
 {% in('title') %} {{ $subject }} {% endin %}
 

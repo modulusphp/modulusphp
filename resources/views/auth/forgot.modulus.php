@@ -1,4 +1,4 @@
-{% partials('layouts/auth') %}
+{% partials('layouts.auth') %}
 
 {% in('title') %}
   Forgot Password | modulusPHP
@@ -13,9 +13,9 @@
 
     {{ ? form['error'] }}
 
-    {% if isset($success) %}
+    {% if isset($message) %}
       <div class="success">
-        {{ % $success }}
+        {{ % $message }}
       </div>
     {% endif %}
 
@@ -35,8 +35,7 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
     
     <div class="text-center">
-      Already have an account?
-      <a href="/login">Login</a>
+      Click <a href="/login">here</a> to login
     </div>
   </form>
 

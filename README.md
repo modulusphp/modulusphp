@@ -26,16 +26,6 @@ APP_DEBUG=true
 APP_URL=http://localhost
 APP_ROOT=/public
 
-# C Modulus
-C_MODULUS_ENABLE=false
-
-# Email Service
-EMAIL_USERNAME=example@domain.com
-EMAIL_PASSWORD=secret
-EMAIL_HOST=smtp.domain.com
-EMAIL_PORT=465 # or 587
-EMAIL_SMTP_SECURE=ssl # or tls
-
 # Database
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -43,6 +33,17 @@ DB_PORT=3306
 DB_DATABASE=modulusphp
 DB_USERNAME=root
 DB_PASSWORD=secret
+
+# Mail
+MAIL_USERNAME=example@domain.com
+MAIL_PASSWORD=secret
+MAIL_FROM_NAME=foo
+MAIL_HOST=smtp.domain.com
+MAIL_PORT=465 # or 587
+MAIL_SMTP_SECURE=ssl # or tls
+
+# C Modulus
+C_MODULUS_ENABLE=false
 ```
 
 Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"**.
@@ -52,12 +53,10 @@ Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_P
 This part is optional (but recommended). The following command will create a users table. (You will be able to edit the table later if you want to make any changes).
 
 ```
-php modulus migrate users
+php modulus migrate
 ```
 
-*This will create a users table*
-
-> Alternatively, you can run `php modulus migrate`
+*This will create a users, password_resets and migrations table*
 
 ## Running the application
 
@@ -89,12 +88,12 @@ Here's how you can write C% Code in modulusPHP.
 ```
 % // Code stored in resources/views/welcome.modulus.php %
 
-{% extend('cmod/main.c') %}
+{% extend('cmod.main') %}
 
 ```
 
 ```
-% // Code stored in resources/views/cmod/main.c.modulus.php %
+% // Code stored in resources/views/cmod/main.modulus.php %
 
 <@cmodulus
 

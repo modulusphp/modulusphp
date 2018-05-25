@@ -1,4 +1,4 @@
-{% partials('layouts/default') %}
+{% partials('layouts.default') %}
 
 {% in('title') %}
   Home | modulusPHP
@@ -17,11 +17,6 @@
         <span>popper.js: 1.12.3</span>
         <span>seshaui: 0.4</span>
         <span>jquery: 3.3.1</span>
-        {% if auth()->isGuest() == false %}
-          <a href="/logout">Logout</a>
-        {% elseif auth()->isGuest() == true %}
-          <a href="/login">Login</a>
-        {% endif %}
       </div>
     </div>
   </div>
