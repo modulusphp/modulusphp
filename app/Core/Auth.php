@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-use App\Models\User;
 use ModulusPHP\Framework\Core\Auth as Authentication;
 
 class Auth extends Authentication
