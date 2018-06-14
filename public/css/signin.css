@@ -39,7 +39,6 @@ body {
 }
 
 input[type="text"].forgot {
-  margin-bottom: 10px;
   border-radius: .25rem;
 }
 
@@ -54,7 +53,6 @@ input[type="text"].forgot {
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -66,11 +64,19 @@ input[type="text"].forgot {
   border-bottom-left-radius: 0;
 }
 
+.form-signin .button-submit {
+  margin-top: 10px;
+}
+
 .success {
   background: antiquewhite;
   margin-bottom: 10px;
   padding: 7px;
   border-radius: 4px;
+}
+
+.validation-error {
+  color: #dc3545;
 }
 
 .danger {
