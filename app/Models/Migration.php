@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use ModulusPHP\Framework\Model;
 
-class Migration extends Eloquent
+class Migration extends Model
 {
   /**
    * The attributes that are mass assignable.

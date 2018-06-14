@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Core\Session;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use ModulusPHP\Framework\Model;
 
-class Password extends Eloquent
+class Password extends Model
 {
   /**
    * The attributes that are mass assignable.
@@ -59,7 +59,7 @@ class Password extends Eloquent
         return false;
       }
     }
-    
+
     $userToken->delete();
     return false;
   }

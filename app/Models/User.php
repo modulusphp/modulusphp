@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Core\Session;
 use ModulusPHP\Mail\Mail;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use ModulusPHP\Framework\Model;
 
-class User extends Eloquent
+class User extends Model
 {
   /**
    * The attributes that are mass assignable.
@@ -88,7 +88,7 @@ class User extends Eloquent
     if ($this == null) {
       return array(
         'status' => 'failed',
-        'reason' => 'User doesn\'t exist'
+        'reason' => 'User doesn\'t exist.'
       );
     }
 
@@ -99,7 +99,7 @@ class User extends Eloquent
     $email->to($this->email);
     $email->view('app.email.reset', compact('username', 'token'));
 
-    $res = $email->send('click on the button below to reset your password', 'Forgot password?');
+    $res = $email->send('click on the button below to reset your password.', 'Forgot password?');
 
     if ($res['status'] == 'success') {
       Password::create([
