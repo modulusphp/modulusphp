@@ -67,10 +67,15 @@ return [
     | Auth Settings
     |--------------------------------------------------------------------------
     |
+    | session_token.token: minutes. e.g. 30
     | reset_token.expire: minutes. e.g: 40
     | remember_me.expire: real time. e.g: '2 week'
     |
     */
+
+    'session_token' => [
+        'expire' => 6
+    ],
 
     'reset_token' => [
         'expire' => 15

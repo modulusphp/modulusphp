@@ -20,7 +20,7 @@ return [
     'class' => App\Grammar\Grammar::class
   ],
   'blade' => [
-    'enabled' => true,
+    'enabled' => false,
     'class' => Don47\Grammar\Blade::class
   ],
 
