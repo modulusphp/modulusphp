@@ -19,7 +19,7 @@ return [
     'enabled' => true,
     'class' => App\Grammar\Grammar::class
   ],
-  'don47-blade' => [
+  'blade' => [
     'enabled' => false,
     'class' => Don47\Grammar\Blade::class
   ],

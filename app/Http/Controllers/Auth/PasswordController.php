@@ -25,38 +25,50 @@ class PasswordController extends Controller
    *
    * @return string
    */
-  public function forgot(Request $request = null)
+  public function showForgot()
   {
-    if ($request == null) {
-      return view('auth.forgot');
+    view('auth.forgot');
+  }
+
+  /**
+   * Reset password
+   * 
+   * @param Request $request
+   */
+  public function notify(Request $request)
+  {
+    $request->success(function($request) {
+      $response = User::search($request->input('username'))->notify();
+
+      if ($response['status'] == 'success') {
+        $message = "A reset link has been sent to your email address.";
+      }
+      else {
+        $message = "An error occured, could not send a reset link.";
+      }
+
+      view('auth.forgot', compact('message'));
+    });
+
+    view('auth.forgot');
+  }
+
+  /**
+   * Show reset password page
+   * 
+   * @param string $token
+   */
+  public function showReset(string $token)
+  {
+    if (Password::verify($token) == false) {
+      $message = "Opps, the \"reset token\" is invalid";
+      return view('auth.reset', compact('message'));
     }
 
-    $response = $this->validator($request->data(), true);
+    $reset = Password::where('token', $token)->first();
+    $user = User::where('email', $reset->email)->first();
 
-    if ($response != null) {
-      $form = $request->data();
-      $errors = $response->ToArray();
-      return view('auth.forgot', compact('form', 'errors'));
-    }
-
-    $response = User::check($request->input('username'));
-
-    if ($response != null) {
-      $form = $request->data();
-      $failed = $response;
-      return view('auth.forgot', compact('form', 'failed'));
-    }
-
-    $response = User::search($request->input('username'))->notify();
-
-    if ($response['status'] == 'success') {
-      $message = "A reset link has been sent to your email address.";
-      return view('auth.forgot', compact('message'));
-    }
-    else {
-      $message = "An error occured, could not send a reset link.";
-      return view('auth.forgot', compact('message'));
-    }
+    view('auth.reset', compact('user', 'token'));
   }
 
   /**
@@ -64,65 +76,60 @@ class PasswordController extends Controller
    *
    * @return  view
    */
-  public function reset($request = null)
+  public function reset(Request $request)
   {
-    if (is_string($request)) {
-      if (Password::verify($request) == false) {
-        $error = "Opps, the \"reset token\" is invalid";
-        return view('auth/reset', compact('error'));
-      }
-  
-      $reset = Password::where('token', $request)->first();
-      $user = User::where('email', $reset->email)->first();
-      $token = $request;
-  
-      return view('auth/reset', compact('user', 'token'));
+    $request->success(function($request) {
+      $email = Password::where('token', $request->input('reset_token'))->first()->email;
+      $user = User::where('email', $email)->first();
+      $user->password = $request->input('password');
+      $user->save();
+
+      $success = true;
+      view('auth.reset', compact('success'));
+    });
+
+    $token = $request->input('reset_token');
+
+    if (Password::verify($token == false)) {
+      $message = "Opps, the \"reset token\" is invalid";
+      view('auth.reset', compact('message'));
     }
 
-    if ($request == null) {
-      return redirect('/login');
-    }
-
-    $response  = $this->validator($request->data());
-
-    $reset = Password::where('token', $request->input('reset_token'))->first();
+    $reset = Password::where('token', $token)->first();
     $user = User::where('email', $reset->email)->first();
-    $token = $reset->token;
 
-    if ($response != null) {
-      $errors = $response->ToArray();
-      return view('auth/reset', compact('errors', 'user', 'token'));
-    }
+    view('auth.reset', compact('user', 'token'));
 
-    // save password
-    $user = User::where('email', $user->email)->first();
-    $user->password = $request->input('password');
-    $user->save();
-
-    $success = true;
-    return view('auth/reset', compact('success'));
+    if (!$request->hasInput('reset_token')) redirect('/login');
   }
 
   /**
-   * Get a validator for an incoming login request.
+   * Get a validator for an incoming password reset request.
    *
    * @param  array $request
-   * @return array
+   * @return response
    */
-  private function validator($request, $forgot = false)
+  public function validate(Request $request)
   {
-    if ($forgot == true) {
-      $response = Auth::validate($request, [
-        'username' => 'required'
+    if ($request->hasInput('reset_token')) {
+      $response = Request::validate([
+        'password' => 'required|confirmed|min:6',
       ]);
 
       return $response;
     }
 
-    $response = Auth::validate($request, [
-      'password' => 'required|confirmed|min:8',
+    $response = Request::validate([
+      'username' => 'required'
     ]);
+
+    $fields = User::check($request->input('username'));
+
+    foreach($fields as $key => $unique) {
+      $response->errors()->add('username', $unique);
+    }
 
     return $response;
   }
+
 }

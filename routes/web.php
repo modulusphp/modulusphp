@@ -9,37 +9,26 @@
 |
 */
 
-Route::get('/', function() {
-  view('welcome');
+Route::group(['middleware' => 'guest', 'auth' => true], function() {
+
+  Route::get('/login', 'LoginController@show');
+  Route::post('/login', 'LoginController@login');
+
+  Route::get('/logout', 'LoginController@logout');
+
+  Route::get('/register', 'RegisterController@show');
+  Route::post('/register', 'RegisterController@store');
+
+  Route::get('/password/forgot', 'PasswordController@showForgot');
+  Route::post('/password/forgot', 'PasswordController@notify');
+
+  Route::post('/password/reset', 'PasswordController@reset');
+  Route::get('/password/reset', 'PasswordController@reset');
+  Route::get('/password/reset/{token}', 'PasswordController@showReset');
+
 });
 
-/*
-|--------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-|
-| The following routes have been disabled. Feel free to enable them.
-|
-|--------------------------------------------------------------------------
-|
-| Route::group(['middleware' => 'auth', 'auth' => true], function() {
-|
-|    Route::get('/login', 'LoginController@index');
-|    Route::post('/login', 'LoginController@index');
-|
-|    Route::get('/logout', 'LoginController@logout');
-|
-|    Route::get('/register', 'RegisterController@index');
-|    Route::post('/register', 'RegisterController@store');
-|
-|    Route::get('/password/forgot', 'PasswordController@forgot');
-|    Route::post('/password/forgot', 'PasswordController@forgot');
-|
-|    Route::post('/password/reset', 'PasswordController@reset');
-|    Route::get('/password/reset', 'PasswordController@reset');
-|    Route::get('/password/reset/{token}', 'PasswordController@reset');
-|
-| });
-|
-|---------------------------------------------------------------------------
-*/
+// From this point, we gonna let vue.js handle the routing.
+Route::vue(function() {
+  view('welcome');
+});

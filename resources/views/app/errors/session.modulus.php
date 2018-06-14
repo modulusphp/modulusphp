@@ -1,7 +1,7 @@
 {% partials('layouts.error') %}
 
 {% in('title') %}
-  400 Bad Request | modulusPHP
+  Session has expired | modulusPHP
 {% endin %}
 
 {% in('main') %}
@@ -9,7 +9,7 @@
   <div class="flex--center position--ref full--height">
     <div class="__content">
       <div class="__title __m-b-md">
-        400 Bad Request
+        Session has expired
       </div>
     </div>
   </div>
