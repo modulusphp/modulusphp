@@ -15,7 +15,7 @@
         "php": ">=7.0.0",
         "don47/blade": ">=1.0",
         "lavary/crunz": "v1.6.1",
-        "modulusphp/framework": "dev-master",
+        "modulusphp/framework": ">=1.0",
         "mouf/nodejs-installer": "^1.0"
     },
     "autoload": {
@@ -27,8 +27,7 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "npm install",
-            "npm run dev"
+            "npm install"
         ],
         "post-install-cmd": [
             "composer dump-autoload -o"
