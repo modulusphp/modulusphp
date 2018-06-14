@@ -1,6 +1,8 @@
 {% partials('layouts.email') %}
 
-{% in('title') %} {{ $subject }} {% endin %}
+{% in('title') %}
+  {{ $subject }}
+{% endin %}
 
 {% in('main') %}
 
