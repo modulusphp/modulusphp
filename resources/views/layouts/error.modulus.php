@@ -17,12 +17,12 @@
   <style>
     body {
       background: #fff;
-      color: #848484;
+      color: #616161;
       font-weight: unset;
     }
 
     .info > span, .info > a {
-      color: #848484;
+      color: #616161;
     }
   </style>
   
@@ -32,14 +32,6 @@
   <div class="container">
     {% tag("main") %}
   </div>
-
-  <!-- scripts -->
-  {% scripts([
-    'jquery-3.3.1.min',
-    'popper.min',
-    'bootstrap.min',
-    'seshaUI.web'
-  ]); %}
 
 </body>
 </html>
