@@ -1,7 +1,11 @@
-@extends('layouts.default')
+{% partials('layouts.default') %}
 
-@section('title') Home | modulusPHP @endsection
+{% in('title') %}
+  Home | modulusPHP
+{% endin %}
 
-@section('main')
+{% in('main') %}
+
   <router-view></router-view>
-@endsection
+
+{% endin %}
