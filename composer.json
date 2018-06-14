@@ -12,9 +12,11 @@
         }
     ],
     "require": {
+        "php": ">=7.0.0",
         "don47/blade": ">=1.0",
         "lavary/crunz": "v1.6.1",
-        "modulusphp/framework": "dev-master"
+        "modulusphp/framework": "dev-master",
+        "mouf/nodejs-installer": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -22,14 +24,11 @@
             "Storage\\": "storage/"
         }
     },
-    "minimum-stability": "dev",
     "scripts": {
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "composer dump-autoload -o"
+            "npm install",
+            "npm run dev"
         ],
         "post-install-cmd": [
             "composer dump-autoload -o"
@@ -42,5 +41,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
