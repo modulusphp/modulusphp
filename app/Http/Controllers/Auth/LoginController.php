@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Core\Log;
 use App\Core\Auth;
 use App\Http\Controllers\Controller;
 use ModulusPHP\Http\Requests\Request;
@@ -19,41 +20,42 @@ class LoginController extends Controller
   */
 
   /**
-   * Sign in page
-   *
-   * @param  array  $request
-   * @return redirect
-  */
-  public function index(Request $request = null)
+   * Show login page
+   * 
+   * @return view auth/login
+   */
+  public function show()
   {
-    if ($request == null) {
-      return view('auth/login');
-    }
+    view('auth.login');
+  }
 
-    $response = $this->validator($request->data());
+  public function login(Request $request)
+  {
+    $request->success(function($request) {
+      Auth::authorize($request->input('username'));
+      redirect();
+    });
 
-    if (@$response->status == 'failed') {
-      $form = (array)$response->submission;
-      $errors = $response->validator;
-      return view('auth/login', compact('form', 'errors'));
-    }
-    else if (@$response->status == 'success') {
-      return redirect();
-    }
+    view('auth.login');
   }
 
   /**
-   * Get a validator for an incoming login request.
-   *
-   * @param  array $request
-   * @return array
+   * Validate incoming request
+   * 
+   * @param  Request $request
    */
-  private function validator($request)
+  public function validate(Request $request)
   {
-    $response = Auth::login($request, [
+    $response = Request::validate([
       'username' => 'required',
-      'password' => 'required'
+      'password' => 'required',
     ]);
+
+    $fields = Auth::attempt();
+
+    foreach($fields as $key => $unique) {
+      $response->errors()->add($key, $unique);
+    }
 
     return $response;
   }

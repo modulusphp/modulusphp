@@ -18,16 +18,16 @@ class RegisterController extends Controller
   | validation and creation.
   |
   */
-  
+
   /**
    * Sign up page
    *
    * @param  array $request
    * @return view
   */
-  public function index()
+  public function show()
   {
-    return view('auth/register');
+    view('auth.register');
   }
 
   /**
@@ -36,34 +36,16 @@ class RegisterController extends Controller
    * @param  array $request
    * @return view
   */
-  public function store(Request $request = null)
+  public function store(Request $request)
   {
-    // check if the submitted values, meet the minumum requirements
-    $response = $this->validator($request->data());
+    $request->success(function($request) {
+      $user = User::create($request->data());
+      Auth::authorize($user->email);
 
-    // if not, return to the view with errors
-    if ($response != null) {
-      $form = $request->data();
-      $errors = $response->ToArray();
-      return view('auth/register', compact('form', 'errors'));
-    }
+      redirect();
+    });
 
-    // if there where no errors, check if user already exists
-    $response = $this->checkuser($request->input('username'), $request->input('email'));
-
-    // if the user already exists, return to the view with errors
-    if ($response != null) {
-      $form = $request->data();
-      $failed = $response;
-      return view('auth/register', compact('form', 'failed'));
-    }
-
-    // if the user doesn't exist, create the user
-    $user = $this->create($request);
-
-    // authorize the user and redirect to the home page
-    Auth::authorize($user);
-    return $this->redirect();
+    view('auth.register');
   }
 
   /**
@@ -72,56 +54,21 @@ class RegisterController extends Controller
    * @param  array $request
    * @return response
    */
-  private function validator($request)
+  public function validate(Request $request)
   {
-    $response = Auth::validate($request, [
-      'username' => 'required|min:4|alpha_dash',
+    $response = Request::validate([
+      'username' => 'required|min:2|alpha_dash',
       'email' => 'required|email',
-      'password' => 'required|min:8'
+      'password' => 'required|min:6',
     ]);
 
-    return $response;
-  }
-
-  /**
-   * Create a new user
-   *
-   * @param  array $request
-   * @return response
-   */
-  private function create($request)
-  {
-    $user = User::create([
-      'username' => $request->input('username'),
-      'email' => $request->input('email'),
-      'password' => $request->input('password')
+    $fields = User::isTaken([
+      'username',
+      'email'
     ]);
 
-    return $user;
-  }
-  
-  /**
-   * Check if user exists
-   *
-   * @param  string $username
-   * @param  string $email
-   * @return response
-   */
-  private function checkuser($username, $email)
-  {
-    $response = array();
-    $usernameError = array('username' => 'The username has already been taken');
-    $emailError = array('email' => 'The email address has already been taken');
-
-    $checkUsername = User::where('username', $username)->first();
-    $checkEmail = User::where('email', $email)->first();
-
-    if ($checkUsername != null) {
-      $response = array_merge($response, $usernameError);
-    }
-
-    if ($checkEmail != null) {
-      $response = array_merge($response, $emailError);
+    foreach($fields as $key => $unique) {
+      $response->errors()->add($key, $unique);
     }
 
     return $response;
