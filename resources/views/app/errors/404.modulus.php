@@ -5,16 +5,13 @@
 {% endin %}
 
 {% in('main') %}
-  <div class="flex-center position-ref full-height">
-    <div class="content">
-      <div class="title m-b-md">
-        404 Not Found
-      </div>
 
-      <div class="info">
-        <span>Requested: {{ $_SERVER['REQUEST_URI'] }}</span>
-        <a href="/">go home</a>
+  <div class="flex--center position--ref full--height">
+    <div class="__content">
+      <div class="__title __m-b-md">
+        404 Not Found
       </div>
     </div>
   </div>
+
 {% endin %}
