@@ -1,4 +1,6 @@
-Options -Multiviews
+ErrorDocument 403 /show-a-404-page-instead
+
+Options -Multiviews -Indexes
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
