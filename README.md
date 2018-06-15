@@ -50,6 +50,14 @@ Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_P
 
 ## Getting the application ready
 
+### Node.js NPM
+
+Make sure you have nodejs and npm installed then install the dependencies using `npm install`. modulusPHP will attempt to install them.
+
+*If modulusPHP fails, follow this tutorial: https://www.taniarascia.com/how-to-install-and-use-node-js-and-npm-mac-and-windows/*
+
+### Migrations
+
 This part is optional (but recommended). The following command will create a users table. (You will be able to edit the table later if you want to make any changes).
 
 ```
