@@ -2,7 +2,7 @@
     "name": "modulusphp/modulusphp",
     "description": "A lightweight PHP Framework",
     "keywords": ["framework", "modulusphp"],
-    "version": "1.3",
+    "version": "1.3.01",
     "license": "MIT",
     "type": "project",
     "authors": [
