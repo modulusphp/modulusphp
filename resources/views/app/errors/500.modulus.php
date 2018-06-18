@@ -1,6 +1,6 @@
 {% partials('layouts.error') %}
 
-{% ('title') %}
+{% in('title') %}
   This page isn’t working | modulusPHP
 {% endin %}
 
