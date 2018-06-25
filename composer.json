@@ -2,7 +2,7 @@
     "name": "modulusphp/modulusphp",
     "description": "A lightweight PHP Framework",
     "keywords": ["framework", "modulusphp"],
-    "version": "1.3.02",
+    "version": "1.3.03",
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -29,8 +29,7 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-install-cmd": [
-            "composer dump-autoload -o",
-            "npm install"
+            "composer dump-autoload -o"
         ],
         "post-update-cmd": [
             "composer dump-autoload -o"
