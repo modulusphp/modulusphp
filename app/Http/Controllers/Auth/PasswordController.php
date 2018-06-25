@@ -16,7 +16,6 @@ class PasswordController extends Controller
   |--------------------------------------------------------------------------
   |
   | This controller is responsible for handling password reset requests.
-  | Use this controller to implement the feature.
   |
   */
 
@@ -38,7 +37,8 @@ class PasswordController extends Controller
   public function notify(Request $request)
   {
     $request->success(function($request) {
-      $response = User::search($request->input('username'))->notify();
+      $response = User::search($request->input('username'))
+                      ->notify();
 
       if ($response['status'] == 'success') {
         $message = "A reset link has been sent to your email address.";
@@ -61,7 +61,7 @@ class PasswordController extends Controller
   public function showReset(string $token)
   {
     if (Password::verify($token) == false) {
-      $message = "Opps, the \"reset token\" is invalid";
+      $message = 'Opps, the "reset token" is invalid';
       return view('auth.reset', compact('message'));
     }
 
@@ -91,7 +91,7 @@ class PasswordController extends Controller
     $token = $request->input('reset_token');
 
     if (Password::verify($token == false)) {
-      $message = "Opps, the \"reset token\" is invalid";
+      $message = 'Opps, the "reset token" is invalid';
       view('auth.reset', compact('message'));
     }
 
@@ -109,25 +109,21 @@ class PasswordController extends Controller
    * @param  array $request
    * @return response
    */
-  public function validate(Request $request)
+  public function validator(Request $request)
   {
     if ($request->hasInput('reset_token')) {
-      $response = Request::validate([
+      $response = $request->validate([
         'password' => 'required|confirmed|min:6',
       ]);
 
       return $response;
     }
 
-    $response = Request::validate([
+    $response = $request->validate([
       'username' => 'required'
-    ]);
-
-    $fields = User::check($request->input('username'));
-
-    foreach($fields as $key => $unique) {
-      $response->errors()->add('username', $unique);
-    }
+    ], function($request, $response) {
+      return User::check($request->input('username'));
+    });
 
     return $response;
   }
