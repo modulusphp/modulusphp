@@ -52,9 +52,9 @@ Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_P
 
 ### Node.js NPM
 
-Make sure you have nodejs and npm installed then install the dependencies using `npm install`. modulusPHP will attempt to install them.
+Make sure you have nodejs and npm installed then install the dependencies using `npm install`.
 
-*If modulusPHP fails, follow this tutorial: https://www.taniarascia.com/how-to-install-and-use-node-js-and-npm-mac-and-windows/*
+*If you don't have node.js, follow this tutorial: https://www.taniarascia.com/how-to-install-and-use-node-js-and-npm-mac-and-windows/*
 
 ### Migrations
 

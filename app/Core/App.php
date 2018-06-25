@@ -24,8 +24,8 @@ class App
   private function route()
   {
     require_once '../app/Http/Router/Route.php';
-    require_once '../routes/web.php';
     require_once '../routes/api.php';
+    require_once '../routes/web.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (Route::$status == 404) {

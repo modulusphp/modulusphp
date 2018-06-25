@@ -21,7 +21,7 @@ class LoginController extends Controller
 
   /**
    * Show login page
-   * 
+   *
    * @return view auth/login
    */
   public function show()
@@ -41,21 +41,17 @@ class LoginController extends Controller
 
   /**
    * Validate incoming request
-   * 
+   *
    * @param  Request $request
    */
-  public function validate(Request $request)
+  public function validator(Request $request)
   {
-    $response = Request::validate([
+    $response = $request->validate([
       'username' => 'required',
       'password' => 'required',
-    ]);
-
-    $fields = Auth::attempt();
-
-    foreach($fields as $key => $unique) {
-      $response->errors()->add($key, $unique);
-    }
+    ], function($request, $response) {
+      return Auth::attempt();
+    });
 
     return $response;
   }

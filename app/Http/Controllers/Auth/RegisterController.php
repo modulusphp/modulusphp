@@ -6,6 +6,7 @@ use App\Core\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use ModulusPHP\Http\Requests\Request;
+use ModulusPHP\Framework\Rules\Unique;
 
 class RegisterController extends Controller
 {
@@ -54,22 +55,19 @@ class RegisterController extends Controller
    * @param  array $request
    * @return response
    */
-  public function validate(Request $request)
+  public function validator(Request $request)
   {
-    $response = Request::validate([
-      'username' => 'required|min:2|alpha_dash',
-      'email' => 'required|email',
+    $response = $request->validate([
+      'username' => [
+        'required', 'min:2', 'alpha_dash',
+        new Unique('users')
+      ],
+      'email' => [
+        'required', 'email',
+        new Unique('users'),
+      ],
       'password' => 'required|min:6',
     ]);
-
-    $fields = User::isTaken([
-      'username',
-      'email'
-    ]);
-
-    foreach($fields as $key => $unique) {
-      $response->errors()->add($key, $unique);
-    }
 
     return $response;
   }
