@@ -88,7 +88,7 @@ class User extends Model
     if ($this == null) {
       return array(
         'status' => 'failed',
-        'reason' => 'User doesn\'t exist.'
+        'reason' => "User doesn't exist."
       );
     }
 
@@ -99,9 +99,9 @@ class User extends Model
     $email->to($this->email);
     $email->view('app.email.reset', compact('username', 'token'));
 
-    $res = $email->send('click on the button below to reset your password.', 'Forgot password?');
+    $response = $email->send('click on the button below to reset your password.', 'Forgot password?');
 
-    if ($res['status'] == 'success') {
+    if ($response['status'] == 'success') {
       Password::create([
         'email' => $this->email,
         'token' => $token
@@ -109,7 +109,7 @@ class User extends Model
 
       Session::key('token', $token);
     }
-    
-    return $res;
+
+    return $response;
   }
 }
