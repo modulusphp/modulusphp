@@ -17,6 +17,7 @@ class UsersMigration
             $table->string("username")->unique();
             $table->string("email")->unique();
             $table->string("password");
+            $table->string("remember_token")->nullable();
             $table->timestamps();
         });
     }
