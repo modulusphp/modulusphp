@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class UsersMigration
+class Users
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class UsersMigration
             $table->string("username")->unique();
             $table->string("email")->unique();
             $table->string("password");
+            $table->string("remember_token")->nullable();
             $table->timestamps();
         });
     }

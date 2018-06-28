@@ -2,7 +2,7 @@
     "name": "modulusphp/modulusphp",
     "description": "A lightweight PHP Framework",
     "keywords": ["framework", "modulusphp"],
-    "version": "1.3.03",
+    "version": "1.3.04",
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -15,7 +15,7 @@
         "php": ">=7.0.0",
         "don47/blade": ">=1.0",
         "lavary/crunz": "v1.6.1",
-        "modulusphp/framework": ">=1.0.1",
+        "modulusphp/framework": ">=1.0.2",
         "mouf/nodejs-installer": "^1.0"
     },
     "autoload": {
