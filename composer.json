@@ -13,8 +13,8 @@
   ],
   "require": {
       "php": ">=7.0.0",
-      "atlantisphp/swish": "=>1.0",
-      "filp/whoops": "^2.2"
+      "atlantisphp/swish": ">=1.0",
+      "filp/whoops": ">=2.2"
   },
   "autoload": {
       "psr-4": {
