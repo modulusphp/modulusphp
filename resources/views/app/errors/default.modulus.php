@@ -1,4 +1,4 @@
-{% using('layouts.default') %}
+{% using('layouts.app') %}
 
 {% section('title') %}
 
