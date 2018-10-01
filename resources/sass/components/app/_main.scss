@@ -7,6 +7,14 @@
     color: #616161;
     text-align: center;
 
+    .__shadow {
+      box-shadow: 0px 1px 14px 3px #eee;
+
+      .__clean-header {
+        background: #fff;
+      }
+    }
+
     .__title {
       font-size: 84px;
       font-weight: 100;
@@ -36,6 +44,11 @@
         text-transform: uppercase;
       }
     }
+  }
+
+  .__home_box {
+    width: calc(100% - 30px);
+    text-align: left;
   }
 
   .links > a {
