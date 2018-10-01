@@ -2,6 +2,8 @@
 
 return [
 
+  'default' => 'web',
+
   'provider' => [
     'web' => [
       'model' => \App\User::class,
@@ -24,16 +26,16 @@ return [
     */
   ],
 
-  'default' => 'web',
-
   /*
   |--------------------------------------------------------------------------
   | Security Settings
   |--------------------------------------------------------------------------
   |
-  | session_token.token: strtotime. e.g. 30 minutes
-  | remember_me.expire: strtotime. e.g: '2 week'
-  | reset_token.expire: minutes. e.g: 30
+  | access_token: strtotime. e.g. "12 months" (string)
+  | session_token: strtotime. e.g. "30 minutes" (string)
+  | remember_token: strtotime. e.g: "2 weeks" (string)
+  | reset_token: minutes. e.g: 20 (int)
+  | magic_token: minutes. e.g. 10 (int)
   |
   */
 
@@ -42,5 +44,6 @@ return [
     'session_token' => '10 minutes',
     'remember_token' => '7 days',
     'reset_token' => 15,
+    'magic_token' => 30,
   ],
 ];

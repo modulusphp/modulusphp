@@ -24,7 +24,7 @@ return [
   | directory. However, as usual, you are free to change this value.
   |
   */
-  'compiled' => 'storage' . DS . 'cache',
+  'compiled' => 'storage' . DS . 'framework' . DS . 'views',
 
   /*
   |--------------------------------------------------------------------------

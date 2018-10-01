@@ -15,6 +15,8 @@ return [
 
   'name' => env('APP_NAME', 'modulusPHP'),
 
+  'key' => env('APP_KEY', ''),
+
   /*
   |--------------------------------------------------------------------------
   | Application Root
@@ -82,8 +84,10 @@ return [
     'Get' => Modulus\Http\Get::class,
     'Hash' => Modulus\Security\Hash::class,
     'Log' => AtlantisPHP\Telemonlog\Output::class,
+    'Mail' => Modulus\Utility\Mail::class,
     'Session' => Modulus\Http\Session::class,
     'Status' => Modulus\Http\Status::class,
+    'Storage' => Modulus\Support\Storage::class,
     'Rest' => Modulus\Http\Rest::class,
     'Redirect' => Modulus\Http\Redirect::class,
     'Request' => Modulus\Http\Request::class,
