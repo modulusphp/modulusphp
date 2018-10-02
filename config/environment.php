@@ -2,6 +2,7 @@
 
 return [
 	'required' => [
+    'APP_KEY',
 		'DB_CONNECTION',
 		'DB_HOST',
 		'DB_PORT',
