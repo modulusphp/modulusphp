@@ -1,0 +1,11 @@
+<?php
+
+use App\Console\Kernel;
+use Modulus\Framework\Upstart;
+
+require __DIR__. '/vendor/autoload.php';
+
+(new Upstart)->boot(true);
+
+$application = Kernel::console();
+$application->run();
