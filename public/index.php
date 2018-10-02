@@ -42,10 +42,10 @@ define('APP_ROOT', __DIR__ . DS . '..' . DS);
 | Blulight is responsible for starting the session and loading and storing
 | previous session variables into a class called Variables.
 |
-| Upstart is responsible for booting the starting the router, loading the
-| application request, starting the middleware, booting the database,
-| loading the environment variables, the view component, basically booting
-| the applicaion as a whole.
+| Upstart is responsible for booting the Modulus, starting the router,
+| loading the application request, starting the middleware, booting the
+| database, loading the environment variables, the view component,
+| basically booting the applicaion as a whole.
 |
 */
 
