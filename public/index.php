@@ -7,6 +7,8 @@
  * @author   Donald Pakkies <donaldpakkies@gmail.com>
  */
 
+define('MODULUS_START', microtime(true));
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
