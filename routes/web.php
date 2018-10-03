@@ -1,5 +1,7 @@
 <?php
 
+use Modulus\Support\File;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,13 @@
 |
 */
 
-Auth::routes();
 
-Route::get('/', 'HomeController@welcome');
-Route::get('/home', 'HomeController@home')->middleware('auth');
+Route::post('/', function(Request $request) {
+  view('welcome');
+});
+
+Route::get('/home', 'HomeController@index')
+      ->middleware('auth')
+      ->name('home');
+
+Auth::routes();
