@@ -1,4 +1,7 @@
+#!/usr/bin/env php
 <?php
+
+define('MODULUS_START', microtime(true));
 
 use App\Console\Kernel;
 use Modulus\Framework\Upstart;
