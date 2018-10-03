@@ -19,6 +19,11 @@ class HttpFoundation
     ]
   ];
 
+  /**
+   * $middleware
+   *
+   * @var array
+   */
   public static $middleware = [
     \App\Http\Middleware\CheckForMaintenanceMode::class,
   ];
