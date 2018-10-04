@@ -13,7 +13,7 @@ return [
   'config' => [
     'name' => 'modulusPHP',
     'repo' => '',
-    'basePath' => '/docs',
+    'basePath' => '/api-docs',
     'loadSidebar' => true,
     'search' => [
       'noData' => [
