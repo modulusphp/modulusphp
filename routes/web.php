@@ -1,7 +1,5 @@
 <?php
 
-use Modulus\Support\File;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +12,7 @@ use Modulus\Support\File;
 */
 
 
-Route::post('/', function(Request $request) {
+Route::get('/', function(Request $request) {
   view('welcome');
 });
 
