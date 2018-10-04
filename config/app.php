@@ -97,7 +97,6 @@ return [
     'Mail' => Modulus\Utility\Mail::class,
     'Session' => Modulus\Http\Session::class,
     'Status' => Modulus\Http\Status::class,
-    'Storage' => Modulus\Support\Storage::class,
     'Rest' => Modulus\Http\Rest::class,
     'Redirect' => Modulus\Http\Redirect::class,
     'Request' => Modulus\Http\Request::class,
