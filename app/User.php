@@ -4,7 +4,7 @@ namespace App;
 
 use Modulus\Security\Hash;
 use Modulus\Framework\API;
-use Modulus\Framework\Mocks\Model;
+use Modulus\Hibernate\Model;
 
 class User extends API
 {
