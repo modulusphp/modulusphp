@@ -25,7 +25,7 @@
     {% csrf_token %}
 
     <label for="inputName" class="sr-only">Name</label>
-    <input type="text" id="inputName" class="form-control" placeholder="Email address" name="name" value="{{ old('name') }}" autofocus="" required="">
+    <input type="text" id="inputName" class="form-control" placeholder="Name" name="name" value="{{ old('name') }}" autofocus="" required="">
 
     {% if $errors->has('name') %}
       {% foreach $errors->get('name') as $error %}
