@@ -1,6 +1,13 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * modulusPHP - A lightweight PHP Frameworks
+ *
+ * @package  modulusPHP
+ * @author   Donald Pakkies <donaldpakkies@gmail.com>
+ */
+
 define('MODULUS_START', microtime(true));
 
 use App\Console\Kernel;
