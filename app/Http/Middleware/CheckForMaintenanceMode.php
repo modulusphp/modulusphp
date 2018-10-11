@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-
 use Modulus\Http\Middleware\CheckForMaintenanceMode as Middleware;
 
 class CheckForMaintenanceMode extends Middleware

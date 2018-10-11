@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
-class HttpFoundation
+use Modulus\Http\Kernel;
+
+class HttpFoundation extends Kernel
 {
   /**
    * $RouteModelBinding
