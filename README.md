@@ -65,7 +65,7 @@ This part is optional (but recommended). The following command will create a cou
 php craftsman migrate all
 ```
 
-*This will create a users, password_resets and migrations table*
+*This will create a users, password_resets, verified_users, magic_links and migrations table*
 
 ### Seeders (optional)
 
