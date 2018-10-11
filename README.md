@@ -57,11 +57,19 @@ But before running the `npm install` command, you might want to change the curre
 
 *If you don't have node.js, follow this tutorial: https://www.taniarascia.com/how-to-install-and-use-node-js-and-npm-mac-and-windows/*
 
-### Migrations and Seeders (optional)
+### Migrations (optional)
 
 This part is optional (but recommended). The following command will create a couple of tables to get your application ready. (You will be able to edit these tables at a later stage if you want to make any changes).
 
-`Craftsman` makes it easy to add testing (fake data) into the database. You can create a new seed by running the `php craftsman make:seeder <name> --table="<table_name>"`
+```
+php craftsman migrate all
+```
+
+*This will create a users, password_resets and migrations table*
+
+### Seeders (optional)
+
+Craftsman makes it easy to add testing (fake) data into your application database. You can do this by creating a new seed. You can run `php craftsman make:seeder <name> --table="<table_name>"` to create a new seed.
 
 e.g
 `php craftsman make:seeder users --table="users"`
@@ -71,12 +79,6 @@ And you can run this seed, using the following command `php craftsman seed users
 The `--count=<int>` represents the number of rows, the seed will add.
 
 *Please note, your application already has the "users" seed.*
-
-```
-php craftsman migrate all
-```
-
-*This will create a users, password_resets and migrations table*
 
 ## Running the application
 
