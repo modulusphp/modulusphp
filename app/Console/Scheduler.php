@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use Log;
 use GO\Scheduler as Schedule;
 use Modulus\Utility\Scheduler as Runner;
 
