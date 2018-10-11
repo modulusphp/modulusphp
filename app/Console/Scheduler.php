@@ -10,7 +10,7 @@ class Scheduler extends Runner
   /**
    * Start scheduler
    *
-   * @param Scheduler $scheduler
+   * @param Schedule $scheduler
    * @return void
    */
   protected function schedule(Schedule $scheduler)
