@@ -69,10 +69,10 @@ php craftsman migrate all
 
 ### Seeders (optional)
 
-Craftsman makes it easy to add testing (fake) data into your application database. You can do this by creating a new seed. You can run `php craftsman make:seeder <name> --table="<table_name>"` to create a new seed.
+Craftsman makes it easy to add testing (fake) data into your application database. You can do this by creating a new seed. You can run `php craftsman craft:seeder <name> --table="<table_name>"` to create a new seed.
 
 e.g
-`php craftsman make:seeder users --table="users"`
+`php craftsman craft:seeder users --table="users"`
 
 And you can run this seed, using the following command `php craftsman seed users --count=10`
 
