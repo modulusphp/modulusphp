@@ -60,6 +60,10 @@ return [
   | Application URL
   |--------------------------------------------------------------------------
   |
+  | This URL is used by the console to properly generate URLs when using
+  | the Craftsman command line tool. You should set this to the root of
+  | your application so that it is used when running Craftsman tasks.
+  |
   */
 
   'url' => env('APP_URL', 'http://localhost'),
@@ -69,12 +73,34 @@ return [
   | Encryption Key
   |--------------------------------------------------------------------------
   |
-  | This key is used by the Illuminate encrypter service and should be set
-  | to a random, 32 - 36 character string, otherwise these encrypted strings
-  | will not be safe. Please do this before deploying an application!
+  | This key is used by the API Authorization access tokens and should be set
+  | to a random, 32 - 36 character string.
+  |
+  | Please do this before deploying an application!
   |
   */
   'key' => env('APP_KEY'),
+
+  /*
+  |
+  |--------------------------------------------------------------------------
+  | Application Logger
+  |--------------------------------------------------------------------------
+  |
+  | Here you may configure the log settings for your application.
+  |
+  | Logger Settings:
+  | name: the prefix or name of the log
+  | log: "single", "daily", "monthly"
+  | keep: the number of days a daily log is kept.
+  |
+  */
+
+  'logger' => [
+    'name' => env('APP_LOG_NAME', 'modulus'),
+    'log' => env('APP_LOG', 'single'),
+    'keep' => env('APP_LOG_KEEP', 5),
+  ],
 
   /*
   |--------------------------------------------------------------------------
@@ -104,18 +130,5 @@ return [
     'Validate' => Modulus\Utility\Validate::class,
     'Variable' => Modulus\Utility\Variable::class,
     'View' => Modulus\Utility\View::class,
-  ],
-
-  /*
-  |
-  |--------------------------------------------------------------------------
-  | Application Logger
-  |--------------------------------------------------------------------------
-  |
-  */
-
-  'logger' => [
-    'name' => 'modulus',
-    'log' => 'single',
   ],
 ];
