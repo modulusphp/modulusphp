@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resolver;
+namespace App\Resolvers;
 
 use Modulus\Framework\Upstart\Service;
 
