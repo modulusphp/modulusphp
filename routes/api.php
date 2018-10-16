@@ -11,14 +11,14 @@
 |
 */
 
-Route::group(['prefix' => 'api/v1'], function() {
+Route::get('/access_token', function (Request $request) : Rest {
+  return response()->json([
+    'access_token' => $request->input('access_token'),
+    'status' => 'success',
+    'code' => 200
+  ], 200);
+})->middleware('auth.basic');
 
-  Route::get('/access_token', function (Request $request) : Rest {
-    return response()->json([
-      'access_token' => $request->input('access_token'),
-      'status' => 'success',
-      'code' => 200
-    ], 200);
-  })->middleware('auth.basic');
-
+Route::get('/hollo', function() {
+  return response()->json([], 200);
 });
