@@ -7,7 +7,8 @@ use Modulus\Utility\Event;
 class OutputEvent extends Event
 {
   /**
-   * Handle event
+   * Handle Log event
+   * Don't send anything back to the logger
    *
    * @param string $env
    * @param string $level
@@ -17,6 +18,6 @@ class OutputEvent extends Event
    */
   protected function handle(string $env, string $level, string $message, array $array)
   {
-    // don't send anything back to the logger
+    //
   }
 }
