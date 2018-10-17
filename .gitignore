@@ -1,7 +1,9 @@
-/.env
 /vendor
 /node_modulus
 /public/storage
 /.idea
 /.vscode
 /storage/framework/views
+npm-debug.log
+yarn-error.log
+.env
