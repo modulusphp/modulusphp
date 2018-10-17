@@ -27,8 +27,8 @@ class RouterResolver extends Service
   protected function webRoutes($app) : void
   {
     $app->route->make(base_path('routes/web.php'))
-         ->middleware('web')
-         ->register();
+        ->middleware('web')
+        ->register();
   }
 
   /**
@@ -40,8 +40,8 @@ class RouterResolver extends Service
   protected function apiRoutes($app) : void
   {
     $app->route->make(base_path('routes/api.php'))
-         ->middleware('api')
-         ->prefix('api')
-         ->register();
+        ->middleware('api')
+        ->prefix('api')
+        ->register();
   }
 }
