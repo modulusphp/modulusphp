@@ -2,7 +2,6 @@
 
 namespace App\Resolvers;
 
-use App\Directives\Hello;
 use Modulus\Framework\Upstart\Service;
 
 class DirectivesResolver extends Service
