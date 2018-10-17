@@ -1,7 +1,10 @@
-/.env
-/vendor
-/node_modulus
+/node_modules
 /public/storage
+/modulusphp
+/vendor
+/storage/framework/views
 /.idea
 /.vscode
-/storage/framework/views
+npm-debug.log
+yarn-error.log
+.env
