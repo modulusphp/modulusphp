@@ -2,7 +2,7 @@
   "name": "modulusphp/modulusphp",
   "description": "A lightweight PHP Framework",
   "keywords": ["framework", "modulusphp"],
-  "version": "1.9.7",
+  "version": "1.9.8",
   "license": "MIT",
   "type": "project",
   "authors": [{
@@ -15,7 +15,8 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Tests\\": "tests/",
     },
     "files": ["bootstrap/app.php"]
   },
