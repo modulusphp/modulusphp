@@ -4,7 +4,6 @@ namespace App\Console;
 
 use GO\Scheduler as Schedule;
 use Modulus\Console\ModulusCLI;
-use AtlantisPHP\Console\Application;
 use Modulus\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -23,9 +22,9 @@ class Kernel extends ConsoleKernel
   /**
    * Boot the Modulus Developer Environment CLI
    *
-   * @return \AtlantisPHP\Console\Application $modulus
+   * @return \AtlantisPHP\Console\Application
    */
-  public static function console() : Application
+  public static function console()
   {
     return ModulusCLI::boot()->load(__DIR__ . DS . 'Commands');
   }
