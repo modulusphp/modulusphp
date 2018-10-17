@@ -2,25 +2,31 @@
 
 namespace App\Console;
 
+use GO\Scheduler as Schedule;
 use Modulus\Console\ModulusCLI;
 use AtlantisPHP\Console\Application;
+use Modulus\Console\Kernel as ConsoleKernel;
 
-class Kernel
+class Kernel extends ConsoleKernel
 {
   /**
-   * Boot the ModulusPHP Developer Environment CLI
+   * Start scheduler
+   *
+   * @param Schedule $scheduler
+   * @return void
+   */
+  protected function schedule(Schedule $scheduler)
+  {
+    //
+  }
+
+  /**
+   * Boot the Modulus Developer Environment CLI
    *
    * @return \AtlantisPHP\Console\Application $modulus
    */
   public static function console() : Application
   {
-    ModulusCLI::$appdir = config('app.dir');
-    ModulusCLI::$approot = config('app.root');
-
-    $modulus = ModulusCLI::boot();
-    $modulus->load(ModulusCLI::config());
-    $modulus->load(__DIR__ . DS . 'Commands');
-
-    return $modulus;
+    return ModulusCLI::boot()->load(__DIR__ . DS . 'Commands');
   }
 }
