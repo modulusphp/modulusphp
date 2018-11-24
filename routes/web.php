@@ -6,18 +6,16 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the AtlantisPHP's Swish within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouterResolver within a group which contains
+| the "web" middleware group. Now create something great!
 |
 */
 
 
 Route::get('/', function() {
-  view('welcome');
+  return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')
-      ->middleware('auth')
-      ->name('home');
-
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
