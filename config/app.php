@@ -13,7 +13,7 @@ return [
   |
   */
 
-  'name' => env('APP_NAME', 'modulusPHP'),
+  'name' => env('APP_NAME', 'Modulus'),
 
   /*
   |--------------------------------------------------------------------------
@@ -26,6 +26,15 @@ return [
   */
 
   'root' => env('APP_ROOT', DS . 'public'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Application Directory
+  |--------------------------------------------------------------------------
+  |
+  | This value is the root of your application files.
+  |
+  */
 
   'dir' => substr(__DIR__, 0, strrpos(__DIR__, DS)) . DS,
 
@@ -81,6 +90,19 @@ return [
   */
   'key' => env('APP_KEY'),
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | Application Timezone
+  |--------------------------------------------------------------------------
+  |
+  | Here you may specify the default timezone for your application, which
+  | will be used by the PHP date and date-time functions. We have gone
+  | ahead and set this to a sensible default for you out of the box.
+  |
+  */
+  'timezone' => 'UTC',
+
   /*
   |
   |--------------------------------------------------------------------------
@@ -104,6 +126,21 @@ return [
 
   /*
   |--------------------------------------------------------------------------
+  | Application Plugins
+  |--------------------------------------------------------------------------
+  |
+  | This is a list of plugins and dependencies required or used by your
+  | application. These plugins are loaded when the application starts.
+  |
+  | These plugins are not enabled by default for security reasons.
+  |
+  */
+  'plugins' => [
+    //
+  ],
+
+  /*
+  |--------------------------------------------------------------------------
   | Class Aliases
   |--------------------------------------------------------------------------
   |
@@ -116,13 +153,17 @@ return [
   'aliases' => [
     'Auth' => Modulus\Security\Auth::class,
     'DB' => Illuminate\Database\Capsule\Manager::class,
+    'Cache' => Modulus\Hibernate\Cache::class,
+    'Cookie' => \Modulus\Request\Cookies::class,
     'Events' => Modulus\Utility\Events::class,
+    'File' => \Modulus\Support\File::class,
     'Get' => Modulus\Http\Get::class,
     'Hash' => Modulus\Security\Hash::class,
     'Log' => AtlantisPHP\Telemonlog\Output::class,
     'Mail' => Modulus\Utility\Mail::class,
     'Session' => Modulus\Http\Session::class,
     'Status' => Modulus\Http\Status::class,
+    'Storage' => Modulus\Filesystem\Storage::class,
     'Rest' => Modulus\Http\Rest::class,
     'Redirect' => Modulus\Http\Redirect::class,
     'Request' => Modulus\Http\Request::class,
