@@ -2,9 +2,9 @@
 <?php
 
 /**
- * modulusPHP - A lightweight PHP Frameworks
+ * Modulus - A cool API Framework for PHP
  *
- * @package  modulusPHP
+ * @package  modulusphp
  * @author   Donald Pakkies <donaldpakkies@gmail.com>
  */
 
