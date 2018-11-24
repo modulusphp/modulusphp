@@ -6,12 +6,12 @@ return [
   |--------------------------------------------------------------------------
   | Documentations config file
   |--------------------------------------------------------------------------
-  |
+  | See: https://docsify.js.org/#/configuration
   |
   */
 
   'config' => [
-    'name' => 'modulusPHP',
+    'name' => 'Modulus',
     'repo' => '',
     'basePath' => '/api-docs',
     'loadSidebar' => true,

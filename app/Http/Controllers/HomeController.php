@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 class HomeController extends Controller
 {
   /**
-   * Show home page
+   * Create a new controller instance.
    *
-   * @return \Modulus\Utility\View
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
+  /**
+   * Show the application home page.
+   *
+   * @return void
    */
   public function index()
   {

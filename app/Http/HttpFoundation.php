@@ -7,7 +7,6 @@ use Modulus\Http\Kernel;
 class HttpFoundation extends Kernel
 {
   /**
-   * $RouteModelBinding
    * Route Queries for Models and Collections
    *
    * @var array
@@ -22,16 +21,18 @@ class HttpFoundation extends Kernel
   ];
 
   /**
-   * $middleware
+   * The application's global HTTP middleware stack.
    *
    * @var array
    */
   public static $middleware = [
     \App\Http\Middleware\CheckForMaintenanceMode::class,
+    \App\Http\Middleware\TrimStrings::class,
+    \Modulus\Http\Middleware\ConvertEmptyStringsToNull::class,
   ];
 
   /**
-   * $middlewareGroup
+   *The application's route middleware groups.
    *
    * @var array
    */
@@ -39,10 +40,13 @@ class HttpFoundation extends Kernel
     'web' => [
       \App\Http\Middleware\VerifyCsrfToken::class,
     ],
+    'api' => [
+      //
+    ],
   ];
 
   /**
-   * $routeMiddleware
+   * The application's route middleware.
    *
    * @var array
    */
@@ -51,5 +55,9 @@ class HttpFoundation extends Kernel
     'auth.basic' => \App\Http\Middleware\AuthenticateWithBasicAuth::class,
     'auth.api' => \Modulus\Http\Middleware\AuthenticateWithBearerAuth::class,
     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    'cors' => \Modulus\Http\Middleware\MustHandleCors::class,
+    'limit' => \Modulus\Http\Middleware\MustNotExceedAllowedRequests::class, // not the best solution
+    'private' => \Modulus\Http\Middleware\MustHideRoutes::class,
+    'protected' => \Modulus\Http\Middleware\MustProtectRoutes::class,
   ];
 }

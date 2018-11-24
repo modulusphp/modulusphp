@@ -10,9 +10,7 @@
 
   <div class="flex--center position--ref full--height">
     <div class="top-right links">
-      <a href="{{ url('/logout', true) }}"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();">Logout</a>
+      <a href="{{ url('/logout', true) }}">Logout</a>
     </div>
 
     <div class="__content __home_box">

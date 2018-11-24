@@ -32,10 +32,10 @@ return [
   |--------------------------------------------------------------------------
   |
   | AtlantisPHP's Medusa allows you to set the default views extension.
-  | You can set it to anything you like.
+  | You can set it to anything you want.
   |
   */
-  'extension' => '.modulus.php',
+  'extension' => '.medusa.php',
 
   /*
   |--------------------------------------------------------------------------

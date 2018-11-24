@@ -10,16 +10,11 @@
   <title>{% yield('title') %}</title>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="{{ url('/css/app.css') }}">
 </head>
 <body>
   <div id="app">
     {% yield('main') %}
   </div>
-
-  <!-- Logout form -->
-  <form id="logout-form" action="{{ url('/logout', true) }}" method="POST" style="display: none;">
-    {% csrf_token %}
-  </form>
 </body>
 </html>

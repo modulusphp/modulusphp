@@ -40,7 +40,7 @@ return [
   */
 
   'expire' => [
-    'access_token' => '1 year',
+    'access_token' => '1 hour',
     'session_token' => '10 minutes',
     'remember_token' => '7 days',
     'reset_token' => 15,
