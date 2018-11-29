@@ -2,7 +2,7 @@
   "name": "modulusphp/modulusphp",
   "description": "A cool API Framework for PHP",
   "keywords": ["framework", "modulusphp", "api", "php"],
-  "version": "1.9.8",
+  "version": "1.9.8.1",
   "license": "MIT",
   "type": "project",
   "authors": [{
@@ -11,7 +11,7 @@
   }],
   "require": {
     "php": ">=7.3.0",
-    "modulusphp/framework": "^1.9.8"
+    "modulusphp/framework": "1.9.*"
   },
   "autoload": {
     "psr-4": {
