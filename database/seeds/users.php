@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Generator;
 use Modulus\Security\Hash;
 use Modulus\Utility\Seeder;
@@ -19,6 +20,8 @@ class Users extends Seeder
       'name' => $faker->name,
       'email' => $faker->unique()->email,
       'password' => Hash::make('password'),
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now()
     ]);
   }
 }
