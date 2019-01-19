@@ -1,8 +1,8 @@
 {
   "name": "modulusphp/modulusphp",
   "description": "A cool API Framework for PHP",
-  "keywords": ["framework", "modulusphp", "api", "php"],
-  "version": "1.9.8.2",
+  "keywords": ["framework", "modulusphp", "modulus", "api", "php"],
+  "version": "1.9.8.3",
   "license": "MIT",
   "type": "project",
   "authors": [{
