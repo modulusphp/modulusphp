@@ -162,6 +162,7 @@ return [
     'File' => \Modulus\Support\File::class,
     'Get' => Modulus\Http\Get::class,
     'Hash' => Modulus\Security\Hash::class,
+    'Hashids' => \Modulus\Framework\Hashids\Hashids::class,
     'Log' => AtlantisPHP\Telemonlog\Output::class,
     'Mail' => Modulus\Utility\Mail::class,
     'Session' => Modulus\Http\Session::class,
