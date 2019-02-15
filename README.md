@@ -1,6 +1,10 @@
-# Modulus
+<p align="center"><img src="https://raw.githubusercontent.com/modulusphp/icons/master/assets/banner-template.png" width="450px"/></p>
 
-<center><img src="https://raw.githubusercontent.com/modulusphp/icons/master/assets/banner-template.png" width="450px"/></center>
+<p align="center">
+<a href="https://packagist.org/packages/modulusphp/framework"><img src="https://poser.pugx.org/modulusphp/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/modulusphp/framework"><img src="https://poser.pugx.org/modulusphp/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/modulusphp/framework"><img src="https://poser.pugx.org/modulusphp/framework/license.svg" alt="License"></a>
+</p>
 
 ## Getting Starterd
 
