@@ -1,6 +1,6 @@
 # Modulus
 
-<center><img src="https://raw.githubusercontent.com/modulusphp/icons/master/assets/banner.svg?sanitize=true"/></center>
+<center><img src="https://raw.githubusercontent.com/modulusphp/icons/master/assets/banner-template.png" width="450px"/></center>
 
 ## Getting Starterd
 
