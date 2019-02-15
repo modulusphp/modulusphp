@@ -4,6 +4,8 @@
 /modulusphp
 /vendor
 /storage/framework/views
+/storage/framework/sessions
+/storage/logs
 /.idea
 /.vscode
 npm-debug.log
