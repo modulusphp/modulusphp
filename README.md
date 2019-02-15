@@ -1,13 +1,15 @@
-# modulusPHP
+# Modulus
+
+<center><img src="https://raw.githubusercontent.com/modulusphp/icons/master/assets/banner.svg?sanitize=true"/></center>
 
 ## Getting Starterd
 
-### Create a new modulusPHP application
+### Create a new Modulus application
 
-To create a new modulusPHP application, we need to run the following command.
+To create a new Modulus application, we need to run the following command.
 
 ```
-composer create-project modulusphp/modulusphp <app-name>
+composer create-project modulusphp/modulusphp application-name
 ```
 
 > `<app-name>` is the name of your application. e.g. `blog`
@@ -20,7 +22,7 @@ Rename `.env.example` to `.env`
 
 ```
 # Application
-APP_NAME=modulusPHP
+APP_NAME=Modulus
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
@@ -32,7 +34,7 @@ BUGSNAG_API_KEY=
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=modulusphp
+DB_DATABASE=modulus
 DB_USERNAME=root
 DB_PASSWORD=secret
 
@@ -44,8 +46,6 @@ MAIL_HOST=smtp.domain.com
 MAIL_PORT=465 # or 587
 MAIL_SMTP_SECURE=ssl # or tls
 ```
-
-Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"**.
 
 ## Getting the application ready
 
@@ -67,6 +67,8 @@ php craftsman migrate all
 
 *This will create a users, password_resets, verified_users, magic_links and migrations table*
 
+> Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"** in the .env before running the `migrate all` command.
+
 ### Seeders (optional)
 
 Craftsman makes it easy to add testing (fake) data into your application database. You can do this by creating a new seed. You can run `php craftsman craft:seeder <name> --table="<table_name>"` to create a new seed.
@@ -79,6 +81,8 @@ And you can run this seed, using the following command `php craftsman seed users
 The `--count=<int>` represents the number of rows, the seed will add.
 
 *Please note, your application already has the "users" seed.*
+
+> Make sure, you have set the **"DB_DATABASE"**, **"DB_USERNAME"** and the **"DB_PASSWORD"** in the .env before running the seeder.
 
 ## Running the application
 
