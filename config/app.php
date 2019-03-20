@@ -155,7 +155,7 @@ return [
 
   'aliases' => [
     'Auth' => Modulus\Security\Auth::class,
-    'DB' => Illuminate\Database\Capsule\Manager::class,
+    'DB' => \Modulus\Hibernate\Capsule::class,
     'Cache' => Modulus\Hibernate\Cache::class,
     'Cookie' => \Modulus\Request\Cookies::class,
     'Events' => Modulus\Utility\Events::class,
