@@ -5,11 +5,23 @@ return [
   /*
   |
   |--------------------------------------------------------------------------
+  | Default Hashing Algorithm
+  |--------------------------------------------------------------------------
+  |
+  | The default hashing algorithm you wish to use when values get hashed.
+  |
+  */
+
+  'default' => env('HASHING_ALOGRITHM', 'bcrypt'),
+
+  /*
+  |
+  |--------------------------------------------------------------------------
   | Password Hashing Algorithm
   |--------------------------------------------------------------------------
   |
   | The hashing algorithm you wish to use when passwords get hashed.
-  | modulusPHP uses Argon 2 by default, feel free to change it.
+  | Modulus uses bcrypt by default, feel free to change it.
   |
   */
 
@@ -27,7 +39,6 @@ return [
     'options' => [
       'cost' => env('HASHING_COST', 10),
     ],
-  ],
+  ]
 
-  'default' => env('HASHING_ALOGRITHM', 'bcrypt')
 ];
