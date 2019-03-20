@@ -12,7 +12,7 @@ class Users
    */
   public function up()
   {
-    Capsule::schema()->create('users', function ($table) {
+    Capsule::schema()->create('users', function (Blueprint $table) {
       $table->increments("id");
       $table->string('secret')->nullable();
       $table->string('name');

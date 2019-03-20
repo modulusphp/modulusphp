@@ -12,7 +12,7 @@ class PasswordResets
    */
   public function up()
   {
-    Capsule::schema()->create('password_resets', function ($table) {
+    Capsule::schema()->create('password_resets', function (Blueprint $table) {
       $table->increments("id");
       $table->string("email")->index();
       $table->string("token");

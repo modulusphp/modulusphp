@@ -12,7 +12,7 @@ class MagicLinks
    */
   public function up()
   {
-    Capsule::schema()->create('magic_links', function ($table) {
+    Capsule::schema()->create('magic_links', function (Blueprint $table) {
       $table->increments("id");
       $table->string("email")->index();
       $table->string("token");

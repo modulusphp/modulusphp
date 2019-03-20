@@ -12,7 +12,7 @@ class Migrations
    */
   public function up()
   {
-    Capsule::schema()->create('migrations', function ($table) {
+    Capsule::schema()->create('migrations', function (Blueprint $table) {
       $table->increments("id");
       $table->string('title')->index();
       $table->timestamps();

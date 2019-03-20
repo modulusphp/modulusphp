@@ -12,7 +12,7 @@ class VerifiedUsers
    */
   public function up()
   {
-    Capsule::schema()->create('verified_users', function ($table) {
+    Capsule::schema()->create('verified_users', function (Blueprint $table) {
       $table->increments("id");
       $table->string("email")->index();
       $table->string("token");
