@@ -24,7 +24,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
     "vue-template-compiler": "^2.6.6"
   }
 }
