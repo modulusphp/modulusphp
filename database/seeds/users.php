@@ -4,7 +4,7 @@ use Carbon\Carbon;
 use Faker\Generator;
 use Modulus\Security\Hash;
 use Modulus\Utility\Seeder;
-use Illuminate\Database\Capsule\Manager as DB;
+use Modulus\Hibernate\Capsule as DB;
 
 class Users extends Seeder
 {
@@ -14,7 +14,7 @@ class Users extends Seeder
    * @param Generator $faker
    * @return void
    */
-  protected function seed(Generator $faker)
+  protected function seed(Generator $faker, ?int $index = null)
   {
     DB::table('users')->insert([
       'name' => $faker->name,
