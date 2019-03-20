@@ -21,7 +21,7 @@ define('MODULUS_START', microtime(true));
 |
 */
 
-use Modulus\Framework\{Blulight, Upstart};
+use Modulus\Framework\{Blulight, Response, Upstart};
 
 require __DIR__. '/../vendor/autoload.php';
 
@@ -53,4 +53,9 @@ define('APP_ROOT', __DIR__ . DS . '..' . DS);
 
 Blulight::start();
 
-(new Upstart)->boot();
+/**
+ * Create application
+ */
+$app = (new Upstart)->boot();
+Response::make($app);
+
