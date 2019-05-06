@@ -22,10 +22,10 @@ return [
   |
   | Here are each of the database connections setup for your application.
   | Of course, examples of configuring each database platform that is
-  | supported by modulusPHP is shown below to make development simple.
+  | supported by Modulus is shown below to make development simple.
   |
   |
-  | All database work in modulusPHP is done through the PHP PDO facilities
+  | All database work in Modulus is done through the PHP PDO facilities
   | so make sure you have the driver for your particular database of
   | choice installed on your machine before you begin development.
   |
@@ -38,7 +38,6 @@ return [
       'database' => env('DB_DATABASE', database_path('database.sqlite')),
       'prefix' => '',
     ],
-
 
 		'mysql' => [
 			'driver' => 'mysql',
