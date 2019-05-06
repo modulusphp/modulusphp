@@ -12,15 +12,9 @@
 
     <h2 class="text-center __heading">Sign up</h2>
 
-    {% if Variable::has('message') %}
+    {!! has('message', '<div class="__success">:message</div>') !!}
 
-      <div class="__success">{{ Variable::get('message') }}</div>
-
-    {% elseif Variable::has('error') %}
-
-      <div class="__danger">{{ Variable::get('error') }}</div>
-
-    {% endif %}
+    {!! has('error', '<div class="__danger">:message</div>') !!}
 
     {% csrf_token %}
 

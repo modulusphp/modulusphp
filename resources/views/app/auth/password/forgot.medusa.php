@@ -12,11 +12,7 @@
 
     <h2 class="text-center __heading">Forgot Password</h2>
 
-    {% if Variable::has('message') %}
-
-      <div class="__success">{{ Variable::get('message') }}</div>
-
-    {% endif %}
+    {!! has('message', '<div class="__success">:message</div>') !!}
 
     {% csrf_token %}
 
