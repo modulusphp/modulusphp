@@ -49,6 +49,10 @@ MAIL_FROM_NAME=foo
 MAIL_HOST=smtp.domain.com
 MAIL_PORT=465 # or 587
 MAIL_SMTP_SECURE=ssl # or tls
+
+# Queues
+QUEUE_CONNECTION='queue'
+QUEUE_DUMP="framework/data/.queues"
 ```
 
 ## Getting the application ready
