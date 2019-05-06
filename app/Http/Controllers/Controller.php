@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Modulus\Http\Mocks\ValidatesRequests;
 use Modulus\Http\Controller as BaseController;
 
 class Controller extends BaseController
 {
+  use ValidatesRequests;
+
   /*
   |-----------------------------------------------------------
   | Base Controller
