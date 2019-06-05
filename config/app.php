@@ -166,7 +166,7 @@ return [
     'Hash' => Modulus\Security\Hash::class,
     'Hashids' => Modulus\Framework\Hashids\Hashids::class,
     'Log' => AtlantisPHP\Telemonlog\Output::class,
-    'Mail' => Modulus\Utility\Mail::class,
+    'Mail' => Modulus\Hibernate\Mail::class,
     'Session' => Modulus\Http\Session::class,
     'Status' => Modulus\Http\Status::class,
     'Storage' => Modulus\Filesystem\Storage::class,
