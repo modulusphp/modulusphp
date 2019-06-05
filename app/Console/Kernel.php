@@ -11,10 +11,10 @@ class Kernel extends ConsoleKernel
   /**
    * Start scheduler
    *
-   * @param Schedule $scheduler
+   * @param Schedule $schedule
    * @return void
    */
-  protected function schedule(Schedule $scheduler)
+  protected function schedule(Schedule $schedule)
   {
     //
   }
@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
    */
   public static function console()
   {
-    return ModulusCLI::boot()->load(__DIR__ . DS . 'Commands');
+    return (
+      ModulusCLI::boot()
+                ->load(__DIR__ . DS . 'Commands')
+    );
   }
 }
