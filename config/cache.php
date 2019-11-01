@@ -45,10 +45,5 @@ return [
       'connection' => 'cache'
     ],
 
-    'fallback' => [
-      'driver' => 'database',
-      'connection' => 'sqlitecache'
-    ]
-
   ]
 ];
